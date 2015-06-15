@@ -4,8 +4,15 @@ import sys
 
 
 def indent(amount, string):
-    lines = string.splitlines() or ['']
-    return lines[0] + '\n'.join(' ' * amount + l for l in lines[1:])
+    lines = string.splitlines()
+    if len(lines) == 0:
+        return ''
+    elif len(lines) == 1:
+        return lines[0]
+    else:
+        return (
+            lines[0] + '\n' +
+            '\n'.join(' ' * amount + l for l in lines[1:]))
 
 
 class NixFreezeCommand(pip.commands.InstallCommand):
@@ -20,11 +27,12 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
         try:
             with open('python-packages.nix', 'w') as f:
-                f.write('{')
-                for req in requirement_set.requirements.values():
-                    f.write(
-                        self._generate_nix(req, requirement_set._dependencies[req]))
-                f.write('}')
+                f.write('{\n')
+                f.write('  ' + indent(2, '\n'.join(
+                    self._generate_nix(req, requirement_set._dependencies[req])
+                    for req in requirement_set.requirements.values()
+                )))
+                f.write('\n}\n')
             return requirement_set
         finally:
             requirement_set.cleanup_files()
@@ -35,7 +43,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
             '  doCheck = false;',  # TODO: tests
             '  name = "{name}-{version}";',
             '  src = {sourceExpr};',
-            '  buildInputs = with self; [{buildInputs}];',
+            '  propagatedBuildInputs = with self; [{buildInputs}];',
             '}};',
         ))
 
@@ -65,5 +73,14 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         )
 
 
-cmd = NixFreezeCommand()
-sys.exit(cmd.main(sys.argv[1:]))
+def main(args=None):
+    if args is None:
+        args = sys.argv[1:]
+
+    cmd = NixFreezeCommand()
+
+    return cmd.main(args)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
