@@ -1,6 +1,11 @@
+from contextlib import contextmanager
+import os
+from tempfile import mkdtemp
+import shutil
+import sys
+
 import pip
 import pip.commands
-import sys
 
 
 def indent(amount, string):
@@ -22,20 +27,28 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         options.use_wheel = False  # We'll build the wheels ourself
         options.no_clean = True  # This is needed to access pkg_info later
         # TODO: what if InstallCommand.run fails?
-
-        requirement_set = super(NixFreezeCommand, self).run(options, args)
+        if options.download_dir:
+            tmpdir = None
+        else:
+            options.download_dir = tmpdir = mkdtemp('pip2nix')
 
         try:
-            with open('python-packages.nix', 'w') as f:
-                f.write('{\n')
-                f.write('  ' + indent(2, '\n'.join(
-                    self._generate_nix(req, requirement_set._dependencies[req])
-                    for req in requirement_set.requirements.values()
-                )))
-                f.write('\n}\n')
-            return requirement_set
+            requirement_set = super(NixFreezeCommand, self).run(options, args)
+
+            try:
+                with open('python-packages.nix', 'w') as f:
+                    f.write('{\n')
+                    f.write('  ' + indent(2, '\n'.join(
+                        self._generate_nix(req, requirement_set._dependencies[req])
+                        for req in requirement_set.requirements.values()
+                    )))
+                    f.write('\n}\n')
+                return requirement_set
+            finally:
+                requirement_set.cleanup_files()
         finally:
-            requirement_set.cleanup_files()
+            if tmpdir:
+                shutil.rmtree(tmpdir)
 
     def _generate_nix(self, requirement, deps):
         template = '\n'.join((
@@ -52,15 +65,15 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
         buildInputs = [d.name for d in deps]
         if link.scheme == 'file':
-            sourceExpr = requirement.link.path
+            sourceExpr = './' + os.path.relpath(requirement.link.path)
         elif link.scheme in ('http', 'https'):
             sourceExpr = '\n'.join((
-                'fetchurl = {{',
+                'fetchurl {{',
                 '  url = "{url}";',
                 '  {hash_name} = "{hash}";',
                 '}}'
             )).format(
-                url=link.url,
+                url=link.url.split('#', 1)[0],
                 hash=link.hash,
                 hash_name=link.hash_name,
             )
