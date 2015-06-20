@@ -30,8 +30,9 @@ def indent(amount, string):
 class NixFreezeCommand(pip.commands.InstallCommand):
 
     def process_requirements(self, options, requirement_set, test_req_set, finder):
-        ctxs = {
-            req.name: self._generate_nix_ctx(req, requirement_set._dependencies[req])
+        packages = {
+            req.name: PythonPackage.from_requirements(
+                req, requirement_set._dependencies[req])
             for req in requirement_set.requirements.values()
         }
 
@@ -43,7 +44,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 raw_tests_require = req.egg_info_data('tests_require.txt')
                 if not raw_tests_require:
                     continue
-                ctxs[req.name]['doCheck'] = 'true'
+                packages[req.name].check = True
                 test_req_lines = filter(None, raw_tests_require.splitlines())
                 for test_req_line in test_req_lines:
                     test_req = InstallRequirement.from_line(test_req_line)
@@ -55,18 +56,22 @@ class NixFreezeCommand(pip.commands.InstallCommand):
             test_req_set.prepare_files(finder)
 
             for k, reqs in devDeps.items():
-                ctxs[k]['devBuildInputs'] = ' '.join(r.name for r in reqs)
+                packages[k].test_dependencies = [
+                    (d.name, d.pkg_info()['Version']) for d in reqs]
 
             f = open('python-packages.nix', 'w')
             f.write('{\n')
             f.write('  ' + indent(2, '\n'.join(
-                self._generate_nix_expr(ctx)
-                for ctx in ctxs.values()
+                '{} = {}'.format(pkg.name, pkg.to_nix())
+                for pkg in packages.values()
             )))
 
             f.write('\n\n### Test requirements\n\n')
             f.write('  ' + indent(2, '\n'.join(
-                self._generate_nix(req, test_req_set._dependencies[req])
+                '{} = {}'.format(
+                    req.name,
+                    PythonPackage.from_requirements(
+                        req, test_req_set._dependencies[req]).to_nix())
                 for req in test_req_set.requirements.values()
                 if not requirement_set.has_requirement(req.name)
             )))
@@ -154,42 +159,35 @@ class NixFreezeCommand(pip.commands.InstallCommand):
             if tmpdir:
                 shutil.rmtree(tmpdir)
 
-    def _generate_nix(self, requirement, deps):
-        return self._generate_nix_expr(self._generate_nix_ctx(requirement, deps))
 
-    def _generate_nix_ctx(self, requirement, deps):
-        link = requirement.link
-        pkg_info = requirement.pkg_info()
+class PythonPackage(object):
+    def __init__(self, name, version, dependencies, source):
+        """
+        :param dependencies: list of (name, version) pairs.
+        """
+        self.name = name
+        self.version = version
+        self.dependencies = dependencies
+        self.source = source
+        self.check = False
+        self.test_dependencies = None
 
-        buildInputs = [d.name for d in deps]
-        devBuildInputs = []  # TODO
-        if link.scheme == 'file':
-            sourceExpr = './' + os.path.relpath(requirement.link.path)
-        elif link.scheme in ('http', 'https'):
-            sourceExpr = '\n'.join((
-                'fetchurl {{',
-                '  url = "{url}";',
-                '  {hash_name} = "{hash}";',
-                '}}'
-            )).format(
-                url=link.url.split('#', 1)[0],
-                hash=link.hash,
-                hash_name=link.hash_name,
-            )
-        return dict(
-            name=requirement.name,
-            doCheck='false',
+    @classmethod
+    def from_requirements(cls, req, deps):
+        pkg_info = req.pkg_info()
+
+        return cls(
+            name=req.name,
             version=pkg_info['Version'],
-            sourceExpr=indent(2, sourceExpr),
-            buildInputs=' '.join(buildInputs),
-            devBuildInputs='',
+            dependencies=[(d.name, d.pkg_info()['Version']) for d in deps],
+            source=req.link,
         )
 
-    def _generate_nix_expr(self, context):
+    def to_nix(self):
         template = '\n'.join((
-            '{name} = self.buildPythonPackage {{',
+            'self.buildPythonPackage {{',
             '  doCheck = {doCheck};',
-            '  name = "{name}-{version}";',
+            '  name = "{s.name}-{s.version}";',
             '  src = {sourceExpr};',
             '  propagatedBuildInputs = with self; [{buildInputs}];',
             '  buildInputs = with self; [{devBuildInputs}];',
@@ -197,8 +195,33 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         ))
 
         return template.format(
-            **context
+            s=self,
+            doCheck='true' if self.check else 'false',
+            sourceExpr=indent(2, link_to_nix(self.source)),
+            buildInputs=' '.join('{}'.format(name) for name, version
+                                 in self.dependencies),
+            devBuildInputs=' '.join('{}'.format(name) for name, version
+                                    in self.test_dependencies or ()),
         )
+
+
+def link_to_nix(link):
+    if link.scheme == 'file':
+        return './' + os.path.relpath(link.path)
+    elif link.scheme in ('http', 'https'):
+        return '\n'.join((
+            'fetchurl {{',
+            '  url = "{url}";',
+            '  {hash_name} = "{hash}";',
+            '}}'
+        )).format(
+            url=link.url.split('#', 1)[0],
+            hash=link.hash,
+            hash_name=link.hash_name,
+        )
+    else:
+        raise NotImplementedError('Unknown link shceme "{}"'.format(link.scheme))
+
 
 def main(args=None):
     if args is None:
