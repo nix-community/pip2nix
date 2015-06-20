@@ -5,6 +5,7 @@ import sys
 setup(
     name="pip2nix",
     install_requires=["pip>=7"],
+    tests_require=['pytest'],
     packages=['pip2nix'],
     entry_points={
         "console_scripts": [
