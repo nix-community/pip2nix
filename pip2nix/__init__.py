@@ -3,6 +3,7 @@ from collections import defaultdict
 from copy import deepcopy
 import os
 from tempfile import mkdtemp
+from subprocess import check_output
 import shutil
 import sys
 
@@ -219,8 +220,39 @@ def link_to_nix(link):
             hash=link.hash,
             hash_name=link.hash_name,
         )
+    elif link.scheme.startswith('git+'):
+        url = link.url[len('git+'):]
+        url = url.split('#', 1)[0]
+        url, branch = url.rsplit('@', 1)
+        print 'Prefetching', url, 'at revision', branch
+        hash, revision = prefetch_git(url, branch)
+        return '\n'.join((
+            'fetchgit {{',
+            '  url = "{url}";',
+            '  rev = "{revision}";',
+            '  sha256 = "{hash}";',
+            '}}',
+        )).format(
+            url=url,
+            revision=revision,
+            hash=hash,
+        )
     else:
         raise NotImplementedError('Unknown link shceme "{}"'.format(link.scheme))
+
+
+def prefetch_git(url, rev):
+    if len(rev) == 40 and rev.isdigit():
+        rev_args = ['--rev', rev]
+    else:
+        rev_args = ['--branch-name', rev]
+    out = check_output(['nix-prefetch-git'] + rev_args + [url])
+    for line in out.splitlines():
+        if line.startswith('git revision is '):
+            rev = line.rsplit(' ', 1)[-1]
+        last_line = line
+
+    return last_line, rev
 
 
 def main(args=None):
