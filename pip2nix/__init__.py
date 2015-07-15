@@ -16,6 +16,33 @@ from pip.req import RequirementSet
 from pip.wheel import WheelCache
 
 
+class RequirementSetLayer(RequirementSet):
+    def __init__(self, *args, **kwargs):
+        self.base_requirement_set = kwargs.pop('base')
+        super(RequirementSetLayer, self).__init__(*args, **kwargs)
+
+    def _prepare_file(self, finder, req_to_install):
+        if self.base_requirement_set.has_requirement(req_to_install.name):
+            print('Package {} available in base ReqSet'.format(req_to_install.name))
+            base_req = self.base_requirement_set.requirements[req_to_install.name]
+            base_pkg_info = base_req.pkg_info()
+            if not req_to_install.specifier.contains(base_pkg_info['Version']):
+                # TODO: exceptions
+                raise AssertionError(
+                    ('There is already {req_name}=={base_pkg_version} downloaded, '
+                     'but {comes_from} requires {req_name}{req_spec}')
+                    .format(
+                        req_name=req_to_install.name,
+                        req_spec=req_to_install.specifier,
+                        base_pkg_version=base_pkg_info['Version'],
+                        comes_from=req_to_install.comes_from.name))
+            return []
+        else:
+            extras = super(RequirementSetLayer, self) \
+                ._prepare_file(finder, req_to_install)
+            return extras
+
+
 def indent(amount, string):
     lines = string.splitlines()
     if len(lines) == 0:
@@ -52,13 +79,17 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                     test_req_set.add_requirement(test_req)
                     devDeps[req.name].append(test_req)
 
-            requirement_set.cleanup_files()
-
             test_req_set.prepare_files(finder)
 
             for k, reqs in devDeps.items():
-                packages[k].test_dependencies = [
-                    (d.name, d.pkg_info()['Version']) for d in reqs]
+                test_deps = []
+                for d in reqs:
+                    if requirement_set.has_requirement(d.name):
+                        test_deps.append((d.name, None))
+                    else:
+                        d.get_dist()
+                        test_deps.append((d.name, d.pkg_info()['Version']))
+                packages[k].test_dependencies = test_deps
 
             f = open('python-packages.nix', 'w')
             f.write('{\n')
@@ -112,7 +143,9 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                     isolated=options.isolated_mode,
                     wheel_cache=wheel_cache,
                 )
-                test_requirement_set = RequirementSet(
+                test_requirement_set = RequirementSetLayer(
+                    base=requirement_set,
+
                     build_dir=build_dir,
                     src_dir=options.src_dir,
                     download_dir=options.download_dir,
