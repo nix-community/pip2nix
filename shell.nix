@@ -1,7 +1,7 @@
+{ pkgs ? (import <nixpkgs> {}), ... }@args:
 let
-  pkgs = import <nixpkgs> {};
-  pip2nix = import ./.;
+  pip2nix = import ./. args;
 in pkgs.lib.overrideDerivation pip2nix (a: {
   src = null;
-  nativeBuildInputs = a.nativeBuildInputs ++ [pkgs.pythonPackages.ipdb];
+  #nativeBuildInputs = a.nativeBuildInputs ++ [pkgs.pythonPackages.ipdb];
 })
