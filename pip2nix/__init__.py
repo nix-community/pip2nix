@@ -1,3 +1,5 @@
+from __future__ import print_function, unicode_literals
+
 from contextlib import contextmanager
 from collections import defaultdict
 from copy import deepcopy
@@ -224,7 +226,7 @@ def link_to_nix(link):
         url = link.url[len('git+'):]
         url = url.split('#', 1)[0]
         url, branch = url.rsplit('@', 1)
-        print 'Prefetching', url, 'at revision', branch
+        print('Prefetching', url, 'at revision', branch)
         hash, revision = prefetch_git(url, branch)
         return '\n'.join((
             'fetchgit {{',
