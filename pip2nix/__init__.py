@@ -77,6 +77,27 @@ def indent(amount, string):
 
 class NixFreezeCommand(pip.commands.InstallCommand):
 
+    name = 'pip2nix'
+    usage = pip.commands.InstallCommand.usage.replace('%prog', name)
+    summary = "Generate Nix expressions from requirements."
+
+    PASSED_THROUGH_OPTIONS = (
+        '--editable',
+        '--requirement',
+        '--build',
+        '--download',
+        '--download-cache',
+        '--src',
+        '--pre',
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(NixFreezeCommand, self).__init__(*args, **kwargs)
+        cmd_opts = self.cmd_opts
+        for opt in cmd_opts.option_list:
+            if opt.get_opt_string() not in self.PASSED_THROUGH_OPTIONS:
+                cmd_opts.remove_option(opt.get_opt_string())
+
     def process_requirements(self, options, requirement_set, finder):
         packages = {
             req.name: PythonPackage.from_requirements(
