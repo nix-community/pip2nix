@@ -3,6 +3,7 @@ from __future__ import print_function, unicode_literals
 from contextlib import contextmanager
 from collections import defaultdict
 from copy import deepcopy
+from itertools import chain
 import os
 from tempfile import mkdtemp
 from subprocess import check_output
@@ -16,6 +17,50 @@ import pip.commands
 from pip.req import InstallRequirement
 from pip.req import RequirementSet
 from pip.wheel import WheelCache
+
+
+flatten = chain.from_iterable
+
+
+class RequirementSetLayer(RequirementSet):
+    def __init__(self, *args, **kwargs):
+        self.base_requirement_set = kwargs.pop('base')
+        kwargs.setdefault('build_dir', self.base_requirement_set.build_dir)
+        kwargs.setdefault('src_dir', self.base_requirement_set.src_dir)
+        kwargs.setdefault('download_dir', self.base_requirement_set.download_dir)
+        kwargs.setdefault('upgrade', self.base_requirement_set.upgrade)
+        kwargs.setdefault('as_egg', self.base_requirement_set.as_egg)
+        kwargs.setdefault('ignore_installed', self.base_requirement_set.ignore_installed)
+        kwargs.setdefault('ignore_dependencies', self.base_requirement_set.ignore_dependencies)
+        kwargs.setdefault('force_reinstall', self.base_requirement_set.force_reinstall)
+        kwargs.setdefault('use_user_site', self.base_requirement_set.use_user_site)
+        kwargs.setdefault('target_dir', self.base_requirement_set.target_dir)
+        kwargs.setdefault('session', self.base_requirement_set.session)
+        kwargs.setdefault('pycompile', self.base_requirement_set.pycompile)
+        kwargs.setdefault('isolated', self.base_requirement_set.isolated)
+        kwargs.setdefault('wheel_cache', self.base_requirement_set._wheel_cache)
+        super(RequirementSetLayer, self).__init__(*args, **kwargs)
+
+    def _prepare_file(self, finder, req_to_install):
+        if self.base_requirement_set.has_requirement(req_to_install.name):
+            print('Package {} available in base ReqSet'.format(req_to_install.name))
+            base_req = self.base_requirement_set.requirements[req_to_install.name]
+            base_pkg_info = base_req.pkg_info()
+            if not req_to_install.specifier.contains(base_pkg_info['Version']):
+                # TODO: exceptions
+                raise AssertionError(
+                    ('There is already {req_name}=={base_pkg_version} downloaded, '
+                     'but {comes_from} requires {req_name}{req_spec}')
+                    .format(
+                        req_name=req_to_install.name,
+                        req_spec=req_to_install.specifier,
+                        base_pkg_version=base_pkg_info['Version'],
+                        comes_from=req_to_install.comes_from.name))
+            return []
+        else:
+            extras = super(RequirementSetLayer, self) \
+                ._prepare_file(finder, req_to_install)
+            return extras
 
 
 def indent(amount, string):
@@ -32,7 +77,7 @@ def indent(amount, string):
 
 class NixFreezeCommand(pip.commands.InstallCommand):
 
-    def process_requirements(self, options, requirement_set, test_req_set, finder):
+    def process_requirements(self, options, requirement_set, finder):
         packages = {
             req.name: PythonPackage.from_requirements(
                 req, requirement_set._dependencies[req])
@@ -51,16 +96,22 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 test_req_lines = filter(None, raw_tests_require.splitlines())
                 for test_req_line in test_req_lines:
                     test_req = InstallRequirement.from_line(test_req_line)
-                    test_req_set.add_requirement(test_req)
                     devDeps[req.name].append(test_req)
 
-            requirement_set.cleanup_files()
-
-            test_req_set.prepare_files(finder)
+            # TODO: this should be per-package
+            # see https://github.com/ktosiek/pip2nix/issues/1#issuecomment-113716703
+            test_req_set = self.get_tests_requirements_set(
+                requirement_set, finder, flatten(devDeps.values()))
 
             for k, reqs in devDeps.items():
-                packages[k].test_dependencies = [
-                    (d.name, d.pkg_info()['Version']) for d in reqs]
+                test_deps = []
+                for d in reqs:
+                    if requirement_set.has_requirement(d.name):
+                        test_deps.append((d.name, None))
+                    else:
+                        d.get_dist()
+                        test_deps.append((d.name, d.pkg_info()['Version']))
+                packages[k].test_dependencies = test_deps
 
             f = open('python-packages.nix', 'w')
             f.write('{\n')
@@ -80,6 +131,13 @@ class NixFreezeCommand(pip.commands.InstallCommand):
             )))
 
         f.write('\n}\n')
+
+    def get_tests_requirements_set(self, base_set, finder, test_dependencies):
+        test_req_set = RequirementSetLayer(base=base_set)
+        for dep in test_dependencies:
+            test_req_set.add_requirement(dep)
+        test_req_set.prepare_files(finder)
+        return test_req_set
 
     def super_run(self, options, args):
         """Copy of relevant parts from InstallCommand's run()"""
@@ -114,22 +172,6 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                     isolated=options.isolated_mode,
                     wheel_cache=wheel_cache,
                 )
-                test_requirement_set = RequirementSet(
-                    build_dir=build_dir,
-                    src_dir=options.src_dir,
-                    download_dir=options.download_dir,
-                    upgrade=options.upgrade,
-                    as_egg=options.as_egg,
-                    ignore_installed=options.ignore_installed,
-                    ignore_dependencies=options.ignore_dependencies,
-                    force_reinstall=options.force_reinstall,
-                    use_user_site=options.use_user_site,
-                    target_dir=temp_target_dir,
-                    session=session,
-                    pycompile=options.compile,
-                    isolated=options.isolated_mode,
-                    wheel_cache=wheel_cache,
-                )
 
                 self.populate_requirement_set(
                     requirement_set, args, options, finder, session, self.name,
@@ -138,7 +180,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
                 requirement_set.prepare_files(finder)
 
-                self.process_requirements(options, requirement_set, test_requirement_set, finder)
+                self.process_requirements(options, requirement_set, finder)
 
                 requirement_set.cleanup_files()
 
