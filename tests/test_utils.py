@@ -1,4 +1,4 @@
-from pip2nix import indent
+from pip2nix.main import indent
 
 
 def test_indenting_single_line():
