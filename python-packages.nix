@@ -9,12 +9,32 @@
     propagatedBuildInputs = with self; [];
     buildInputs = with self; [];
   };
+  configobj = self.buildPythonPackage {
+    doCheck = false;
+    name = "configobj-5.0.6";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/c/configobj/configobj-5.0.6.tar.gz";
+      md5 = "e472a3a1c2a67bb0ec9b5d54c13a47d6";
+    };
+    propagatedBuildInputs = with self; [six];
+    buildInputs = with self; [];
+  };
   pip2nix = self.buildPythonPackage {
     doCheck = true;
     name = "pip2nix-0.0.0";
     src = ./.;
-    propagatedBuildInputs = with self; [pip];
+    propagatedBuildInputs = with self; [pip configobj];
     buildInputs = with self; [pytest];
+  };
+  six = self.buildPythonPackage {
+    doCheck = false;
+    name = "six-1.9.0";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz";
+      md5 = "476881ef4012262dfc8adc645ee786c4";
+    };
+    propagatedBuildInputs = with self; [];
+    buildInputs = with self; [];
   };
 
 ### Test requirements

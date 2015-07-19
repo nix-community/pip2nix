@@ -24,9 +24,10 @@ class PyTest(TestCommand):
 
 setup(
     name="pip2nix",
-    install_requires=["pip>=7"],
+    install_requires=['pip>=7', 'configobj>=5'],
     tests_require=['pytest'],
     packages=['pip2nix'],
+    package_data={'pip2nix': ['*.ini']},
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [

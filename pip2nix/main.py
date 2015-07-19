@@ -18,6 +18,8 @@ from pip.req import InstallRequirement
 from pip.req import RequirementSet
 from pip.wheel import WheelCache
 
+from .config import Config
+
 
 flatten = chain.from_iterable
 
@@ -97,6 +99,9 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         for opt in cmd_opts.option_list:
             if opt.get_opt_string() not in self.PASSED_THROUGH_OPTIONS:
                 cmd_opts.remove_option(opt.get_opt_string())
+
+        cmd_opts.add_option('--configuration', metavar='CONFIG',
+                            help="Read pip2nix configuration from CONFIG")
 
     def process_requirements(self, options, requirement_set, finder):
         packages = {
@@ -218,8 +223,17 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         else:
             options.download_dir = tmpdir = mkdtemp('pip2nix')
 
+        self.config = Config()
+        if options.configuration:
+            self.config.load(options.configuration)
+        else:
+            self.config.find_and_load()
+        self.config.merge_cli_options(options, args)
+        self.config.validate()
+
         try:
-            requirement_set = self.super_run(options, args)
+            requirement_set = self.super_run(
+                options, self.config['pip2nix']['requirements'])
             return requirement_set
         finally:
             if tmpdir:
