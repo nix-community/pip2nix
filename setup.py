@@ -30,9 +30,9 @@ setup(
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [
-            "pip2nix=pip2nix:main",
-            "pip2nix%s=pip2nix:main" % sys.version[:1],
-            "pip2nix%s=pip2nix:main" % sys.version[:3],
+            "pip2nix=pip2nix.main:main",
+            "pip2nix%s=pip2nix.main:main" % sys.version[:1],
+            "pip2nix%s=pip2nix.main:main" % sys.version[:3],
         ],
         "egg_info.writers": [
             "tests_require.txt=pip2nix.egg_writer:write_arg"
