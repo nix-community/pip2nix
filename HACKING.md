@@ -7,3 +7,9 @@ To use a different python, pass `--argstr pythonPackages python34Packages` to `n
 
 To run tests while in the development environment run `py.test`. It will search for all tests under current directory.
 To test all supported platforms, run `nix-build ./release.nix` - this is actually what CI does.
+
+# Changing the dependencies
+
+When changing setup.py you should also run pip2nix to regenerate python-packages.nix.
+I you don't have a working copy around, run `./bootstrap.sh` from top level directory.
+The script will install pip2nix with pip into a virtualenv, and use that to generate python-packages.nix.
