@@ -19,17 +19,19 @@ while [ -n "$1" ]; do
             exit 1
             ;;
     esac
+    shift
 done
-
-VIRTUALENV=$(type -p virtualenv || true)
-if [ ! "$VIRTUALENV" ]; then
-    echo -e '\e[1m`virtualenv` not found, restarting self in a nix-shell\e[0m'
-    exec nix-shell -p pythonPackages.virtualenv --command "$0 $@"
-fi
 
 if [ "$FORCE_REBUILD" -o \
      ! -f ./_bootstrap_env/.done \
      -o ./_bootstrap_env/.done -ot setup.py ]; then
+
+    VIRTUALENV=$(type -p virtualenv || true)
+    if [ ! "$VIRTUALENV" ]; then
+        echo -e '\e[1m`virtualenv` not found, restarting self in a nix-shell\e[0m'
+        exec nix-shell -p pythonPackages.virtualenv --run "$0 $@ --force"
+    fi
+
     $VIRTUALENV ./_bootstrap_env
     ./_bootstrap_env/bin/pip install ./
     touch ./_bootstrap_env/.done
