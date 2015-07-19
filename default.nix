@@ -7,8 +7,12 @@ let
   elem = builtins.elem;
   basename = path: with pkgs.lib; last (splitString "/" path);
 
-  pip2nix-src = builtins.filterSource
-    (path: type: !elem (basename path) [".git" "pip2nix.egg-info" "result"]) ./.;
+  src-filter = path: type:
+    with pkgs.lib;
+    !elem (basename path) [".git" "pip2nix.egg-info" "_bootstrap_env" "result" "__pycache__" ".eggs"] &&
+    (last (splitString "." path) != "pyc");
+
+  pip2nix-src = builtins.filterSource src-filter ./.;
 
   localOverrides = pythonPackages: {
     pip2nix = pythonPackages.pip2nix.override (pip2nix: {
