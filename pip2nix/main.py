@@ -231,9 +231,19 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         self.config.merge_cli_options(options, args)
         self.config.validate()
 
+        args = []
+        options.editables = []
+        options.requirements = []
+        for req_type, req_name in self.config.get_requirements():
+            if req_type == '-e':
+                options.editables.append(req_name)
+            elif req_type == '-r':
+                options.requirements.append(req_name)
+            elif req_type is None:
+                args.append(req_name)
+
         try:
-            requirement_set = self.super_run(
-                options, self.config['pip2nix']['requirements'])
+            requirement_set = self.super_run(options, args)
             return requirement_set
         finally:
             if tmpdir:

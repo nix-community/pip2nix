@@ -79,10 +79,23 @@ class Config(object):
     def merge_cli_options(self, cli_options, args):
         """Prepare the options before merging."""
         options = {}
-        if args:
-            options['requirements'] = args
+        if args or cli_options.requirements:
+            requirements = list(args)
+            requirements.extend('-e ' + req for req in cli_options.editables)
+            requirements.extend('-r ' + req for req in cli_options.requirements)
+            options['requirements'] = requirements
         self.merge_options({'pip2nix': options})
 
+    def get_requirements(self):
+        """Yields pairs of (type, requirement) for all requirements.
+
+        type is one of None, '-e', '-r'.
+        """
+        for req in self['pip2nix']['requirements']:
+            if req.startswith(('-e', '-r')):
+                yield req[:2], req[2:].strip()
+            else:
+                yield None, req.strip()
 
 def requirements_list_validator(value, **kwargs):
     value = validate.force_list(value, **kwargs)
