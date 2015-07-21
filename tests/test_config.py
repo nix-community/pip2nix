@@ -42,3 +42,12 @@ def test_get_requirements():
         'requirements': ['simple', '-rreqs.txt', '-e editable']}})
     assert list(c.get_requirements()) == \
         [(None, 'simple'), ('-r', 'reqs.txt'), ('-e', 'editable')]
+
+
+def test_get_package_config():
+    c = Config()
+    c.merge_options({
+        'pip2nix:package:psycopg2': {
+            'additional_requirements': ['nix:pkgs.postgresql']}})
+    pkg_conf = c.get_package_config('psycopg2')
+    assert pkg_conf == {'additional_requirements': ['nix:pkgs.postgresql']}

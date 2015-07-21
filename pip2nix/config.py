@@ -1,8 +1,10 @@
 from configobj import ConfigObj
+from functools import reduce
 import io
-import validate
-import pkg_resources
+import operator
 import os
+import pkg_resources
+import validate
 
 
 def flatten_validation_errors(errors):
@@ -74,6 +76,17 @@ class Config(object):
         self.merge_options(config.dict())
 
     def merge_options(self, options):
+        # Expand sections with :
+        for name, value in options.items():
+            if ':' in name:
+                opts = {}
+                subopts = opts
+                for elem in name.split(':'):
+                    subopts[elem] = {}
+                    last_subopts = subopts
+                    subopts = subopts[elem]
+                last_subopts[elem] = value
+                self.merge_options(opts)
         self.config.merge(options)
 
     def merge_cli_options(self, cli_options, args):
@@ -96,6 +109,17 @@ class Config(object):
                 yield req[:2], req[2:].strip()
             else:
                 yield None, req.strip()
+
+    def get_package_config(self, package):
+        """Get configuration for given package pair."""
+        return self.get_config('pip2nix', 'package', package)
+
+    def get_config(self, *path):
+        try:
+            return reduce(operator.getitem, path, self)
+        except (KeyError, IndexError):
+            return None
+
 
 def requirements_list_validator(value, **kwargs):
     value = validate.force_list(value, **kwargs)
