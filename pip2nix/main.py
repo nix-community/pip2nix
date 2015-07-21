@@ -141,6 +141,18 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                         test_deps.append((d.name, d.pkg_info()['Version']))
                 packages[k].test_dependencies = test_deps
 
+            test_packages = {
+                req.name: PythonPackage.from_requirements(
+                    req, test_req_set._dependencies[req]).to_nix()
+                for req in test_req_set.requirements.values()
+                if not requirement_set.has_requirement(req.name)
+            }
+
+            for package in chain(packages.values(), test_packages.values()):
+                pkg_config = self.config.get_package_config(package.name)
+                if pkg_config:
+                    package.override(pkg_config)
+
             f = open(self.config['pip2nix']['output'], 'w')
             f.write('{\n')
             f.write('  ' + indent(2, '\n'.join(
@@ -150,12 +162,8 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
             f.write('\n\n### Test requirements\n\n')
             f.write('  ' + indent(2, '\n'.join(
-                '{} = {}'.format(
-                    req.name,
-                    PythonPackage.from_requirements(
-                        req, test_req_set._dependencies[req]).to_nix())
-                for req in test_req_set.requirements.values()
-                if not requirement_set.has_requirement(req.name)
+                '{} = {}'.format(pkg.name, pkg.to_nix())
+                for pkg in test_packages.values()
             )))
 
         f.write('\n}\n')
@@ -260,6 +268,7 @@ class PythonPackage(object):
         self.name = name
         self.version = version
         self.dependencies = dependencies
+        self.raw_args = {}
         self.source = source
         self.check = False
         self.test_dependencies = None
@@ -275,26 +284,36 @@ class PythonPackage(object):
             source=req.link,
         )
 
+    def override(self, config):
+        self.raw_args = config.get('args', {})
+
     def to_nix(self):
         template = '\n'.join((
             'self.buildPythonPackage {{',
-            '  doCheck = {doCheck};',
-            '  name = "{s.name}-{s.version}";',
-            '  src = {sourceExpr};',
-            '  propagatedBuildInputs = with self; [{buildInputs}];',
-            '  buildInputs = with self; [{devBuildInputs}];',
+            '  {args}',
             '}};',
         ))
 
-        return template.format(
-            s=self,
+        args = dict(
+            name='"{s.name}-{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
-            sourceExpr=indent(2, link_to_nix(self.source)),
-            buildInputs=' '.join('{}'.format(name) for name, version
-                                 in self.dependencies),
-            devBuildInputs=' '.join('{}'.format(name) for name, version
-                                    in self.test_dependencies or ()),
+            src=link_to_nix(self.source),
+            propagatedBuildInputs='with self; [' + (
+                ' '.join('{}'.format(name) for name, version
+                         in self.dependencies)) + ']',
+            buildInputs='with self; [' + (
+                ' '.join('{}'.format(name) for name, version
+                         in self.test_dependencies or ())) + ']',
         )
+
+        args.update(self.raw_args)
+
+        # Render name first
+        raw_args = 'name = {};'.format(args.pop('name'))
+        for k, v in args.items():
+            raw_args += '\n{} = {};'.format(k, v)
+
+        return template.format(args=indent(2, raw_args))
 
 
 def link_to_nix(link):
