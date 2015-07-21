@@ -31,6 +31,7 @@ def test_loading_requirements_from_cli():
     opts = MiniMock()
     opts.requirements = ['requirements.txt']
     opts.editables = ['.']
+    opts.output = None
     c.merge_cli_options(opts, ['other_package'])
     assert c['pip2nix']['requirements'] == \
         ['other_package', '-e .', '-r requirements.txt']

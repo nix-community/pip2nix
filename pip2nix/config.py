@@ -97,6 +97,8 @@ class Config(object):
             requirements.extend('-e ' + req for req in cli_options.editables)
             requirements.extend('-r ' + req for req in cli_options.requirements)
             options['requirements'] = requirements
+        if cli_options.output:
+            options['output'] = cli_options.output
         self.merge_options({'pip2nix': options})
 
     def get_requirements(self):

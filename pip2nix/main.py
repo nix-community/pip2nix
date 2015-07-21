@@ -102,6 +102,8 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
         cmd_opts.add_option('--configuration', metavar='CONFIG',
                             help="Read pip2nix configuration from CONFIG")
+        cmd_opts.add_option('--output', metavar='OUTPUT',
+                            help="Write the generated Nix to OUTPUT")
 
     def process_requirements(self, options, requirement_set, finder):
         packages = {
@@ -139,7 +141,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                         test_deps.append((d.name, d.pkg_info()['Version']))
                 packages[k].test_dependencies = test_deps
 
-            f = open('python-packages.nix', 'w')
+            f = open(self.config['pip2nix']['output'], 'w')
             f.write('{\n')
             f.write('  ' + indent(2, '\n'.join(
                 '{} = {}'.format(pkg.name, pkg.to_nix())
