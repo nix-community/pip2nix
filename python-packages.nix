@@ -1,6 +1,5 @@
 {
   pip = self.buildPythonPackage {
-    doCheck = false;
     name = "pip-7.1.0";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/p/pip/pip-7.1.0.tar.gz";
@@ -8,9 +7,9 @@
     };
     propagatedBuildInputs = with self; [];
     buildInputs = with self; [];
+    doCheck = false;
   };
   configobj = self.buildPythonPackage {
-    doCheck = false;
     name = "configobj-5.0.6";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/c/configobj/configobj-5.0.6.tar.gz";
@@ -18,16 +17,17 @@
     };
     propagatedBuildInputs = with self; [six];
     buildInputs = with self; [];
+    doCheck = false;
   };
   pip2nix = self.buildPythonPackage {
-    doCheck = true;
     name = "pip2nix-0.0.0";
     src = ./.;
     propagatedBuildInputs = with self; [pip configobj];
+    makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
     buildInputs = with self; [pytest];
+    doCheck = true;
   };
   six = self.buildPythonPackage {
-    doCheck = false;
     name = "six-1.9.0";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz";
@@ -35,22 +35,12 @@
     };
     propagatedBuildInputs = with self; [];
     buildInputs = with self; [];
+    doCheck = false;
   };
 
 ### Test requirements
 
-  pytest = self.buildPythonPackage {
-    doCheck = false;
-    name = "pytest-2.7.2";
-    src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.7.2.tar.gz";
-      md5 = "dcd8e891474d605b81fc7fcc8711e95b";
-    };
-    propagatedBuildInputs = with self; [py];
-    buildInputs = with self; [];
-  };
   py = self.buildPythonPackage {
-    doCheck = false;
     name = "py-1.4.30";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/p/py/py-1.4.30.tar.gz";
@@ -58,5 +48,16 @@
     };
     propagatedBuildInputs = with self; [];
     buildInputs = with self; [];
+    doCheck = false;
+  };
+  pytest = self.buildPythonPackage {
+    name = "pytest-2.7.2";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.7.2.tar.gz";
+      md5 = "dcd8e891474d605b81fc7fcc8711e95b";
+    };
+    propagatedBuildInputs = with self; [py];
+    buildInputs = with self; [];
+    doCheck = false;
   };
 }
