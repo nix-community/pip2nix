@@ -143,7 +143,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
             test_packages = {
                 req.name: PythonPackage.from_requirements(
-                    req, test_req_set._dependencies[req]).to_nix()
+                    req, test_req_set._dependencies[req])
                 for req in test_req_set.requirements.values()
                 if not requirement_set.has_requirement(req.name)
             }
