@@ -33,7 +33,7 @@ if [ "$FORCE_REBUILD" -o \
     fi
 
     $VIRTUALENV ./_bootstrap_env
-    ./_bootstrap_env/bin/pip install ./
+    ./_bootstrap_env/bin/pip install -e ./
     touch ./_bootstrap_env/.done
 fi
 
