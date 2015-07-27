@@ -3,6 +3,8 @@
 Generate nix expressions for Python packages.
 
 [![Build Status](https://drone.io/github.com/ktosiek/pip2nix/status.png)](https://drone.io/github.com/ktosiek/pip2nix/latest)
+[![Documentation Status](https://readthedocs.org/projects/pip2nix/badge/?version=latest)](https://readthedocs.org/projects/pip2nix/?badge=latest)
+
 
 # Why another .nix generator for Python?
 
