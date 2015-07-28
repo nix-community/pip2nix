@@ -32,11 +32,9 @@ class Config(object):
     This object handles merging and validation of CLI and .ini options."""
 
     def __init__(self):
-        defaults = pkg_resources.resource_string(__name__, 'defaults.ini')
         confspec = pkg_resources.resource_string(__name__, 'confspec.ini')
         self.config = ConfigObj(
-            io.StringIO(defaults.decode('utf-8')),
-            configspec=io.StringIO(confspec.decode('utf-8')),
+            {}, configspec=io.StringIO(confspec.decode('utf-8')),
         )
 
     def __getitem__(self, key):
