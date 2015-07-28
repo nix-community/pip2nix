@@ -62,18 +62,24 @@ class Config(object):
     def find_and_load(self):
         """Find a configuration file and load options from it."""
         base_path = os.getcwd()
+        # Going up from CWD, find the first configuration file with [pip2nix*]
         while base_path != '/':
             for file_name in 'pip2nix.ini', 'setup.cfg':
                 path = os.path.join(base_path, file_name)
                 if os.path.exists(path):
-                    self.load(path)
-                    return
-            base_path = os.dirname(base_path)
+                    # Check if pip2nix sections exist in the file
+                    if self.load(path):
+                        return
+            base_path = os.path.dirname(base_path)
 
     def load(self, path):
         """Load configuration from path."""
         config = ConfigObj(path)
-        self.merge_options(config.dict())
+        if any(k == 'pip2nix' or k.startswith('pip2nix:') for k in config):
+            # Only merge configuration files that actually support pip2nix
+            self.merge_options(config.dict())
+            return True
+        return False
 
     def merge_options(self, options):
         # Expand sections with :

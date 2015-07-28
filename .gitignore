@@ -3,3 +3,6 @@
 /result
 /result-*
 /_bootstrap_env/
+
+# Docs
+/docs/_build/
