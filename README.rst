@@ -12,6 +12,14 @@ Generate nix expressions for Python packages.
    :target: http://pip2nix.readthedocs.org/en/latest/
    :alt: Documentation Status
 
+.. image:: https://img.shields.io/pypi/status/pip2nix.svg
+   :target: https://pypi.python.org/pypi/pip2nix
+   :alt: PyPI status
+
+.. image:: https://img.shields.io/pypi/v/pip2nix.svg
+   :target: https://pypi.python.org/pypi/pip2nix
+   :alt: PyPI version
+
 Why another .nix generator for Python?
 ======================================
 
