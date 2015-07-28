@@ -27,10 +27,11 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.rst')) as f:
     long_description = f.read().decode('utf-8')
 
+VERSION = '0.1.0.dev1'
 
 setup(
     name="pip2nix",
-    version='0.1.dev1',
+    version=VERSION,
     description='Generate Nix expressions for Python packages.',
     long_description=long_description,
     url="https://github.com/ktosiek/pip2nix",
