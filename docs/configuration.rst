@@ -11,5 +11,9 @@ pip2nix will search for a configuration file from current working directory up, 
 requirements
     comma-separated list of packages to process.
 
+output
+    default: ./python-packages.nix
+    Where to write the generated packages set.
+
 [pip2nix:package:…]
 -------------------
