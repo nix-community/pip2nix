@@ -8,5 +8,8 @@ pip2nix will search for a configuration file from current working directory up, 
 [pip2nix]
 ---------
 
+requirements
+    comma-separated list of packages to process.
+
 [pip2nix:package:…]
 -------------------
