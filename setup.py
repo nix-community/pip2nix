@@ -1,3 +1,4 @@
+from os import path
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 import sys
@@ -22,8 +23,36 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
+here = path.abspath(path.dirname(__file__))
+with open(path.join(here, 'README.rst')) as f:
+    long_description = f.read().decode('utf-8')
+
+
 setup(
     name="pip2nix",
+    version='0.1.dev1',
+    description='Generate Nix expressions for Python packages.',
+    long_description=long_description,
+    url="https://github.com/ktosiek/pip2nix",
+    author="Tomasz Kontusz",
+    author_email="tomasz.kontusz@gmail.com",
+    license='GPLv3+',
+
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+    ],
+
+    keywords='nix pip',
+
     install_requires=['pip>=7', 'configobj>=5'],
     tests_require=['pytest'],
     packages=['pip2nix'],
