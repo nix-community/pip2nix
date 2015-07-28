@@ -20,7 +20,7 @@
     doCheck = false;
   };
   pip2nix = self.buildPythonPackage {
-    name = "pip2nix-0.1.0";
+    name = "pip2nix-0.2.0.dev1";
     src = ./.;
     propagatedBuildInputs = with self; [pip configobj];
     makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
