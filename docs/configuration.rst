@@ -12,7 +12,8 @@ requirements
     comma-separated list of packages to process.
 
 output
-    default: ./python-packages.nix
+    default: ``./python-packages.nix``
+
     Where to write the generated packages set.
 
 [pip2nix:package:…]
