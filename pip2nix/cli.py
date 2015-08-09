@@ -52,3 +52,7 @@ def generate(specifiers, **kwargs):
     config.merge_cli_options(kwargs)
 
     click.echo(kwargs)
+
+    from pip2nix.main import main
+    import sys
+    main(sys.argv[2:])
