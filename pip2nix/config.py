@@ -93,16 +93,18 @@ class Config(object):
                 self.merge_options(opts)
         self.config.merge(options)
 
-    def merge_cli_options(self, cli_options, args):
+    def merge_cli_options(self, cli_options):
         """Prepare the options before merging."""
         options = {}
-        if args or cli_options.requirements:
-            requirements = list(args)
-            requirements.extend('-e ' + req for req in cli_options.editables)
-            requirements.extend('-r ' + req for req in cli_options.requirements)
+        requirements = list(cli_options.get('specifiers', ()))
+        requirements.extend(
+            '-e ' + req for req in cli_options.get('editables', ()))
+        requirements.extend(
+            '-r ' + req for req in cli_options.get('requirements', ()))
+        if requirements:
             options['requirements'] = requirements
-        if cli_options.output:
-            options['output'] = cli_options.output
+        if cli_options['output']:
+            options['output'] = cli_options['output']
         self.merge_options({'pip2nix': options})
 
     def get_requirements(self):

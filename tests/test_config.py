@@ -38,11 +38,13 @@ def test_merging_configs():
 
 def test_loading_requirements_from_cli():
     c = Config()
-    opts = MiniMock()
-    opts.requirements = ['requirements.txt']
-    opts.editables = ['.']
-    opts.output = None
-    c.merge_cli_options(opts, ['other_package'])
+    opts = {
+        'specifiers': ['other_package'],
+        'requirements': ['requirements.txt'],
+        'editables': ['.'],
+        'output': None,
+    }
+    c.merge_cli_options(opts)
     assert c['pip2nix']['requirements'] == \
         ['other_package', '-e .', '-r requirements.txt']
 

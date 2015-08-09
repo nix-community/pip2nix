@@ -22,10 +22,20 @@
   pip2nix = self.buildPythonPackage {
     name = "pip2nix-0.2.0.dev1";
     src = ./.;
-    propagatedBuildInputs = with self; [pip configobj];
+    propagatedBuildInputs = with self; [pip configobj click];
     makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
     buildInputs = with self; [pytest];
     doCheck = true;
+  };
+  click = self.buildPythonPackage {
+    name = "click-4.1";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/c/click/click-4.1.tar.gz";
+      md5 = "6a3fa88c738f2f775ec6de126feb99a4";
+    };
+    propagatedBuildInputs = with self; [];
+    buildInputs = with self; [];
+    doCheck = false;
   };
   six = self.buildPythonPackage {
     name = "six-1.9.0";

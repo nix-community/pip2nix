@@ -221,7 +221,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 requirement_set.cleanup_files()
 
         return requirement_set
-        
+
     def run(self, options, args):
         options.no_install = True  # Download only
         options.upgrade = True  # Download all packages
