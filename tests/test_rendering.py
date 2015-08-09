@@ -1,6 +1,6 @@
 import os
 from pip.index import Link
-from pip2nix.main import link_to_nix
+from pip2nix.models.package import link_to_nix
 import pytest
 
 
