@@ -12,20 +12,20 @@ def cli():
               help="Directory to unpack packages and build in.")
 @click.option('--download', '-d', type=click.Path(), metavar='<dir>',
               help="Directory to download packages to.")
-@click.option('--pre/--no-pre',
-              help="Also look for pre-release and unstable versions.")
+# TODO:
+#@click.option('--pre/--no-pre',
+#              help="Also look for pre-release and unstable versions.")
 @click.option('--output', metavar='<path>',
               help="Write the generated nix to <path>.")
 
-@click.option('--index-url', '-i', metavar='<url>',
-              default='https://pypi.python.org/simple',
-              help="Base URL of Python Package Index.")
-@click.option('--extra-index-url', metavar='<url>',
-              help="Extra index URLs to use.")
-@click.option('--no-index',
-              help="Ignore indexes.")
-@click.option('--find-links', '-f', metavar='<url>',
-              help="Path or url to a package listing/directory.")
+#@click.option('--index-url', '-i', metavar='<url>',
+#              help="Base URL of Python Package Index.")
+#@click.option('--extra-index-url', metavar='<url>',
+#              help="Extra index URLs to use.")
+#@click.option('--no-index',
+#              help="Ignore indexes.")
+#@click.option('--find-links', '-f', metavar='<url>',
+#              help="Path or url to a package listing/directory.")
 
 #TODO:
 # --allow-external <package>  Allow the installation of a package even if it is externally hosted
@@ -47,12 +47,20 @@ def cli():
 def generate(specifiers, **kwargs):
     """Generate a .nix file with specified packages."""
     kwargs['specifiers'] = specifiers
+    kwargs['build_dir'] = kwargs.pop('build')
+    kwargs['download_dir'] = kwargs.pop('download')
+
+    print(kwargs)
 
     config = Config()
+    if kwargs['configuration']:
+        config.load(kwargs['configuration'])
+    else:
+        config.find_and_load()
     config.merge_cli_options(kwargs)
-
-    click.echo(kwargs)
+    config.validate()
 
     from pip2nix.main import main
+    from pip2nix.generate import generate
     import sys
-    main(sys.argv[2:])
+    generate(config)

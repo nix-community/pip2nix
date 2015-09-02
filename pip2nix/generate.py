@@ -207,3 +207,26 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         finally:
             if tmpdir:
                 shutil.rmtree(tmpdir)
+
+
+def generate(config):
+    cmd = NixFreezeCommand()
+    cmd.config = config
+
+    args = []
+    for arg_name, path in [
+            ('--output', ('output', )),
+            ('--build', ('build', )),
+            ('--download', ('download',)),
+            ('--src', ('src',))]:
+        value = config.get_config('pip2nix', *path)
+        if value is not None:
+            args.extend((arg_name, value))
+
+    args.extend(flatten(
+        (req_type, req) if req_type else (req, )
+        for req_type, req
+        in config.get_requirements()))
+
+    print(args)
+    return cmd.main(args)
