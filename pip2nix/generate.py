@@ -98,20 +98,20 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 if pkg_config:
                     package.override(pkg_config)
 
-            f = open(self.config['pip2nix']['output'], 'w')
-            f.write('{\n')
-            f.write('  ' + indent(2, '\n'.join(
-                '{} = {}'.format(pkg.name, pkg.to_nix())
-                for pkg in packages.values()
-            )))
+            with open(self.config['pip2nix']['output'], 'w') as f:
+                f.write('{\n')
+                f.write('  ' + indent(2, '\n'.join(
+                    '{} = {}'.format(pkg.name, pkg.to_nix())
+                    for pkg in packages.values()
+                )))
 
-            f.write('\n\n### Test requirements\n\n')
-            f.write('  ' + indent(2, '\n'.join(
-                '{} = {}'.format(pkg.name, pkg.to_nix())
-                for pkg in test_packages.values()
-            )))
+                f.write('\n\n### Test requirements\n\n')
+                f.write('  ' + indent(2, '\n'.join(
+                    '{} = {}'.format(pkg.name, pkg.to_nix())
+                    for pkg in test_packages.values()
+                )))
 
-        f.write('\n}\n')
+                f.write('\n}\n')
 
     def get_tests_requirements_set(self, base_set, finder, test_dependencies):
         test_req_set = RequirementSetLayer(base=base_set)
