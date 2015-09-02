@@ -26,6 +26,7 @@ let
   })
   // (scopedImport {
     self = pythonPackagesWithLocals;
+    super = basePythonPackages;
     inherit pkgs;
     inherit (pkgs) fetchurl;
   } ./python-packages.nix);

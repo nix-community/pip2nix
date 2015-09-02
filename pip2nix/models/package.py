@@ -42,7 +42,7 @@ class PythonPackage(object):
 
     def to_nix(self):
         template = '\n'.join((
-            'self.buildPythonPackage {{',
+            'super.buildPythonPackage {{',
             '  {args}',
             '}};',
         ))

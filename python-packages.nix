@@ -1,5 +1,5 @@
 {
-  configobj = self.buildPythonPackage {
+  configobj = super.buildPythonPackage {
     name = "configobj-5.0.6";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/c/configobj/configobj-5.0.6.tar.gz";
@@ -9,7 +9,7 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  six = self.buildPythonPackage {
+  six = super.buildPythonPackage {
     name = "six-1.9.0";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz";
@@ -19,7 +19,7 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  pip2nix = self.buildPythonPackage {
+  pip2nix = super.buildPythonPackage {
     name = "pip2nix-0.2.0.dev1";
     src = ./.;
     propagatedBuildInputs = with self; [pip configobj click contexter];
@@ -27,7 +27,7 @@
     buildInputs = with self; [pytest];
     doCheck = true;
   };
-  pip = self.buildPythonPackage {
+  pip = super.buildPythonPackage {
     name = "pip-7.1.0";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/p/pip/pip-7.1.0.tar.gz";
@@ -37,7 +37,7 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  contexter = self.buildPythonPackage {
+  contexter = super.buildPythonPackage {
     name = "contexter-0.1.3";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/c/contexter/contexter-0.1.3.tar.gz";
@@ -47,7 +47,7 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  click = self.buildPythonPackage {
+  click = super.buildPythonPackage {
     name = "click-4.1";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/c/click/click-4.1.tar.gz";
@@ -60,7 +60,7 @@
 
 ### Test requirements
 
-  py = self.buildPythonPackage {
+  py = super.buildPythonPackage {
     name = "py-1.4.30";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/p/py/py-1.4.30.tar.gz";
@@ -70,7 +70,7 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  pytest = self.buildPythonPackage {
+  pytest = super.buildPythonPackage {
     name = "pytest-2.7.2";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.7.2.tar.gz";
