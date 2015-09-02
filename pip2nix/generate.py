@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from collections import defaultdict
 from tempfile import mkdtemp
 from itertools import chain
+from operator import attrgetter
 import os
 import shutil
 
@@ -102,13 +103,15 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 f.write('{\n')
                 f.write('  ' + indent(2, '\n'.join(
                     '{} = {}'.format(pkg.name, pkg.to_nix())
-                    for pkg in packages.values()
+                    for pkg in sorted(packages.values(),
+                                      key=attrgetter('name'))
                 )))
 
                 f.write('\n\n### Test requirements\n\n')
                 f.write('  ' + indent(2, '\n'.join(
                     '{} = {}'.format(pkg.name, pkg.to_nix())
-                    for pkg in test_packages.values()
+                    for pkg in sorted(test_packages.values(),
+                                      key=attrgetter('name'))
                 )))
 
                 f.write('\n}\n')

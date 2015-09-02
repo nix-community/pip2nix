@@ -63,7 +63,7 @@ class PythonPackage(object):
 
         # Render name first
         raw_args = 'name = {};'.format(args.pop('name'))
-        for k, v in args.items():
+        for k, v in sorted(args.items()):
             raw_args += '\n{} = {};'.format(k, v)
 
         return template.format(args=indent(2, raw_args))
