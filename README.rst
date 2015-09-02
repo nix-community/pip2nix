@@ -39,11 +39,9 @@ Usage
 
 To generate python-packages.nix for a set of requirements::
 
-    $ pip2nix -r requirements.txt
+    $ pip2nix generate -r requirements.txt
 
-``pip2nix`` takes the same set of package specifications ``pip install`` does.
-
-At the moment the --help lies - it's not only showing the ``pip2nix`` options, but also ``pip`` ones (that are not always relevant). (TODO: `#14 <https://github.com/ktosiek/pip2nix/issues/14>`_)
+``pip2nix generate`` takes the same set of package specifications ``pip install`` does.
 
 Contact
 =======
