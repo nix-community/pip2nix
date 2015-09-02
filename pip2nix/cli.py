@@ -46,11 +46,10 @@ def cli():
 @click.argument('specifiers', nargs=-1)
 def generate(specifiers, **kwargs):
     """Generate a .nix file with specified packages."""
-    kwargs['specifiers'] = specifiers
+    kwargs['specifiers'] = specifiers + kwargs.pop('editable', [])
+    kwargs['requirements'] = kwargs.pop('requirement', None)
     kwargs['build_dir'] = kwargs.pop('build')
     kwargs['download_dir'] = kwargs.pop('download')
-
-    print(kwargs)
 
     config = Config()
     if kwargs['configuration']:

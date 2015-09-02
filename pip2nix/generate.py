@@ -37,8 +37,9 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         '--pre',
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, pip2nix_config, *args, **kwargs):
         super(NixFreezeCommand, self).__init__(*args, **kwargs)
+        self.config = pip2nix_config
         cmd_opts = self.cmd_opts
         for opt in cmd_opts.option_list:
             if opt.get_opt_string() not in self.PASSED_THROUGH_OPTIONS:
@@ -121,14 +122,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
     def super_run(self, options, args):
         """Copy of relevant parts from InstallCommand's run()"""
-        # TODO: What are those about/for?
-        cmdoptions.resolve_wheel_no_use_binary(options)
-        cmdoptions.check_install_build_global(options)
-
-        options.ignore_installed = True
-        options.src_dir = os.path.abspath(options.src_dir)
-
-        index_urls = [options.index_url] + options.extra_index_urls
+        index_urls = self.config.get_indexes()
 
         temp_target_dir = mkdtemp()
 
@@ -166,67 +160,53 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
         return requirement_set
 
-    def run(self, options, args):
+    def run(self, options, _args):
+        options, args = self.prepare_options(options)
+
+        requirement_set = self.super_run(options, args)
+        return requirement_set
+
+    def prepare_options(self, options):
+        """Load configuration from self.config into pip options.
+
+        Returns a (options, args) tuple."""
+        for opt_name, path in [
+                ('output', ('output', )),
+                ('build', ('build', )),
+                ('download', ('download',)),
+                ('src', ('src',))]:
+            value = self.config.get_config('pip2nix', *path)
+            print(opt_name, value)
+            if value is not None:
+                setattr(options, opt_name, value)
+
+        requirements = defaultdict(list)
+        for req_type, req in self.config.get_requirements():
+            requirements[req_type].append(req)
+
+        args = requirements[None]
+        options.requirements = requirements['-r']
+
         options.no_install = True  # Download only
         options.upgrade = True  # Download all packages
         options.use_wheel = False  # We'll build the wheels ourself
         options.no_clean = True  # This is needed to access pkg_info later
-        # TODO: what if InstallCommand.run fails?
-        if options.download_dir:
-            tmpdir = None
-        else:
-            options.download_dir = tmpdir = mkdtemp('pip2nix')
+        # TODO: cleanup
+        options.download_dir = self.config.get_config('pip2nix', 'download') \
+            or mkdtemp('pip2nix')
 
-        self.config = Config()
-        if options.configuration:
-            self.config.load(options.configuration)
-        else:
-            self.config.find_and_load()
-        self.config.merge_cli_options({
-            'specifiers': args,
-            'editables': options.editables,
-            'requirements': options.requirements,
-            'output': options.output,
-        })
-        self.config.validate()
+        # TODO: What are those about/for?
+        cmdoptions.resolve_wheel_no_use_binary(options)
+        cmdoptions.check_install_build_global(options)
 
-        args = []
-        options.editables = []
-        options.requirements = []
-        for req_type, req_name in self.config.get_requirements():
-            if req_type == '-e':
-                options.editables.append(req_name)
-            elif req_type == '-r':
-                options.requirements.append(req_name)
-            elif req_type is None:
-                args.append(req_name)
+        options.ignore_installed = True
+        src_dir = self.config.get_config('pip2nix', 'src')
+        options.src_dir = os.path.abspath(src_dir) if src_dir else None
 
-        try:
-            requirement_set = self.super_run(options, args)
-            return requirement_set
-        finally:
-            if tmpdir:
-                shutil.rmtree(tmpdir)
+        return options, args
 
 
 def generate(config):
-    cmd = NixFreezeCommand()
-    cmd.config = config
+    cmd = NixFreezeCommand(config)
 
-    args = []
-    for arg_name, path in [
-            ('--output', ('output', )),
-            ('--build', ('build', )),
-            ('--download', ('download',)),
-            ('--src', ('src',))]:
-        value = config.get_config('pip2nix', *path)
-        if value is not None:
-            args.extend((arg_name, value))
-
-    args.extend(flatten(
-        (req_type, req) if req_type else (req, )
-        for req_type, req
-        in config.get_requirements()))
-
-    print(args)
-    return cmd.main(args)
+    return cmd.main([])
