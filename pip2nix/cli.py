@@ -18,12 +18,12 @@ def cli():
 @click.option('--output', metavar='<path>',
               help="Write the generated nix to <path>.")
 
-#@click.option('--index-url', '-i', metavar='<url>',
-#              help="Base URL of Python Package Index.")
-#@click.option('--extra-index-url', metavar='<url>',
-#              help="Extra index URLs to use.")
-#@click.option('--no-index',
-#              help="Ignore indexes.")
+@click.option('--index-url', '-i', metavar='<url>',
+              help="Base URL of Python Package Index.")
+@click.option('--extra-index-url', metavar='<url>',
+              help="Extra index URLs to use.")
+@click.option('--no-index/--index',
+              help="Ignore indexes.")
 #@click.option('--find-links', '-f', metavar='<url>',
 #              help="Path or url to a package listing/directory.")
 
