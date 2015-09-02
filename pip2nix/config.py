@@ -10,7 +10,6 @@ import validate
 def flatten_validation_errors(errors):
     """Yields (path, error) pairs."""
     for section, value in errors.items():
-        print(section, value)
         if value is True:
             continue
         elif value is False:
@@ -133,7 +132,6 @@ class Config(object):
 
     def get_indexes(self):
         c = self['pip2nix']
-        print(c)
         if c['no_index']:
             return []
         return list(filter(

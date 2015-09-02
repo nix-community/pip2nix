@@ -22,7 +22,6 @@ class RequirementSetLayer(RequirementSet):
 
     def _prepare_file(self, finder, req_to_install):
         if self.base_requirement_set.has_requirement(req_to_install.name):
-            print('Package {} available in base ReqSet'.format(req_to_install.name))
             base_req = self.base_requirement_set.requirements[req_to_install.name]
             base_pkg_info = base_req.pkg_info()
             if not req_to_install.specifier.contains(base_pkg_info['Version']):

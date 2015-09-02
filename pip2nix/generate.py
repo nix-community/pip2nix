@@ -1,4 +1,4 @@
-from __future__ import print_function, unicode_literals
+from __future__ import unicode_literals
 
 from collections import defaultdict
 from tempfile import mkdtemp
@@ -176,7 +176,6 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 ('download', ('download',)),
                 ('src', ('src',))]:
             value = self.config.get_config('pip2nix', *path)
-            print(opt_name, value)
             if value is not None:
                 setattr(options, opt_name, value)
 
