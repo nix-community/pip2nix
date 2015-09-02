@@ -1,14 +1,4 @@
 {
-  pip = self.buildPythonPackage {
-    name = "pip-7.1.0";
-    src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pip/pip-7.1.0.tar.gz";
-      md5 = "d935ee9146074b1d3f26c5f0acfd120e";
-    };
-    propagatedBuildInputs = with self; [];
-    buildInputs = with self; [];
-    doCheck = false;
-  };
   configobj = self.buildPythonPackage {
     name = "configobj-5.0.6";
     src = fetchurl {
@@ -19,19 +9,49 @@
     buildInputs = with self; [];
     doCheck = false;
   };
-  pip2nix = self.buildPythonPackage {
-    name = "pip2nix-0.2.0.dev1";
-    src = ./.;
-    propagatedBuildInputs = with self; [pip configobj];
-    makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
-    buildInputs = with self; [pytest];
-    doCheck = true;
-  };
   six = self.buildPythonPackage {
     name = "six-1.9.0";
     src = fetchurl {
       url = "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz";
       md5 = "476881ef4012262dfc8adc645ee786c4";
+    };
+    propagatedBuildInputs = with self; [];
+    buildInputs = with self; [];
+    doCheck = false;
+  };
+  pip2nix = self.buildPythonPackage {
+    name = "pip2nix-0.2.0.dev1";
+    src = ./.;
+    propagatedBuildInputs = with self; [pip configobj click contexter];
+    makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
+    buildInputs = with self; [pytest];
+    doCheck = true;
+  };
+  pip = self.buildPythonPackage {
+    name = "pip-7.1.0";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/p/pip/pip-7.1.0.tar.gz";
+      md5 = "d935ee9146074b1d3f26c5f0acfd120e";
+    };
+    propagatedBuildInputs = with self; [];
+    buildInputs = with self; [];
+    doCheck = false;
+  };
+  contexter = self.buildPythonPackage {
+    name = "contexter-0.1.3";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/c/contexter/contexter-0.1.3.tar.gz";
+      md5 = "437efd28f5489cccfe929c08c6b269aa";
+    };
+    propagatedBuildInputs = with self; [];
+    buildInputs = with self; [];
+    doCheck = false;
+  };
+  click = self.buildPythonPackage {
+    name = "click-4.1";
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/c/click/click-4.1.tar.gz";
+      md5 = "6a3fa88c738f2f775ec6de126feb99a4";
     };
     propagatedBuildInputs = with self; [];
     buildInputs = with self; [];

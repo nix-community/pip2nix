@@ -54,16 +54,21 @@ setup(
 
     keywords='nix pip',
 
-    install_requires=['pip>=7', 'configobj>=5'],
+    install_requires=[
+        'pip>=7',
+        'configobj>=5',
+        'click',
+        'contexter',
+    ],
     tests_require=['pytest'],
     packages=['pip2nix'],
     package_data={'pip2nix': ['*.ini']},
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [
-            "pip2nix=pip2nix.main:main",
-            "pip2nix%s=pip2nix.main:main" % sys.version[:1],
-            "pip2nix%s=pip2nix.main:main" % sys.version[:3],
+            "pip2nix=pip2nix.cli:cli",
+            "pip2nix%s=pip2nix.cli:cli" % sys.version[:1],
+            "pip2nix%s=pip2nix.cli:cli" % sys.version[:3],
         ],
         "egg_info.writers": [
             "tests_require.txt=pip2nix.egg_writer:write_arg"

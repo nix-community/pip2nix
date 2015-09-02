@@ -10,7 +10,6 @@ import validate
 def flatten_validation_errors(errors):
     """Yields (path, error) pairs."""
     for section, value in errors.items():
-        print(section, value)
         if value is True:
             continue
         elif value is False:
@@ -39,6 +38,12 @@ class Config(object):
 
     def __getitem__(self, key):
         return self.config[key]
+
+    def get(self, key, default=None):
+        try:
+            self[key]
+        except KeyError:
+            return default
 
     def validate(self):
         """Check if configuration is OK, and raise a ValidationError if not."""
@@ -93,16 +98,25 @@ class Config(object):
                 self.merge_options(opts)
         self.config.merge(options)
 
-    def merge_cli_options(self, cli_options, args):
+    def merge_cli_options(self, cli_options):
         """Prepare the options before merging."""
         options = {}
-        if args or cli_options.requirements:
-            requirements = list(args)
-            requirements.extend('-e ' + req for req in cli_options.editables)
-            requirements.extend('-r ' + req for req in cli_options.requirements)
+        requirements = list(cli_options.get('specifiers', ()))
+        requirements.extend(
+            '-e ' + req for req in cli_options.get('editables', ()))
+        requirements.extend(
+            '-r ' + req for req in cli_options.get('requirements', ()))
+        if requirements:
             options['requirements'] = requirements
-        if cli_options.output:
-            options['output'] = cli_options.output
+
+        for key in 'index_url', 'extra_index_url', 'no_index', 'output':
+            try:
+                value = cli_options[key]
+                if value is not None:
+                    options[key] = value
+            except KeyError:
+                pass
+
         self.merge_options({'pip2nix': options})
 
     def get_requirements(self):
@@ -115,6 +129,14 @@ class Config(object):
                 yield req[:2], req[2:].strip()
             else:
                 yield None, req.strip()
+
+    def get_indexes(self):
+        c = self['pip2nix']
+        if c['no_index']:
+            return []
+        return list(filter(
+            None, [c['index_url']] + c['extra_index_url']
+        ))
 
     def get_package_config(self, package):
         """Get configuration for given package pair."""
