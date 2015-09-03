@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from collections import defaultdict
+from contexter import Contexter, closing, contextmanager
 from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
@@ -20,6 +21,13 @@ from .models.requirement_set import RequirementSetLayer
 
 
 flatten = chain.from_iterable
+
+
+@contextmanager
+def temp_dir(name):
+    path = mkdtemp('pip2nix')
+    yield path
+    shutil.rmtree(path)
 
 
 class NixFreezeCommand(pip.commands.InstallCommand):
@@ -127,7 +135,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         """Copy of relevant parts from InstallCommand's run()"""
         index_urls = self.config.get_indexes()
 
-        temp_target_dir = mkdtemp()
+        temp_target_dir = (self.cleanup << temp_dir('pip2nix-temp-target'))
 
         with self._build_session(options) as session:
             finder = self._build_package_finder(options, index_urls, session)
@@ -164,10 +172,11 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         return requirement_set
 
     def run(self, options, _args):
-        options, args = self.prepare_options(options)
-
-        requirement_set = self.super_run(options, args)
-        return requirement_set
+        with Contexter() as ctx:
+            self.cleanup = ctx
+            options, args = self.prepare_options(options)
+            requirement_set = self.super_run(options, args)
+            return requirement_set
 
     def prepare_options(self, options):
         """Load configuration from self.config into pip options.
@@ -193,9 +202,8 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         options.upgrade = True  # Download all packages
         options.use_wheel = False  # We'll build the wheels ourself
         options.no_clean = True  # This is needed to access pkg_info later
-        # TODO: cleanup
         options.download_dir = self.config.get_config('pip2nix', 'download') \
-            or mkdtemp('pip2nix')
+            or (self.cleanup << temp_dir('pip2nix'))
 
         # TODO: What are those about/for?
         cmdoptions.resolve_wheel_no_use_binary(options)
