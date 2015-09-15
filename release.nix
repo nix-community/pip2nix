@@ -1,5 +1,5 @@
 { pkgs ? (import <nixpkgs> {}) }:
-rec {
+with pkgs.lib; rec {
   make-pip2nix = {pythonVersion}: {
     name = "python${pythonVersion}";
     value = import ./default.nix {
@@ -9,11 +9,11 @@ rec {
   };
 
   pip2nix = pkgs.recurseIntoAttrs (
-    builtins.listToAttrs (map make-pip2nix [
+    builtins.listToAttrs (map make-pip2nix ([
       {pythonVersion = "27";}
       {pythonVersion = "33";}
       {pythonVersion = "34";}
-    ])
+    ] ++ optional (hasAttr "python35Packages" pkgs) {pythonVersion = "35";}))
   );
 
   docs = pkgs.stdenv.mkDerivation {
