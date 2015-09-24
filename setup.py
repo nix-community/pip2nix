@@ -61,7 +61,7 @@ setup(
         'contexter',
     ],
     tests_require=['pytest'],
-    packages=['pip2nix'],
+    packages=['pip2nix', 'pip2nix.models'],
     package_data={'pip2nix': ['*.ini']},
     cmdclass={'test': PyTest},
     entry_points={
