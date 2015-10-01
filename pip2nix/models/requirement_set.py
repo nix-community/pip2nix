@@ -1,9 +1,35 @@
+from itertools import chain
+
 from pip.req import RequirementSet
+from pip.req import InstallRequirement
 
 
-class RequirementSetLayer(RequirementSet):
+class ConfiguredRequirementSet(RequirementSet):
+    def __init__(self, *args, **kwargs):
+        self._configuration = kwargs.pop('configuration')
+        super(ConfiguredRequirementSet, self).__init__(*args, **kwargs)
+
+    def _prepare_file(self, finder, req_to_install):
+        if req_to_install.constraint or req_to_install.prepared:
+            return []
+
+        print('req', req_to_install.name)
+
+        extra_reqs = super(ConfiguredRequirementSet, self)._prepare_file(finder, req_to_install)
+        setup_requires = list(from_egg_info_data(
+            req_to_install.egg_info_data('setup_requires.txt'),
+            comes_from=req_to_install))
+        print('   ', setup_requires)
+        extra_reqs.extend(chain.from_iterable(
+            self.add_requirement(extra, req_to_install.name)
+            for extra in setup_requires))
+        return extra_reqs
+
+
+class RequirementSetLayer(ConfiguredRequirementSet):
     def __init__(self, *args, **kwargs):
         self.base_requirement_set = kwargs.pop('base')
+        kwargs.setdefault('configuration', self.base_requirement_set._configuration)
         kwargs.setdefault('build_dir', self.base_requirement_set.build_dir)
         kwargs.setdefault('src_dir', self.base_requirement_set.src_dir)
         kwargs.setdefault('download_dir', self.base_requirement_set.download_dir)
@@ -39,3 +65,12 @@ class RequirementSetLayer(RequirementSet):
             extras = super(RequirementSetLayer, self) \
                 ._prepare_file(finder, req_to_install)
             return extras
+
+
+
+def from_egg_info_data(data, **kwargs):
+    """yield requirements based on `data`"""
+    # TODO: move to some common utils?
+    data = data or ''
+    for line in filter(None, data.splitlines()):
+        yield InstallRequirement.from_line(line, **kwargs)

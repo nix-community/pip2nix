@@ -59,6 +59,7 @@ setup(
         'configobj>=5',
         'click',
         'contexter',
+        #'mock',
     ],
     tests_require=['pytest'],
     packages=['pip2nix', 'pip2nix.models'],
@@ -71,7 +72,8 @@ setup(
             "pip2nix%s=pip2nix.cli:cli" % sys.version[:3],
         ],
         "egg_info.writers": [
-            "tests_require.txt=pip2nix.egg_writer:write_arg"
+            "tests_require.txt=pip2nix.egg_writer:write_arg",
+            "setup_requires.txt=pip2nix.egg_writer:write_arg"
         ]
     }
 )
