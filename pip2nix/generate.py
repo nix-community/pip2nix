@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from collections import defaultdict
 from contexter import Contexter, closing, contextmanager
+from functools import partial
 from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
@@ -13,11 +14,10 @@ from pip import cmdoptions
 from pip.utils.build import BuildDirectory
 from pip.req import InstallRequirement
 from pip.wheel import WheelCache
-from pip.req import RequirementSet
 
 from .config import Config
 from .models.package import PythonPackage, indent
-from .models.requirement_set import RequirementSetLayer
+from .models.requirement_set import ConfiguredRequirementSet, RequirementSetLayer
 
 
 flatten = chain.from_iterable
@@ -72,12 +72,8 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                             if r.comes_from is None]
             for req in top_levels:
                 raw_tests_require = req.egg_info_data('tests_require.txt')
-                if not raw_tests_require:
-                    continue
-                packages[req.name].check = True
-                test_req_lines = filter(None, raw_tests_require.splitlines())
-                for test_req_line in test_req_lines:
-                    test_req = InstallRequirement.from_line(test_req_line)
+                for test_req in from_egg_info_data(raw_tests_require):
+                    packages[req.name].check = True
                     devDeps[req.name].append(test_req)
 
             # TODO: this should be per-package
@@ -141,7 +137,8 @@ class NixFreezeCommand(pip.commands.InstallCommand):
             finder = self._build_package_finder(options, index_urls, session)
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
             with BuildDirectory(options.build_dir, delete=True) as build_dir:
-                requirement_set = RequirementSet(
+                requirement_set = ConfiguredRequirementSet(
+                    configuration=self.config,
                     build_dir=build_dir,
                     src_dir=options.src_dir,
                     download_dir=options.download_dir,
@@ -214,6 +211,13 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         options.src_dir = os.path.abspath(src_dir) if src_dir else None
 
         return options, args
+
+
+def from_egg_info_data(data):
+    """yield requirements based on `data`"""
+    data = data or ''
+    for line in filter(None, data.splitlines()):
+        yield InstallRequirement.from_line(line)
 
 
 def generate(config):
