@@ -48,13 +48,13 @@
     src = ./.;
   };
   six = super.buildPythonPackage {
-    name = "six-1.9.0";
+    name = "six-1.10.0";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz";
-      md5 = "476881ef4012262dfc8adc645ee786c4";
+      url = "https://pypi.python.org/packages/source/s/six/six-1.10.0.tar.gz";
+      md5 = "34eed507548117b2ab523ab14b2f8b55";
     };
   };
 
@@ -71,13 +71,13 @@
     };
   };
   pytest = super.buildPythonPackage {
-    name = "pytest-2.7.2";
+    name = "pytest-2.8.2";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [py];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.7.2.tar.gz";
-      md5 = "dcd8e891474d605b81fc7fcc8711e95b";
+      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.8.2.tar.gz";
+      md5 = "96e77b3a2fb40e5d99a1cfba38ac7c6d";
     };
   };
 }
