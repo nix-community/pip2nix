@@ -66,7 +66,6 @@ def test_get_package_config():
 
 def test_finding_config_file(tmpdir, cwd):
     subdir = tmpdir.mkdir('sub')
-    subdir.join('setup.cfg').write('[default]\na = sub/setup.cfg\n')
     subdir.join('pip2nix.ini').write('[default]\na = sub/pip2nix.ini\n')
     tmpdir.join('pip2nix.ini').write('[pip2nix]\na = ./pip2nix.ini\n')
 

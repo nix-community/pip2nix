@@ -67,12 +67,11 @@ class Config(object):
         base_path = os.getcwd()
         # Going up from CWD, find the first configuration file with [pip2nix*]
         while base_path != '/':
-            for file_name in 'pip2nix.ini', 'setup.cfg':
-                path = os.path.join(base_path, file_name)
-                if os.path.exists(path):
-                    # Check if pip2nix sections exist in the file
-                    if self.load(path):
-                        return
+            path = os.path.join(base_path, 'pip2nix.ini')
+            if os.path.exists(path):
+                # Check if pip2nix sections exist in the file
+                if self.load(path):
+                    return
             base_path = os.path.dirname(base_path)
 
     def load(self, path):
