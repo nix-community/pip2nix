@@ -31,7 +31,7 @@ Installation
 
 ::
 
-    $ git clone htts://github.com/ktosiek/pip2nix
+    $ git clone https://github.com/ktosiek/pip2nix
     $ nix-env -f pip2nix/release.nix -iA pip2nix.python34  # Same Python as target packages
 
 Usage
