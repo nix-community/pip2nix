@@ -72,6 +72,7 @@ def generate(specifiers, **kwargs):
 @click.option('--output', metavar='<path>',
               help="Write the generated file to <path>.")
 @click.option('--package', metavar='<package>',
+              required=True,
               help="Name of the package the scaffold is for.")
 def scaffold(**kwargs):
     config = Config()
