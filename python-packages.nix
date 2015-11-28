@@ -1,12 +1,12 @@
 {
   click = super.buildPythonPackage {
-    name = "click-5.1";
+    name = "click-6.2";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/c/click/click-5.1.tar.gz";
-      md5 = "9c5323008cccfe232a8b161fc8196d41";
+      url = "https://pypi.python.org/packages/source/c/click/click-6.2.tar.gz";
+      md5 = "83252a8095397b1f5f710fdd58b484d9";
     };
   };
   configobj = super.buildPythonPackage {
@@ -61,23 +61,23 @@
 ### Test requirements
 
   py = super.buildPythonPackage {
-    name = "py-1.4.30";
+    name = "py-1.4.31";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/py/py-1.4.30.tar.gz";
-      md5 = "a904aabfe4765cb754f2db84ec7bb03a";
+      url = "https://pypi.python.org/packages/source/p/py/py-1.4.31.tar.gz";
+      md5 = "5d2c63c56dc3f2115ec35c066ecd582b";
     };
   };
   pytest = super.buildPythonPackage {
-    name = "pytest-2.8.2";
+    name = "pytest-2.8.3";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [py];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.8.2.tar.gz";
-      md5 = "96e77b3a2fb40e5d99a1cfba38ac7c6d";
+      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.8.3.tar.gz";
+      md5 = "33fd706c4ef857e70200661b0fceb80c";
     };
   };
 }
