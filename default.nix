@@ -34,7 +34,7 @@ let
     self = pythonPackagesWithLocals;
     super = basePythonPackages;
     inherit pkgs;
-    inherit (pkgs) fetchurl;
+    inherit (pkgs) fetchurl fetchgit;
   } ./python-packages.nix);
 
   myPythonPackages =
