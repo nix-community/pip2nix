@@ -30,3 +30,13 @@ To do that, you can create a ``pip2nix.ini`` file::
 
 This way you can just run ``pip2nix generate`` in the project's root.
 More about the configuration file in :doc:`configuration`.
+
+To actually use the generated packages file, you can create a default.nix with ``pip2nix scaffold``. To work on a project `myProject` you'd use::
+
+    $ pip2nix scaffold --package myProject
+    $ cat > pip2nix.ini <<EOF
+    [pip2nix]
+    requirements = .
+    EOF
+    $ pip2nix generate
+    $ nix-shell  # all the deps should be available
