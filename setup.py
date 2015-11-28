@@ -59,6 +59,7 @@ setup(
         'configobj>=5',
         'click',
         'contexter',
+        'jinja2',
     ],
     tests_require=['pytest'],
     packages=['pip2nix', 'pip2nix.models'],

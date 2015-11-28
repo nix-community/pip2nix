@@ -18,12 +18,11 @@ let
       !elem ext ["egg-info" "pyc"] &&
       !startsWith "result" path;
 
-  pip2nix-src = builtins.filterSource src-filter ./.;
+  {{ package_name }}-src = builtins.filterSource src-filter ./.;
 
   localOverrides = pythonPackages: {
-    pip2nix = pythonPackages.pip2nix.override (attrs: {
-      src = pip2nix-src;
-      buildInputs = [myPythonPackages.pip] ++ attrs.buildInputs;
+    {{ package_name }} = pythonPackages.{{ package_name }}.override (attrs: {
+      src = {{ package_name }}-src;
     });
   };
 
@@ -40,4 +39,4 @@ let
   myPythonPackages =
     pythonPackagesWithLocals
     // (localOverrides pythonPackagesWithLocals);
-in myPythonPackages.pip2nix
+in myPythonPackages.{{ package_name }}

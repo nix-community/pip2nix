@@ -1,4 +1,14 @@
 {
+  MarkupSafe = super.buildPythonPackage {
+    name = "MarkupSafe-0.23";
+    buildInputs = with self; [];
+    doCheck = false;
+    propagatedBuildInputs = with self; [];
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-0.23.tar.gz";
+      md5 = "f5ab3deee4c37cd6a922fb81e730da6e";
+    };
+  };
   click = super.buildPythonPackage {
     name = "click-6.2";
     buildInputs = with self; [];
@@ -29,6 +39,16 @@
       md5 = "437efd28f5489cccfe929c08c6b269aa";
     };
   };
+  jinja2 = super.buildPythonPackage {
+    name = "jinja2-2.8";
+    buildInputs = with self; [];
+    doCheck = false;
+    propagatedBuildInputs = with self; [MarkupSafe];
+    src = fetchurl {
+      url = "https://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.8.tar.gz";
+      md5 = "edb51693fe22c53cee5403775c71a99e";
+    };
+  };
   pip = super.buildPythonPackage {
     name = "pip-7.1.2";
     buildInputs = with self; [];
@@ -44,7 +64,7 @@
     buildInputs = with self; [pytest];
     doCheck = true;
     makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
-    propagatedBuildInputs = with self; [pip configobj click contexter];
+    propagatedBuildInputs = with self; [pip configobj click contexter jinja2];
     src = ./.;
   };
   six = super.buildPythonPackage {

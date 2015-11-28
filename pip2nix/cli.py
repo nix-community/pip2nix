@@ -1,4 +1,5 @@
 import click
+import pkg_resources
 from .config import Config
 
 
@@ -63,3 +64,28 @@ def generate(specifiers, **kwargs):
     from pip2nix.generate import generate
     import sys
     generate(config)
+
+
+@cli.command()
+@click.option('--configuration', metavar='<path>',
+              help="Read pip2nix configuration from <path>.")
+@click.option('--output', metavar='<path>',
+              help="Write the generated file to <path>.")
+@click.option('--package', metavar='<package>',
+              required=True,
+              help="Name of the package the scaffold is for.")
+def scaffold(**kwargs):
+    config = Config()
+    if kwargs['configuration']:
+        config.load(kwargs['configuration'])
+    else:
+        config.find_and_load()
+    config.merge_cli_options(kwargs)
+    config.validate()
+
+    import jinja2
+    t = jinja2.Template(
+        pkg_resources.resource_string(__name__, 'default.nix.j2'))
+    with open('default.nix', 'w') as f:
+        f.write(t.render(
+            package_name=kwargs['package']))
