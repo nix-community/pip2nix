@@ -50,13 +50,13 @@
     };
   };
   pip = super.buildPythonPackage {
-    name = "pip-7.1.2";
+    name = "pip-8.0.2";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pip/pip-7.1.2.tar.gz";
-      md5 = "3823d2343d9f3aaab21cf9c917710196";
+      url = "https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz";
+      md5 = "3a73c4188f8dbad6a1e6f6d44d117eeb";
     };
   };
   pip2nix = super.buildPythonPackage {

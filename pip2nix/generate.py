@@ -133,12 +133,10 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
     def super_run(self, options, args):
         """Copy of relevant parts from InstallCommand's run()"""
-        index_urls = self.config.get_indexes()
-
         temp_target_dir = (self.cleanup << temp_dir('pip2nix-temp-target'))
 
         with self._build_session(options) as session:
-            finder = self._build_package_finder(options, index_urls, session)
+            finder = self._build_package_finder(options, session)
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
             with BuildDirectory(options.build_dir, delete=True) as build_dir:
                 requirement_set = RequirementSet(

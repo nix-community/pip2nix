@@ -20,7 +20,9 @@ class RequirementSetLayer(RequirementSet):
         kwargs.setdefault('wheel_cache', self.base_requirement_set._wheel_cache)
         super(RequirementSetLayer, self).__init__(*args, **kwargs)
 
-    def _prepare_file(self, finder, req_to_install):
+    def _prepare_file(
+            self, finder, req_to_install, require_hashes=False,
+            ignore_dependencies=False):
         if self.base_requirement_set.has_requirement(req_to_install.name):
             base_req = self.base_requirement_set.requirements[req_to_install.name]
             base_pkg_info = base_req.pkg_info()
@@ -37,5 +39,7 @@ class RequirementSetLayer(RequirementSet):
             return []
         else:
             extras = super(RequirementSetLayer, self) \
-                ._prepare_file(finder, req_to_install)
+                ._prepare_file(
+                    finder, req_to_install, require_hashes=require_hashes,
+                    ignore_dependencies=ignore_dependencies)
             return extras
