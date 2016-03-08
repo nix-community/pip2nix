@@ -24,10 +24,10 @@ Releasing
 ---------
 
 ::
+
     nix-shell ./release-shell.nix
     bumpversion --new-version $NEW_VERSION patch
     rm -rf pip2nix.egg-info/ dist/
     nix-shell --pure --run 'python ./setup.py sdist'
     twine upload dist/*
     bumpversion --no-tag --new-version ${NEXT_VERSION}.dev1 patch
-
