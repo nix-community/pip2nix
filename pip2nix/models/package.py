@@ -30,10 +30,16 @@ class PythonPackage(object):
     def from_requirements(cls, req, deps):
         pkg_info = req.pkg_info()
 
+        def name_version(dep):
+            return (
+                dep.name,
+                dep.pkg_info()['Version'] if dep.source_dir else None,
+            )
+
         return cls(
             name=req.name,
             version=pkg_info['Version'],
-            dependencies=[(d.name, d.pkg_info()['Version']) for d in deps],
+            dependencies=[name_version(d) for d in deps],
             source=req.link,
         )
 
