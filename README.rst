@@ -3,10 +3,9 @@ pip2nix
 
 Generate nix expressions for Python packages.
 
-.. image:: https://drone.io/github.com/ktosiek/pip2nix/status.png
-   :target: https://drone.io/github.com/ktosiek/pip2nix/latest
+.. image:: https://travis-ci.org/ktosiek/pip2nix.svg?branch=master
+   :target: https://travis-ci.org/ktosiek/pip2nix
    :alt: Build Status
-
 
 .. image:: https://readthedocs.org/projects/pip2nix/badge/?version=latest
    :target: http://pip2nix.readthedocs.org/en/latest/
