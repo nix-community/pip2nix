@@ -55,7 +55,7 @@ setup(
     keywords='nix pip',
 
     install_requires=[
-        'pip>=7',
+        'pip>=8,<9',
         'configobj>=5',
         'click',
         'contexter',
