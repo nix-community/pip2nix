@@ -1,16 +1,17 @@
 { pkgs ? (import <nixpkgs> {}), pythonPackages ? "python27Packages" }:
+with pkgs.lib;
 let
   basePythonPackages = with builtins; if isAttrs pythonPackages
     then pythonPackages
     else getAttr pythonPackages pkgs;
 
   elem = builtins.elem;
-  basename = path: with pkgs.lib; last (splitString "/" path);
+  basename = path: last (splitString "/" path);
   startsWith = prefix: full: let
     actualPrefix = builtins.substring 0 (builtins.stringLength prefix) full;
   in actualPrefix == prefix;
 
-  src-filter = path: type: with pkgs.lib;
+  src-filter = path: type:
     let
       ext = last (splitString "." path);
       parts = last (splitString "/" path);
@@ -36,7 +37,8 @@ let
     super = basePythonPackages;
     inherit pkgs;
     inherit (pkgs) fetchurl fetchgit;
-  } ./python-packages.nix);
+  } ./python-packages.nix)
+  // { pip = basePythonPackages.pip; };
 
   myPythonPackages =
     pythonPackagesWithLocals
