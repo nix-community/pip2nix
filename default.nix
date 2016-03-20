@@ -13,10 +13,11 @@ let
   src-filter = path: type: with pkgs.lib;
     let
       ext = last (splitString "." path);
+      parts = last (splitString "/" path);
     in
       !elem (basename path) [".git" "__pycache__" ".eggs"] &&
       !elem ext ["egg-info" "pyc"] &&
-      !startsWith "result" path;
+      !startsWith "result" (basename path);
 
   pip2nix-src = builtins.filterSource src-filter ./.;
 
