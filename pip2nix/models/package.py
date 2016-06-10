@@ -6,22 +6,49 @@ from subprocess import check_output
 
 # TODO: Seems not very nice to do this here, maybe there is a better place
 # during app startup. And only executing when licenses flag is set.
-NIX_LICENSES_JSON = check_output([
+# Fetch all licenses from nix as JSON.
+nix_licenses_json = check_output([
     'nix-instantiate', '--eval', '--expr',
     'with import <nixpkgs> { }; builtins.toJSON lib.licenses'])
 
 # Dictionary which contains the contents of nixpkgs.lib.licenses.
-nix_licenses = json.loads(json.loads(NIX_LICENSES_JSON))
+nix_licenses = json.loads(json.loads(nix_licenses_json))
+
+# Convert all values to lowercase.
+for entry in nix_licenses.values():
+    for key, value in entry.items():
+        try:
+            entry[key] = value.lower()
+        except AttributeError:
+            # Skip values which don't have a lower() function.
+            pass
 
 # Mapping from license name in setup.py to attribute in nixpkgs.lib.licenses.
-LICENSE_NIX_MAP = {
-    'MIT': 'mit',
+# TODO: Think about providing this from outside, maybe from a file.
+case_sensitive_license_nix_map = {
+    'Apache 2.0': 'asl20',
+    'Apache License, Version 2.0': 'asl20',
+    'Apache Software License': 'asl20',
+    'BSD': 'bsdOriginal',
+    'BSD license': 'bsdOriginal',
+    'GPL': 'gpl1',
+    'GNU GPL': 'gpl1',
+    'GNU GPLv2 or any later version': 'gpl2Plus',
+    'GPLv2 or later': 'gpl2Plus',
+    'GPLv2': 'gpl2',
+    'GPLv3': 'gpl3',
+    'LGPLv2.1 or later': 'lgpl21Plus',
+    'PSF': 'psfl',
+    'PSF License': 'psfl',
+    'Python Software Foundation License': 'psfl',
+    'Python style': 'psfl',
+    'Two-clause BSD license': 'bsd2',
+    'ZPL': 'zpt21',
     'ZPL 2.1': 'zpt21',
 }
-
-# Mapping to rename unresolved license names from setup.py files.
-LICENSE_RENAME_MAP = {
-}
+license_nix_map = {name.lower(): nix_attr
+                   for name, nix_attr in
+                   case_sensitive_license_nix_map.items()}
 
 
 def indent(amount, string):
@@ -110,11 +137,12 @@ class PythonPackage(object):
             raw_args += '\n{} = {};'.format(k, v)
 
         # Render meta arguments.
-        raw_meta_args = ''
-        for k, v in sorted(meta_args.items()):
-            raw_meta_args += '{} = {};\n'.format(k, v)
-        meta = meta_template.format(meta_args=indent(2, raw_meta_args))
-        raw_args += '\n{}'.format(meta)
+        if meta_args:
+            raw_meta_args = ''
+            for k, v in sorted(meta_args.items()):
+                raw_meta_args += '{} = {};\n'.format(k, v)
+            meta = meta_template.format(meta_args=indent(2, raw_meta_args))
+            raw_args += '\n{}'.format(meta)
 
         return template.format(args=indent(2, raw_args))
 
@@ -125,8 +153,9 @@ class PythonPackage(object):
 
     def get_license_string(self):
         """
-        Returns the license string set in setup.py as license argument to
-        setup or as classifier.
+        Returns the license string which is set in setup.py as an argument to
+        setup function or in the classifiers.
+
         License argument takes precedence.
         """
         # TODO: Would be cool to get the info directly from setup.py
@@ -155,26 +184,32 @@ class PythonPackage(object):
                 lic = lic.strip()
                 return lic
 
+        print('Found no license for package "{pkg}"'.format(
+            pkg=self.pip_req))
+
 
 def license_to_nix(license_name, nixpkgs='pkgs'):
     template = '{nixpkgs}.lib.licenses.{attribute}'
     full_name_template = '{{ fullName = "{full_name}"; }}'
 
-    # First try to fetch from custom mapping.
-    if license_name in LICENSE_NIX_MAP:
-        attr = LICENSE_NIX_MAP.get(license_name)
+    # Convert to lowercase for searching.
+    full_name = license_name
+    license_name = license_name.lower()
+
+    # First try to fetch nix attribute name from custom mapping.
+    attr = license_nix_map.get(license_name)
+    if attr:
         return template.format(nixpkgs=nixpkgs, attribute=attr)
 
-    # Otherwise try to lookup in licenses from nix.
+    # Otherwise try to look it up in the nix licenses.
     for attr, nix_license_data in nix_licenses.items():
         if license_name in nix_license_data.values():
             return template.format(nixpkgs=nixpkgs, attribute=attr)
 
-    # Had no luck converting the license name to a license in
-    # nixpkgs.lib.licenses. In this case we can at least store a set with
-    # the fullName attribute like in nix licenses.
-    license_name = LICENSE_RENAME_MAP.get(license_name, license_name)
-    return full_name_template.format(full_name=license_name)
+    # No luck converting the license name to an attribute in
+    # nixpkgs.lib.licenses. In this case we can at least store a set with the
+    # fullName attribute like sets in nixpkgs.lib.licenses.
+    return full_name_template.format(full_name=full_name)
 
 
 def link_to_nix(link):
