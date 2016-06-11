@@ -15,5 +15,5 @@ script:
   - . /home/travis/.nix-profile/etc/profile.d/nix.sh
   - if [ -z "$MODE" ]; then nix-build release.nix -A $ATTR; fi
   - if [ "$MODE" == "bootstrap" ]; then
-      ./bootstrap.sh && git diff;
+      ./bootstrap.sh && git --no-pager diff;
     fi
