@@ -87,8 +87,8 @@ def scaffold(**kwargs):
     config.validate()
 
     import jinja2
-    t = jinja2.Template(
-        pkg_resources.resource_string(__name__, 'default.nix.j2'))
     with open('default.nix', 'w') as f:
+    raw_template = pkg_resources.resource_string(__name__, 'default.nix.j2')
+    t = jinja2.Template(raw_template.decode('utf-8'))
         f.write(t.render(
             package_name=kwargs['package']))
