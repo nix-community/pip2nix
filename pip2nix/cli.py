@@ -81,6 +81,9 @@ def scaffold(**kwargs):
     else:
         config.find_and_load()
     config.merge_cli_options(kwargs)
+    # TODO: Config enforces requirements to be specified, find a nicer
+    # way to let Config know that we don't need requirements here.
+    config.merge_options({'pip2nix': {'requirements': []}})
     config.validate()
 
     import jinja2
