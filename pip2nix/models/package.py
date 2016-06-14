@@ -29,22 +29,25 @@ case_sensitive_license_nix_map = {
     'Apache 2.0': 'asl20',
     'Apache License, Version 2.0': 'asl20',
     'Apache Software License': 'asl20',
-    'BSD': 'bsdOriginal',
     'BSD license': 'bsdOriginal',
-    'GPL': 'gpl1',
+    'BSD': 'bsdOriginal',
     'GNU GPL': 'gpl1',
     'GNU GPLv2 or any later version': 'gpl2Plus',
+    'GNU General Public License (GPL)': 'gpl1',
+    'GNU General Public License v2 or later (GPLv2+)': 'gpl2Plus',
+    'GPL': 'gpl1',
     'GPLv2 or later': 'gpl2Plus',
     'GPLv2': 'gpl2',
     'GPLv3': 'gpl3',
     'LGPLv2.1 or later': 'lgpl21Plus',
-    'PSF': 'psfl',
     'PSF License': 'psfl',
+    'PSF': 'psfl',
     'Python Software Foundation License': 'psfl',
     'Python style': 'psfl',
     'Two-clause BSD license': 'bsd2',
-    'ZPL': 'zpt21',
     'ZPL 2.1': 'zpt21',
+    'ZPL': 'zpt21',
+    'Zope Public License': 'zpt21',
 }
 license_nix_map = {name.lower(): nix_attr
                    for name, nix_attr in
@@ -147,45 +150,64 @@ class PythonPackage(object):
         return template.format(args=indent(2, raw_args))
 
     def get_license_nix(self):
-        license_str = self.get_license_string()
-        if license_str:
-            return license_to_nix(license_str)
+        try:
+            licenses = self.get_licenses_from_setup()
+        except Exception:
+            licenses = self.get_licenses_from_pkginfo()
 
-    def get_license_string(self):
+        # Convert license strings to nix.
+        nix_licenses = set()
+        for lic in licenses:
+            nix_licenses.add(license_to_nix(lic))
+
+        template = '[ {licenses} ]'
+        return template.format(licenses=' '.join(nix_licenses))
+
+    def get_licenses_from_setup(self):
         """
-        Returns the license string which is set in setup.py as an argument to
-        setup function or in the classifiers.
-
-        License argument takes precedence.
+        Tries to load the license strings from setup.py script. This may raise
+        all kinds of exceptions because the setup script has to be executed.
         """
-        # TODO: Would be cool to get the info directly from setup.py
-        # but some setup.py scripts contain too much magic for run_setup()
-        #
-        # This was my approach to load it:
-        # from distutils import core
-        # print self.pip_req.setup_py
-        # dist = core.run_setup(self.pip_req.setup_py, stop_after='init')
-        # lic = dist.get_license()
+        from distutils import core
+        licenses = set()
+        dist = core.run_setup(self.pip_req.setup_py, stop_after='init')
 
+        # License string from setup() function.
+        licenses.add(dist.get_license())
+
+        # License strings from classifiers.
+        for classifier in dist.get_classifiers():
+            if classifier.startswith('License ::'):
+                lic = classifier.split('::')[-1]
+                licenses.add(lic.strip())
+
+        return filter_licenses(licenses)
+
+    def get_licenses_from_pkginfo(self):
+        """
+        Parses the license string from PKG-INFO file.
+        """
+        licenses = set()
         data = self.pip_req.egg_info_data('PKG-INFO')
 
         for line in data.split('\n'):
 
-            # Parse license from license argument.
-            if line.startswith(u'License: '):
+            # License string from setup() function.
+            if line.startswith('License: '):
                 lic = line.split('License: ')[-1]
-                lic = lic.strip()
-                if lic not in ['UNKNOWN']:
-                    return lic
+                licenses.add(lic.strip())
 
-            # Parse license from classifiers.
-            elif line.startswith(u'Classifier: License ::'):
+            # License strings from classifiers.
+            elif line.startswith('Classifier: License ::'):
                 lic = line.split('::')[-1]
-                lic = lic.strip()
-                return lic
+                licenses.add(lic.strip())
 
-        print('Found no license for package "{pkg}"'.format(
-            pkg=self.pip_req))
+        return filter_licenses(licenses)
+
+
+def filter_licenses(licenses):
+    exclude = set(['UNKNOWN'])
+    return licenses - exclude
 
 
 def license_to_nix(license_name, nixpkgs='pkgs'):
