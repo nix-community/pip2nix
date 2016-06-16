@@ -150,10 +150,7 @@ class PythonPackage(object):
         return template.format(args=indent(2, raw_args))
 
     def get_license_nix(self):
-        try:
-            licenses = self.get_licenses_from_setup()
-        except Exception:
-            licenses = self.get_licenses_from_pkginfo()
+        licenses = self.get_licenses_from_pkginfo()
 
         # Convert license strings to nix.
         nix_licenses = set()
