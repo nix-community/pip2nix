@@ -10,13 +10,13 @@
     };
   };
   click = super.buildPythonPackage {
-    name = "click-6.2";
+    name = "click-6.3";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/c/click/click-6.2.tar.gz";
-      md5 = "83252a8095397b1f5f710fdd58b484d9";
+      url = "https://pypi.python.org/packages/source/c/click/click-6.3.tar.gz";
+      md5 = "2f171cdf12b8f2e284c224825f5e4634";
     };
   };
   configobj = super.buildPythonPackage {
@@ -50,13 +50,13 @@
     };
   };
   pip = super.buildPythonPackage {
-    name = "pip-8.0.2";
+    name = "pip-8.1.1";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz";
-      md5 = "3a73c4188f8dbad6a1e6f6d44d117eeb";
+      url = "https://pypi.python.org/packages/source/p/pip/pip-8.1.1.tar.gz";
+      md5 = "6b86f11841e89c8241d689956ba99ed7";
     };
   };
   pip2nix = super.buildPythonPackage {
@@ -91,13 +91,13 @@
     };
   };
   pytest = super.buildPythonPackage {
-    name = "pytest-2.8.3";
+    name = "pytest-2.9.1";
     buildInputs = with self; [];
     doCheck = false;
     propagatedBuildInputs = with self; [py];
     src = fetchurl {
-      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.8.3.tar.gz";
-      md5 = "33fd706c4ef857e70200661b0fceb80c";
+      url = "https://pypi.python.org/packages/source/p/pytest/pytest-2.9.1.tar.gz";
+      md5 = "05165740ea50928e4e971378630163ec";
     };
   };
 }

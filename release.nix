@@ -19,11 +19,11 @@ with pkgs.lib; rec {
   docs = pkgs.stdenv.mkDerivation {
     name = "pip2nix-docs";
     src = ./docs;
-    outputs = [ "html" ];  # TODO: PDF would be even nicer on CI
+    #outputs = [ "html" ];  # TODO: PDF would be even nicer on CI
     buildInputs = [ pip2nix.python34 ] ++ (with  pkgs.python34Packages; [
       sphinx
     ]);
     buildPhase = ''make html'';
-    installPhase = "cp -r _build/html $html";
+    installPhase = "cp -r _build/html $out";
   };
 }

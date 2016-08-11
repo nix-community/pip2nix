@@ -55,7 +55,7 @@ setup(
     keywords='nix pip',
 
     install_requires=[
-        'pip>=7',
+        'pip>=8,<9',
         'configobj>=5',
         'click',
         'contexter',
@@ -63,7 +63,7 @@ setup(
     ],
     tests_require=['pytest'],
     packages=['pip2nix', 'pip2nix.models'],
-    package_data={'pip2nix': ['*.ini']},
+    package_data={'pip2nix': ['*.ini', '*.j2']},
     cmdclass={'test': PyTest},
     entry_points={
         "console_scripts": [

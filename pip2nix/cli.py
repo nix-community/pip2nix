@@ -69,12 +69,12 @@ def generate(specifiers, **kwargs):
 @cli.command()
 @click.option('--configuration', metavar='<path>',
               help="Read pip2nix configuration from <path>.")
-@click.option('--output', metavar='<path>',
+@click.option('--output', metavar='<path>', default='default.nix',
               help="Write the generated file to <path>.")
 @click.option('--package', metavar='<package>',
               required=True,
               help="Name of the package the scaffold is for.")
-def scaffold(**kwargs):
+def scaffold(output, **kwargs):
     config = Config()
     if kwargs['configuration']:
         config.load(kwargs['configuration'])
@@ -87,8 +87,8 @@ def scaffold(**kwargs):
     config.validate()
 
     import jinja2
-    t = jinja2.Template(
-        pkg_resources.resource_string(__name__, 'default.nix.j2'))
-    with open('default.nix', 'w') as f:
+    raw_template = pkg_resources.resource_string(__name__, 'default.nix.j2')
+    t = jinja2.Template(raw_template.decode('utf-8'))
+    with open(output, 'w') as f:
         f.write(t.render(
             package_name=kwargs['package']))
