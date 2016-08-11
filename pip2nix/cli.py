@@ -44,6 +44,7 @@ def cli():
 @click.option('--requirement', '-r', multiple=True, type=click.Path(),
               metavar='<file>',
               help="Load specifiers from a requirements file.")
+@click.option('--licenses/--no-licenses', default=False)
 @click.argument('specifiers', nargs=-1)
 def generate(specifiers, **kwargs):
     """Generate a .nix file with specified packages."""
