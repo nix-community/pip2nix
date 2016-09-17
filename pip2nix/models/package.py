@@ -160,26 +160,6 @@ class PythonPackage(object):
         template = '[ {licenses} ]'
         return template.format(licenses=' '.join(nix_licenses))
 
-    def get_licenses_from_setup(self):
-        """
-        Tries to load the license strings from setup.py script. This may raise
-        all kinds of exceptions because the setup script has to be executed.
-        """
-        from distutils import core
-        licenses = set()
-        dist = core.run_setup(self.pip_req.setup_py, stop_after='init')
-
-        # License string from setup() function.
-        licenses.add(dist.get_license())
-
-        # License strings from classifiers.
-        for classifier in dist.get_classifiers():
-            if classifier.startswith('License ::'):
-                lic = classifier.split('::')[-1]
-                licenses.add(lic.strip())
-
-        return filter_licenses(licenses)
-
     def get_licenses_from_pkginfo(self):
         """
         Parses the license string from PKG-INFO file.
