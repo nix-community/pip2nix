@@ -14,7 +14,7 @@ def raise_on_call(*args, **kwargs):
 
 def test_loads_data_once(monkeypatch):
     stub_data = {'stub': {'attr': 'value'}}
-    stub_value = json.dumps(json.dumps(stub_data))
+    stub_value = json.dumps(json.dumps(stub_data)).encode('utf-8')
     package._nix_licenses = None
 
     monkeypatch.setattr(package, 'check_output', lambda *args: stub_value)

@@ -17,6 +17,7 @@ def get_nix_licenses():
         nix_licenses_json = check_output([
             'nix-instantiate', '--eval', '--expr',
             'with import <nixpkgs> { }; builtins.toJSON lib.licenses'])
+        nix_licenses_json = nix_licenses_json.decode('utf-8')
 
         # Dictionary which contains the contents of nixpkgs.lib.licenses.
         _nix_licenses = json.loads(json.loads(nix_licenses_json))
