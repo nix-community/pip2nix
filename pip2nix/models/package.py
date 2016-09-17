@@ -4,24 +4,34 @@ import os
 from subprocess import check_output
 
 
-# TODO: Seems not very nice to do this here, maybe there is a better place
-# during app startup. And only executing when licenses flag is set.
-# Fetch all licenses from nix as JSON.
-nix_licenses_json = check_output([
-    'nix-instantiate', '--eval', '--expr',
-    'with import <nixpkgs> { }; builtins.toJSON lib.licenses'])
+_nix_licenses = None
 
-# Dictionary which contains the contents of nixpkgs.lib.licenses.
-nix_licenses = json.loads(json.loads(nix_licenses_json))
 
-# Convert all values to lowercase.
-for entry in nix_licenses.values():
-    for key, value in entry.items():
-        try:
-            entry[key] = value.lower()
-        except AttributeError:
-            # Skip values which don't have a lower() function.
-            pass
+def get_nix_licenses():
+    """
+    Generate a map of known licenses based on `nixpkgs`.
+    """
+    global _nix_licenses
+
+    if _nix_licenses is None:
+        nix_licenses_json = check_output([
+            'nix-instantiate', '--eval', '--expr',
+            'with import <nixpkgs> { }; builtins.toJSON lib.licenses'])
+
+        # Dictionary which contains the contents of nixpkgs.lib.licenses.
+        _nix_licenses = json.loads(json.loads(nix_licenses_json))
+
+        # Convert all values to lowercase.
+        for entry in _nix_licenses.values():
+            for key, value in entry.items():
+                try:
+                    entry[key] = value.lower()
+                except AttributeError:
+                    # Skip values which don't have a lower() function.
+                    pass
+
+    return _nix_licenses
+
 
 # Mapping from license name in setup.py to attribute in nixpkgs.lib.licenses.
 # TODO: Think about providing this from outside, maybe from a file.
@@ -201,7 +211,7 @@ def license_to_nix(license_name, nixpkgs='pkgs'):
         return template.format(nixpkgs=nixpkgs, attribute=attr)
 
     # Otherwise try to look it up in the nix licenses.
-    for attr, nix_license_data in nix_licenses.items():
+    for attr, nix_license_data in get_nix_licenses().items():
         if license_name in nix_license_data.values():
             return template.format(nixpkgs=nixpkgs, attribute=attr)
 
