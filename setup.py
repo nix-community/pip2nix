@@ -34,7 +34,7 @@ setup(
     version=VERSION,
     description='Generate Nix expressions for Python packages.',
     long_description=long_description,
-    url="https://github.com/ktosiek/pip2nix",
+    url="https://github.com/johbo/pip2nix",
     author="Tomasz Kontusz",
     author_email="tomasz.kontusz@gmail.com",
     license='GPLv3+',
