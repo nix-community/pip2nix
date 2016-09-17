@@ -60,7 +60,7 @@
     };
   };
   pip2nix = super.buildPythonPackage {
-    name = "pip2nix-0.2.0.dev1";
+    name = "pip2nix-0.2.0";
     buildInputs = with self; [pytest];
     doCheck = true;
     makeWrapperArgs = "--prefix PATH : ${pkgs.nix-prefetch-scripts}";
