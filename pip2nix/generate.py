@@ -107,17 +107,21 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 if pkg_config:
                     package.override(pkg_config)
 
+            include_lic = self.config['pip2nix']['licenses']
+
             with open(self.config['pip2nix']['output'], 'w') as f:
                 f.write('{\n')
                 f.write('  ' + indent(2, '\n'.join(
-                    '{} = {}'.format(pkg.name, pkg.to_nix())
+                    '{} = {}'.format(pkg.name,
+                                     pkg.to_nix(include_lic=include_lic))
                     for pkg in sorted(packages.values(),
                                       key=attrgetter('name'))
                 )))
 
                 f.write('\n\n### Test requirements\n\n')
                 f.write('  ' + indent(2, '\n'.join(
-                    '{} = {}'.format(pkg.name, pkg.to_nix())
+                    '{} = {}'.format(pkg.name,
+                                     pkg.to_nix(include_lic=include_lic))
                     for pkg in sorted(test_packages.values(),
                                       key=attrgetter('name'))
                 )))

@@ -25,7 +25,13 @@ let
   localOverrides = pythonPackages: {
     pip2nix = pythonPackages.pip2nix.override (attrs: {
       src = pip2nix-src;
-      buildInputs = [myPythonPackages.pip] ++ attrs.buildInputs;
+      buildInputs = [
+        myPythonPackages.pip
+        pkgs.nix
+      ] ++ attrs.buildInputs;
+      preBuild = ''
+        export NIX_PATH=nixpkgs=${pkgs.path}
+      '';
     });
   };
 
