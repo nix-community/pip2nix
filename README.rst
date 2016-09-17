@@ -3,8 +3,8 @@ pip2nix
 
 Generate nix expressions for Python packages.
 
-.. image:: https://travis-ci.org/ktosiek/pip2nix.svg?branch=master
-   :target: https://travis-ci.org/ktosiek/pip2nix
+.. image:: https://travis-ci.org/johbo/pip2nix.svg?branch=master
+   :target: https://travis-ci.org/johbo/pip2nix
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/pip2nix/badge/?version=latest
@@ -30,7 +30,7 @@ Installation
 
 ::
 
-    $ git clone https://github.com/ktosiek/pip2nix
+    $ git clone https://github.com/johbo/pip2nix
     $ nix-env -f pip2nix/release.nix -iA pip2nix.python34  # Same Python as target packages
 
 Usage
@@ -45,5 +45,11 @@ To generate python-packages.nix for a set of requirements::
 Contact
 =======
 
-Problems and questions should go to GitHub `issues <https://github.com/ktosiek/pip2nix/issues>`_.
-If you need real-time help you can try pinging me - I'm ktosiek on Freenode, and `@tkontusz <https://twitter.com/tkontusz>`_ on Twitter.
+Problems and questions should go to GitHub `issues <https://github.com/johbo/pip2nix/issues>`_.
+
+
+Credits
+=======
+
+Tomasz Kontusz started the project back in 2015 he's ktosiek on Freenode, and
+`@tkontusz <https://twitter.com/tkontusz>`_ on Twitter.
