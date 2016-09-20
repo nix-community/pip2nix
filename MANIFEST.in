@@ -1,0 +1,5 @@
+
+# Nix files for building
+include default.nix
+include python-packages.nix
+include release.nix
