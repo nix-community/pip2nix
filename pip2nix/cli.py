@@ -73,10 +73,15 @@ def generate(specifiers, **kwargs):
               help="Read pip2nix configuration from <path>.")
 @click.option('--output', metavar='<path>', default='default.nix',
               help="Write the generated file to <path>.")
+@click.option('--overrides-output', metavar='<path>',
+              default='python-packages-overrides.nix',
+              help="Write the generated overrides file to <path>.")
 @click.option('--package', metavar='<package>',
               required=True,
               help="Name of the package the scaffold is for.")
-def scaffold(output, **kwargs):
+def scaffold(output, overrides_output, **kwargs):
+    import pip2nix
+
     config = Config()
     if kwargs['configuration']:
         config.load(kwargs['configuration'])
@@ -93,4 +98,13 @@ def scaffold(output, **kwargs):
     t = jinja2.Template(raw_template.decode('utf-8'))
     with open(output, 'w') as f:
         f.write(t.render(
-            package_name=kwargs['package']))
+            package_name=kwargs['package'],
+            pip2nix_version=pip2nix.__version__))
+
+    overrides_template = pkg_resources.resource_string(
+        __name__, 'python-packages-overrides.nix.j2')
+    t = jinja2.Template(overrides_template.decode('utf-8'))
+    with open(overrides_output, 'w') as f:
+        f.write(t.render(
+            package_name=kwargs['package'],
+            pip2nix_version=pip2nix.__version__))
