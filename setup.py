@@ -27,7 +27,7 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.rst'), 'rb') as f:
     long_description = f.read().decode('utf-8')
 
-VERSION = '0.4.0.dev1'
+VERSION = '0.4.0'
 
 setup(
     name="pip2nix",
