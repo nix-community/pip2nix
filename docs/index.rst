@@ -14,10 +14,15 @@ pip2nix
 
    HACKING
 
+.. toctree::
+   :maxdepth: 1
+   :caption: History
+
+   changelog
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
