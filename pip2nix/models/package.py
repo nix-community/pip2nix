@@ -255,7 +255,8 @@ def link_to_nix(link):
             hash=hash,
         )
     else:
-        raise NotImplementedError('Unknown link shceme "{}"'.format(link.scheme))
+        raise NotImplementedError(
+            'Unknown link shceme "{}"'.format(link.scheme))
 
 
 def prefetch_git(url, rev):
@@ -264,9 +265,5 @@ def prefetch_git(url, rev):
     else:
         rev_args = ['--branch-name', rev]
     out = check_output(['nix-prefetch-git'] + rev_args + [url])
-    for line in out.splitlines():
-        if line.startswith('git revision is '):
-            rev = line.rsplit(' ', 1)[-1]
-        last_line = line
-
-    return last_line, rev
+    data = json.loads(out)
+    return data['sha256'], data['rev']
