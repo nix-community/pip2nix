@@ -1,5 +1,6 @@
+recursive-include docs *.rst *.py
+include *.rst
 
 # Nix files for building
-include default.nix
-include python-packages.nix
-include release.nix
+include *.nix
+include *.ini
