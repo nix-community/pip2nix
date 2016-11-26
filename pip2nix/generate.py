@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from collections import defaultdict
-from contexter import Contexter, closing, contextmanager
+from contexter import Contexter, contextmanager
 from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
@@ -16,7 +16,6 @@ from pip.wheel import WheelCache
 from pip.req import RequirementSet
 
 import pip2nix
-from .config import Config
 from .models.package import PythonPackage, indent
 from .models.requirement_set import RequirementSetLayer
 
@@ -68,9 +67,9 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         }
 
         devDeps = defaultdict(list)
-        with BuildDirectory(options.build_dir, delete=True) as build_dir:
+        with BuildDirectory(options.build_dir, delete=True):
             top_levels = [r for r in requirement_set.requirements.values()
-                            if r.comes_from is None]
+                          if r.comes_from is None]
             for req in top_levels:
                 raw_tests_require = req.egg_info_data('tests_require.txt')
                 if not raw_tests_require:
