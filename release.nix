@@ -20,7 +20,7 @@ with pkgs.lib; rec {
     name = "pip2nix-docs";
     src = ./docs;
     #outputs = [ "html" ];  # TODO: PDF would be even nicer on CI
-    buildInputs = [ pip2nix.python34 ] ++ (with  pkgs.python34Packages; [
+    buildInputs = [ pip2nix.python35 ] ++ (with  pkgs.python35Packages; [
       sphinx
     ]);
     buildPhase = ''make html'';
