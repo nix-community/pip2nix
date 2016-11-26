@@ -12,3 +12,6 @@
 
 - Allow version 9 of pip itself for better compatibility with recent nixpkgs
   versions.
+
+- Update `python-packages.nix` and `release-python-packages.nix`. This should
+  also avoid the warnings due to using `md5` as a hash type.
