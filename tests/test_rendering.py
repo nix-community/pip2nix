@@ -23,5 +23,5 @@ class Test_link_to_nix:
         assert link_to_nix(link) == (
             'fetchurl {\n'
             '  url = "https://pypi.python.org/packages/source/p/pip/pip-7.0.3.tar.gz";\n'
-            '  md5 = "e972d691ff6779ffb4b594449bac3e43";\n'
+            '  sha256 = "1zdgl0qsgsh71b397120y7vw3rkbisrgws2rqv5c4vbgba19iidl";\n'
             '}')

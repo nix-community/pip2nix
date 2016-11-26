@@ -227,6 +227,7 @@ def link_to_nix(link):
     if link.scheme == 'file':
         return './' + os.path.relpath(link.path)
     elif link.scheme in ('http', 'https'):
+        hash = prefetch_url(link.url_without_fragment)
         return '\n'.join((
             'fetchurl {{',
             '  url = "{url}";',
@@ -234,8 +235,8 @@ def link_to_nix(link):
             '}}'
         )).format(
             url=link.url.split('#', 1)[0],
-            hash=link.hash,
-            hash_name=link.hash_name,
+            hash=hash,
+            hash_name='sha256',
         )
     elif link.scheme.startswith('git+'):
         url = link.url[len('git+'):]
@@ -265,5 +266,11 @@ def prefetch_git(url, rev):
     else:
         rev_args = ['--branch-name', rev]
     out = check_output(['nix-prefetch-git'] + rev_args + [url])
-    data = json.loads(out)
+    data = json.loads(out.decode('utf-8'))
     return data['sha256'], data['rev']
+
+
+def prefetch_url(url):
+    out = check_output(['nix-prefetch-url', url])
+    data = out.decode('utf-8').strip()
+    return data
