@@ -4,7 +4,8 @@ sudo: required
 dist: trusty
 env:
   - ATTR=pip2nix.python27
-  - ATTR=pip2nix.python33
+  # TODO: pytest installation fails
+  # - ATTR=pip2nix.python33
   - ATTR=pip2nix.python34
   - ATTR=pip2nix.python35
   - ATTR=pip2nix.python35
