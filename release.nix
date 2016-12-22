@@ -13,7 +13,8 @@ with pkgs.lib; rec {
       {pythonVersion = "27";}
       {pythonVersion = "33";}
       {pythonVersion = "34";}
-    ] ++ optional (hasAttr "python35Packages" pkgs) {pythonVersion = "35";}))
+      {pythonVersion = "35";}
+    ] ++ optional (hasAttr "python36Packages" pkgs) {pythonVersion = "36";}))
   );
 
   docs = pkgs.stdenv.mkDerivation {
