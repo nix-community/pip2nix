@@ -9,6 +9,7 @@ env:
   - ATTR=pip2nix.python34
   - ATTR=pip2nix.python35
   - ATTR=pip2nix.python35
+  - ATTR=pip2nix.python36
   - ATTR=docs
   - MODE=bootstrap
 install: bash <(curl https://nixos.org/nix/install)
