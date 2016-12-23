@@ -39,13 +39,13 @@ let
         export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
       '';
     });
+    pip = basePythonPackages.pip;
   };
 
-  pythonPackagesGenerated = self: super: (scopedImport {
-    inherit self super pkgs;
+  pythonPackagesGenerated = import ./python-packages.nix {
+    inherit pkgs;
     inherit (pkgs) fetchurl fetchgit;
-  } ./python-packages.nix)
-  // { pip = basePythonPackages.pip; };
+  };
 
   myPythonPackages =
     (fix

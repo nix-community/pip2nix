@@ -31,10 +31,10 @@ let
 
   {{ package_name }}-src = builtins.filterSource src-filter ./.;
 
-  pythonPackagesGenerated = self: super: (scopedImport {
-    inherit self super pkgs;
+  pythonPackagesGenerated = import ./python-packages.nix {
+    inherit pkgs;
     inherit (pkgs) fetchurl fetchgit;
-  } ./python-packages.nix);
+  };
 
   pythonPackagesOverrides = import ./python-packages-overrides.nix {
     inherit basePythonPackages pkgs;
