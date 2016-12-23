@@ -5,6 +5,11 @@ let
     then pythonPackages
     else getAttr pythonPackages pkgs;
 
+  # Works with the new python-packages, still can fallback to the old
+  # variant.
+  basePythonPackagesUnfix = basePythonPackages.__unfix__ or (
+    self: basePythonPackages.override (a: { inherit self; }));
+
   elem = builtins.elem;
   basename = path: last (splitString "/" path);
   startsWith = prefix: full: let
@@ -22,11 +27,11 @@ let
 
   pip2nix-src = builtins.filterSource src-filter ./.;
 
-  localOverrides = pythonPackages: {
-    pip2nix = pythonPackages.pip2nix.override (attrs: {
+  pythonPackagesLocalOverrides = self: super: {
+    pip2nix = super.pip2nix.override (attrs: {
       src = pip2nix-src;
       buildInputs = [
-        myPythonPackages.pip
+        self.pip
         pkgs.nix
       ] ++ attrs.buildInputs;
       preBuild = ''
@@ -36,18 +41,16 @@ let
     });
   };
 
-  pythonPackagesWithLocals = basePythonPackages.override (a: {
-    self = pythonPackagesWithLocals;
-  })
-  // (scopedImport {
-    self = pythonPackagesWithLocals;
-    super = basePythonPackages;
-    inherit pkgs;
+  pythonPackagesGenerated = self: super: (scopedImport {
+    inherit self super pkgs;
     inherit (pkgs) fetchurl fetchgit;
   } ./python-packages.nix)
   // { pip = basePythonPackages.pip; };
 
   myPythonPackages =
-    pythonPackagesWithLocals
-    // (localOverrides pythonPackagesWithLocals);
+    (fix
+    (extends pythonPackagesLocalOverrides
+    (extends pythonPackagesGenerated
+             basePythonPackagesUnfix)));
+
 in myPythonPackages.pip2nix
