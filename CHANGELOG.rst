@@ -3,6 +3,15 @@
 ===========
 
 
+0.7.0
+=====
+
+- Update template for the file `default.nix` to also ignore the `.hg` folder.
+  This is useful for Mercurial based projects.
+
+  Thanks to Marcin Kuzminzki.
+
+
 0.6.0
 =====
 
