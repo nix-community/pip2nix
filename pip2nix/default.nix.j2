@@ -25,7 +25,7 @@ let
     let
       ext = last (splitString "." path);
     in
-      !elem (basename path) [".git" "__pycache__" ".eggs"] &&
+      !elem (basename path) [".hg" ".git" "__pycache__" ".eggs"] &&
       !elem ext ["egg-info" "pyc"] &&
       !startsWith "result" path;
 
