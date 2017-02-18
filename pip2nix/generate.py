@@ -191,6 +191,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
         Returns a (options, args) tuple."""
         for opt_name, path in [
+                ('index_url', ('index_url', )),
                 ('output', ('output', )),
                 ('build', ('build', )),
                 ('download', ('download',)),
