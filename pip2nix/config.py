@@ -109,7 +109,7 @@ class Config(object):
             options['requirements'] = requirements
 
         for key in ('index_url', 'extra_index_url', 'no_index', 'output',
-                    'licenses'):
+                    'licenses', 'only_direct'):
             try:
                 value = cli_options[key]
                 if value is not None:

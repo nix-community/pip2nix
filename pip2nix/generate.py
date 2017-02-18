@@ -60,16 +60,21 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                             help="Write the generated Nix to OUTPUT")
 
     def process_requirements(self, options, requirement_set, finder):
+        top_levels = [r for r in requirement_set.requirements.values()
+                      if r.comes_from is None]
+        if self.config.get_config('pip2nix', 'only_direct'):
+            packages_base = [r for r in requirement_set.requirements.values()
+                             if r.is_direct]
+        else:
+            packages_base = requirement_set.requirements.values()
         packages = {
             req.name: PythonPackage.from_requirements(
                 req, requirement_set._dependencies[req])
-            for req in requirement_set.requirements.values()
+            for req in packages_base
         }
 
         devDeps = defaultdict(list)
         with BuildDirectory(options.build_dir, delete=True):
-            top_levels = [r for r in requirement_set.requirements.values()
-                          if r.comes_from is None]
             for req in top_levels:
                 raw_tests_require = req.egg_info_data('tests_require.txt')
                 if not raw_tests_require:
