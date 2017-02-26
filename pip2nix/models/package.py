@@ -1,8 +1,6 @@
 import json
 import os
-from subprocess import check_output
-
-from subprocess import check_output
+from subprocess import check_output, STDOUT
 
 
 _nix_licenses = None
@@ -255,9 +253,29 @@ def link_to_nix(link):
             revision=revision,
             hash=hash,
         )
+    elif link.scheme.startswith('hg+'):
+        url = link.url[len('hg+'):]
+        url = url.split('#', 1)[0]
+        try:
+            url, branch = url.rsplit('@', 1)
+        except ValueError:
+            branch = 'default'
+        print('Prefetching', url, 'at revision', branch)
+        hash, revision = prefetch_hg(url, branch)
+        return '\n'.join((
+            'fetchhg {{',
+            '  url = "{url}";',
+            '  rev = "{revision}";',
+            '  sha256 = "{hash}";',
+            '}}',
+        )).format(
+            url=url,
+            revision=revision,
+            hash=hash,
+        )
     else:
         raise NotImplementedError(
-            'Unknown link shceme "{}"'.format(link.scheme))
+            'Unknown link scheme "{}"'.format(link.scheme))
 
 
 def prefetch_git(url, rev):
@@ -267,6 +285,17 @@ def prefetch_git(url, rev):
         rev_args = ['--branch-name', rev]
     out = check_output(['nix-prefetch-git'] + rev_args + [url])
     data = json.loads(out.decode('utf-8'))
+    return data['sha256'], data['rev']
+
+
+def prefetch_hg(url, rev):
+    out = check_output(['nix-prefetch-hg', url, rev], stderr=STDOUT)
+    data = {}
+    for line in out.decode('utf-8').splitlines():
+        if line.startswith('hash is '):
+            data['sha256'] = line[len('hash is '):]
+        if line.startswith('hg revision is '):
+            data['rev'] = line[len('hg revision is '):]
     return data['sha256'], data['rev']
 
 
