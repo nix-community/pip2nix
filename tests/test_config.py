@@ -41,6 +41,7 @@ def test_loading_requirements_from_cli():
     c.merge_cli_options({
         'specifiers': ['other_package'],
         'editables': ['.'],
+        'constraints': [],
         'requirements': ['requirements.txt'],
     })
     assert c['pip2nix']['requirements'] == \
