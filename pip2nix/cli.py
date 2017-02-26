@@ -18,7 +18,7 @@ def cli():
 #              help="Also look for pre-release and unstable versions.")
 @click.option('--output', metavar='<path>',
               help="Write the generated nix to <path>.")
-@click.option('--only-direct', default=False, is_flag=True,
+@click.option('--only-direct', is_flag=True, default=None,
               help="Only render direct dependencies.")
 @click.option('--index-url', '-i', metavar='<url>',
               help="Base URL of Python Package Index.")

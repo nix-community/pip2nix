@@ -108,8 +108,12 @@ class Config(object):
         if requirements:
             options['requirements'] = requirements
 
+        constraints = cli_options['constraints']
+        if constraints:
+            options['constraints'] = constraints
+
         for key in ('index_url', 'extra_index_url', 'no_index', 'output',
-                    'licenses', 'only_direct', 'constraints'):
+                    'licenses', 'only_direct'):
             try:
                 value = cli_options[key]
                 if value is not None:
