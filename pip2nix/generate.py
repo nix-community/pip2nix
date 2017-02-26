@@ -118,7 +118,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
 
             with open(self.config['pip2nix']['output'], 'w') as f:
                 self._write_about_comment(f)
-                f.write('{ pkgs, fetchurl, fetchgit }:\n\n')
+                f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
                 f.write('self: super: {\n')
                 f.write('  ' + indent(2, '\n'.join(
                     '{} = {}'.format(pkg.name,
