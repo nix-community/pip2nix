@@ -109,7 +109,7 @@ class Config(object):
             options['requirements'] = requirements
 
         for key in ('index_url', 'extra_index_url', 'no_index', 'output',
-                    'licenses', 'only_direct'):
+                    'licenses', 'only_direct', 'constraints'):
             try:
                 value = cli_options[key]
                 if value is not None:
@@ -118,6 +118,9 @@ class Config(object):
                 pass
 
         self.merge_options({'pip2nix': options})
+
+    def get_constraints(self):
+        return self['pip2nix']['constraints']
 
     def get_requirements(self):
         """Yields pairs of (type, requirement) for all requirements.

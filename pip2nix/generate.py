@@ -63,14 +63,16 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         top_levels = [r for r in requirement_set.requirements.values()
                       if r.comes_from is None]
         if self.config.get_config('pip2nix', 'only_direct'):
-            packages_base = [r for r in requirement_set.requirements.values()
-                             if r.is_direct]
+            packages_base = [
+                r for r in requirement_set.requirements.values()
+                if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
             packages_base = requirement_set.requirements.values()
         packages = {
             req.name: PythonPackage.from_requirements(
                 req, requirement_set._dependencies[req])
             for req in packages_base
+            if not req.constraint
         }
 
         devDeps = defaultdict(list)
@@ -218,6 +220,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
         options.no_clean = True  # This is needed to access pkg_info later
         options.download_dir = self.config.get_config('pip2nix', 'download') \
             or (self.cleanup << temp_dir('pip2nix'))
+        options.constraints = self.config.get_constraints()
 
         # TODO: What are those about/for?
         cmdoptions.resolve_wheel_no_use_binary(options)

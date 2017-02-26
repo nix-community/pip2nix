@@ -45,6 +45,9 @@ def cli():
 @click.option('--requirement', '-r', multiple=True, type=click.Path(),
               metavar='<file>',
               help="Load specifiers from a requirements file.")
+@click.option('--constraint', '-c', multiple=True, type=click.Path(),
+              metavar='<file>',
+              help="Constrain versions based on the constraints file.")
 @click.option('--licenses/--no-licenses', default=False,
               help="Extract license information as well, off by default.")
 @click.argument('specifiers', nargs=-1)
@@ -52,6 +55,7 @@ def generate(specifiers, **kwargs):
     """Generate a .nix file with specified packages."""
     kwargs['specifiers'] = specifiers + kwargs.pop('editable', [])
     kwargs['requirements'] = kwargs.pop('requirement', None)
+    kwargs['constraints'] = kwargs.pop('constraint', None)
     kwargs['build_dir'] = kwargs.pop('build')
     kwargs['download_dir'] = kwargs.pop('download')
 
