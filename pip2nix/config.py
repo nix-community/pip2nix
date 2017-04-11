@@ -108,7 +108,7 @@ class Config(object):
         if requirements:
             options['requirements'] = requirements
 
-        constraints = cli_options['constraints']
+        constraints = cli_options.get('constraints', ())
         if constraints:
             options['constraints'] = constraints
 
