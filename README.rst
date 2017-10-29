@@ -19,11 +19,16 @@ Generate nix expressions for Python packages.
    :target: https://pypi.python.org/pypi/pip2nix
    :alt: PyPI version
 
+
 Why another .nix generator for Python?
 ======================================
 
-I needed something that can work not only with pypi but also with local paths, VCS links, and dependency links.
-I couldn't get any of the other generators to work, so I started my own :-)
+The original author of `pip2nix` started the project with the following motivation:
+
+  I needed something that can work not only with pypi but also with local paths,
+  VCS links, and dependency links. I couldn't get any of the other generators to
+  work, so I started my own :-)
+
 
 Installation
 ============
