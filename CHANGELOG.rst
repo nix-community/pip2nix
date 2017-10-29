@@ -6,6 +6,8 @@
 0.7.0
 =====
 
+- Update docs with a hint how to run inside of `nix-shell`.
+
 - Update template for the file `default.nix` to also ignore the `.hg` folder.
   This is useful for Mercurial based projects.
 
