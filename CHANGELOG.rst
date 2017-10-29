@@ -6,6 +6,10 @@
 0.7.0
 =====
 
+- Add an example about `setuptools` into the generated layer with manual
+  overrides. This is a useful entry when running into issues around an infinite
+  recursion.
+
 - Update docs with a hint how to run inside of `nix-shell`.
 
 - Update template for the file `default.nix` to also ignore the `.hg` folder.
