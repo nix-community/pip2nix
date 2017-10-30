@@ -1,4 +1,7 @@
-{ pkgs ? (import <nixpkgs> {}), pythonPackages ? "python27Packages" }:
+{ pkgs ? (import <nixpkgs> {})
+, pythonPackages ? "python36Packages"
+}:
+
 with pkgs.lib;
 let
   basePythonPackages = with builtins; if isAttrs pythonPackages
