@@ -1,8 +1,11 @@
 import json
+import pytest
 
 from pip2nix.models import package
 
 
+@pytest.mark.xfail(
+    reason="Calling nix from inside the build does not work.")
 def test_get_nix_licenses():
     licenses = package.get_nix_licenses()
     assert 'gpl3' in licenses
