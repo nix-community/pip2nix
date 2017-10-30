@@ -16,6 +16,8 @@ class Test_link_to_nix:
         os.chdir(str(tmpdir))
         assert link_to_nix(Link('file://{}'.format(tmpdir))) == './.'
 
+    @pytest.mark.xfail(
+        reason="Calling nix inside the nix-build does cause trouble")
     def test_http_link(self):
         link = Link(
             'https://pypi.python.org/packages/source/p/pip/pip-7.0.3.tar.gz'

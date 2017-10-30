@@ -6,6 +6,9 @@
 0.7.0
 =====
 
+- Mark tests as xfail to avoid trouble when building on NixOS itself.
+  Details can be found here https://github.com/johbo/pip2nix/issues/35.
+
 - Use `python36Packages` by default inside of `default.nix`. I noticed that I
   was specifying it nearly always when working on `pip2nix`. Via `release.nix`
   we still have all Python versions easily available.
