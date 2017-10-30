@@ -6,6 +6,10 @@
 0.7.0
 =====
 
+- Use `python36Packages` by default inside of `default.nix`. I noticed that I
+  was specifying it nearly always when working on `pip2nix`. Via `release.nix`
+  we still have all Python versions easily available.
+
 - Fix the attribute name of ZPL licenses, so that it matches the attribute names
   from Nixpkgs_.
 
