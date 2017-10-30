@@ -14,4 +14,9 @@ self: super: {
   #   ];
   # });
 
+  # Common needs
+
+  # setuptools - avoid that we end up in a recursion
+  # inherit (basePythonPackages) setuptools;
+
 }

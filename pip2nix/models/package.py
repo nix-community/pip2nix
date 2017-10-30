@@ -55,9 +55,9 @@ case_sensitive_license_nix_map = {
     'Python Software Foundation License': 'psfl',
     'Python style': 'psfl',
     'Two-clause BSD license': 'bsd2',
-    'ZPL 2.1': 'zpt21',
-    'ZPL': 'zpt21',
-    'Zope Public License': 'zpt21',
+    'ZPL 2.1': 'zpl21',
+    'ZPL': 'zpl21',
+    'Zope Public License': 'zpl21',
 }
 license_nix_map = {name.lower(): nix_attr
                    for name, nix_attr in
