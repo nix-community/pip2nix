@@ -6,6 +6,9 @@
 0.7.0
 =====
 
+- Fix the attribute name of ZPL licenses, so that it matches the attribute names
+  from Nixpkgs_.
+
 - Add an example about `setuptools` into the generated layer with manual
   overrides. This is a useful entry when running into issues around an infinite
   recursion.
@@ -51,3 +54,11 @@
 
 - Update `python-packages.nix` and `release-python-packages.nix`. This should
   also avoid the warnings due to using `md5` as a hash type.
+
+
+
+
+
+.. Links
+
+.. _Nixpkgs: https://nixos.org/nixpkgs
