@@ -121,7 +121,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
                 f.write('self: super: {\n')
                 f.write('  ' + indent(2, '\n'.join(
-                    '{} = {}'.format(pkg.name,
+                    '"{}" = {}'.format(pkg.name,
                                      pkg.to_nix(include_lic=include_lic))
                     for pkg in sorted(packages.values(),
                                       key=attrgetter('name'))
