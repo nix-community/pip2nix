@@ -127,13 +127,21 @@ class PythonPackage(object):
             name='"{s.name}-{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
             src=link_to_nix(self.source),
-            propagatedBuildInputs='with self; [' + (
-                ' '.join('{}'.format(name) for name, version
-                         in self.dependencies)) + ']',
-            buildInputs='with self; [' + (
-                ' '.join('{}'.format(name) for name, version
-                         in self.test_dependencies or ())) + ']',
         )
+
+        if self.dependencies:
+            args.update(dict(
+                propagatedBuildInputs='[\n  ' + (
+                    '\n  '.join('self."{}"'.format(name) for name, version
+                                in self.dependencies)) + '\n]'
+            ))
+
+        if self.test_dependencies:
+            args.update(dict(
+                buildInputs='[\n  ' + (
+                    '\n  '.join('self."{}"'.format(name) for name, version
+                            in self.test_dependencies or ())) + '\n]'
+            ))
 
         args.update(self.raw_args)
 
