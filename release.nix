@@ -14,14 +14,16 @@ let
 
   jobs = rec {
 
-    pip2nix = pkgs.recurseIntoAttrs (
-      builtins.listToAttrs (map make-pip2nix ([
-        {pythonVersion = "27";}
-        {pythonVersion = "34";}
-        {pythonVersion = "35";}
-      ] ++ optional (hasAttr "python33Packages" pkgs) {pythonVersion = "33";}
-      ++ optional (hasAttr "python36Packages" pkgs) {pythonVersion = "36";}
-      ))
+    pip2nix = lib.filterAttrs (n: v: n != "recurseForDerivations") (
+      pkgs.recurseIntoAttrs (
+        builtins.listToAttrs (map make-pip2nix ([
+          {pythonVersion = "27";}
+          {pythonVersion = "34";}
+          {pythonVersion = "35";}
+        ] ++ optional (hasAttr "python33Packages" pkgs) {pythonVersion = "33";}
+        ++ optional (hasAttr "python36Packages" pkgs) {pythonVersion = "36";}
+        ))
+      )
     );
 
     docs = pkgs.stdenv.mkDerivation {
