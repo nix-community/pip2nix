@@ -17,7 +17,6 @@ let
     pip2nix = pkgs.recurseIntoAttrs (
       builtins.listToAttrs (map make-pip2nix ([
         {pythonVersion = "27";}
-        {pythonVersion = "33";}
         {pythonVersion = "34";}
         {pythonVersion = "35";}
       ] ++ optional (hasAttr "python36Packages" pkgs) {pythonVersion = "36";}))
