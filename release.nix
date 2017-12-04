@@ -24,7 +24,16 @@ with pkgs.lib; rec {
     buildInputs = [ pip2nix.python36 ] ++ (with  pkgs.python36Packages; [
       sphinx
     ]);
-    buildPhase = ''make html'';
-    installPhase = "cp -r _build/html $out";
+    buildPhase = ''
+      make html
+    '';
+    installPhase = ''
+      cp -r _build/html $out
+
+      # Hydra integration
+      mkdir -p $out/nix-support
+      echo "doc manual $out/html index.html" >> \
+        "$out/nix-support/hydra-build-products"
+    '';
   };
 }
