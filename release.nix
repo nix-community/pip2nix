@@ -33,8 +33,11 @@ let
       buildInputs = [ pip2nix.python36 ] ++ (with  pkgs.python36Packages; [
         sphinx
       ]);
-      buildPhase = ''make html'';
+      buildPhase = ''
+        make html
+      '';
       installPhase = ''
+        mkdir $out
         cp -r _build/html $out
 
         # Hydra integration
