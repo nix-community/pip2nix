@@ -7,6 +7,8 @@ pip2nix
 
    getting_started
    configuration
+   examples
+   tips
 
 .. toctree::
    :maxdepth: 2
