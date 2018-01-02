@@ -233,6 +233,7 @@ def link_to_nix(link):
     if link.scheme == 'file':
         return './' + os.path.relpath(link.path)
     elif link.scheme in ('http', 'https'):
+        print('Prefetching {url}.'.format(url=link.url_without_fragment))
         hash = prefetch_url(link.url_without_fragment)
         return '\n'.join((
             'fetchurl {{',
@@ -248,7 +249,9 @@ def link_to_nix(link):
         url = link.url[len('git+'):]
         url = url.split('#', 1)[0]
         url, branch = url.rsplit('@', 1)
-        print('Prefetching', url, 'at revision', branch)
+        print('Prefetching {url} at revision {revision}.'.format(
+            url=url,
+            revision=branch))
         hash, revision = prefetch_git(url, branch)
         return '\n'.join((
             'fetchgit {{',
@@ -268,7 +271,9 @@ def link_to_nix(link):
             url, branch = url.rsplit('@', 1)
         except ValueError:
             branch = 'default'
-        print('Prefetching', url, 'at revision', branch)
+        print('Prefetching {url} at revision {revision}.'.format(
+            url=url,
+            revision=branch))
         hash, revision = prefetch_hg(url, branch)
         return '\n'.join((
             'fetchhg {{',
