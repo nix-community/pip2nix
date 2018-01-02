@@ -73,3 +73,27 @@ moment. The next example shows how to run this in two steps:
 
    [nix-shell:~/wo/synapse]$ PATH=/bin:$PATH nix-shell -p python27Packages.cffi
    [nix-shell:~/wo/synapse]$ pip2nix generate -r requirements.txt -c constraints.txt
+
+
+
+
+Failing `nix-prefetch-hg`
+=========================
+
+When pointing to Mercurial repositories from your requirement files, you might
+run into a situation where things fail due to issues with `nix-prefetch-hg`.
+When trying to run it manually you would see an error as follows:
+
+.. code:: shell
+
+    nix-prefetch-hg https://code.example.com/your-repository
+    abort: http authorization required for https://code.example.com/your-repository
+
+The background is that the prefetch scripts change the environment variable
+`HOME` and this means that Mercurial will not find ``~/.hgrc``.
+
+Manually setting the environment variable `HGRCPATH` can be used as a workaround:
+
+.. code:: shell
+
+   export HGRCPATH=~/.hgrc
