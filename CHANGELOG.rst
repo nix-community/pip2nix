@@ -6,6 +6,9 @@
 0.8.0
 =====
 
+- Fix job `docs` in `release.nix` to include the full sources.
+
+- Extend tips in the documentation with trouble related to `nix-prefetch-hg`.
 
 
 0.7.0
