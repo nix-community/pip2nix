@@ -6,6 +6,20 @@
 0.7.0
 =====
 
+- Update template for the file `default.nix` to also ignore the `.hg` folder.
+  This is useful for Mercurial based projects.
+
+  Thanks to Marcin Kuzminzki.
+
+- Fix to quote package and dependency names and improve the readability of the
+  generated output.
+
+  Thanks to Asko Soukka.
+
+- Adjust `release.nix` for better Hydra integration.
+
+  Thanks to Martin Bornhold.
+
 - Mark tests as xfail to avoid trouble when building on NixOS itself.
   Details can be found here https://github.com/johbo/pip2nix/issues/35.
 
@@ -22,10 +36,9 @@
 
 - Update docs with a hint how to run inside of `nix-shell`.
 
-- Update template for the file `default.nix` to also ignore the `.hg` folder.
-  This is useful for Mercurial based projects.
+- Update docs with a pointer to examples in `pip2nix-generated`.
 
-  Thanks to Marcin Kuzminzki.
+- Add section "Tips" to the documentation.
 
 
 0.6.0
