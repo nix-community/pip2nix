@@ -202,6 +202,7 @@ class NixFreezeCommand(pip.commands.InstallCommand):
                 ('output', ('output', )),
                 ('build', ('build', )),
                 ('download', ('download',)),
+                ('find_links', ('find_links', )),
                 ('src', ('src',))]:
             value = self.config.get_config('pip2nix', *path)
             if value is not None:
