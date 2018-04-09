@@ -3,6 +3,9 @@
 ===========
 
 
+- Add support for ``--find-links`` pip option.
+
+
 0.8.0
 =====
 
