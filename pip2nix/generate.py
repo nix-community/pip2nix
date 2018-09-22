@@ -112,7 +112,7 @@ class NixFreezeCommand(InstallCommand):
     def super_run(self, options, args):
         """Copy of relevant parts from InstallCommand's run()"""
 
-        upgrade_strategy = "to-satisfy-only"
+        upgrade_strategy = "eager"
         if options.upgrade:
             upgrade_strategy = options.upgrade_strategy
 
