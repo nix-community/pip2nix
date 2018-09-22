@@ -1,5 +1,6 @@
 import json
 import os
+import pkg_resources
 from subprocess import check_output, STDOUT
 
 
@@ -76,6 +77,15 @@ def indent(amount, string):
             '\n'.join(' ' * amount + l for l in lines[1:]))
 
 
+def get_version(req):
+    try:
+        return req.get_dist().version
+    except FileNotFoundError:
+        for dist in pkg_resources.find_on_path(None, req.source_dir):
+            return dist.version
+    import pdb; pdb.set_trace()
+
+
 class PythonPackage(object):
     def __init__(self, name, version, dependencies, source, pip_req):
         """
@@ -91,20 +101,18 @@ class PythonPackage(object):
         self.pip_req = pip_req
 
     @classmethod
-    def from_requirements(cls, req, deps):
-        pkg_info = req.pkg_info()
-
+    def from_requirements(cls, req, deps, finder):
         def name_version(dep):
             return (
                 dep.name,
-                dep.pkg_info()['Version'] if dep.source_dir else None,
+                get_version(dep),
             )
 
         return cls(
             name=req.name,
-            version=pkg_info['Version'],
+            version=get_version(req),
             dependencies=[name_version(d) for d in deps],
-            source=req.link,
+            source=finder.find_requirement(req, upgrade=False),
             pip_req=req,
         )
 
