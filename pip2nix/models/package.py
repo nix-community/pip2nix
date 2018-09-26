@@ -2,6 +2,7 @@ import json
 import os
 import pkg_resources
 from subprocess import check_output, STDOUT
+from operator import itemgetter
 
 
 _nix_licenses = None
@@ -111,7 +112,8 @@ class PythonPackage(object):
         return cls(
             name=req.name,
             version=get_version(req),
-            dependencies=[name_version(d) for d in deps],
+            dependencies=sorted([name_version(d) for d in deps],
+                                key=itemgetter(0)),
             source=finder.find_requirement(req, upgrade=False),
             pip_req=req,
         )
