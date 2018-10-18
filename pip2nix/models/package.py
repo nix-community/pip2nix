@@ -4,6 +4,11 @@ import pkg_resources
 from subprocess import check_output, STDOUT
 from operator import itemgetter
 
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = OSError
+
 
 _nix_licenses = None
 
@@ -84,7 +89,6 @@ def get_version(req):
     except FileNotFoundError:
         for dist in pkg_resources.find_on_path(None, req.source_dir):
             return dist.version
-    import pdb; pdb.set_trace()
 
 
 class PythonPackage(object):
