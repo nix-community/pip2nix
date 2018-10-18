@@ -108,13 +108,16 @@ class PythonPackage(object):
                 dep.name,
                 get_version(dep),
             )
-
+        source = req.link
+        if source.path.endswith('.whl') or source.path.endswith('.egg'):
+            # replace wheels and eggs with sdists
+            source=finder.find_requirement(req, upgrade=False)
         return cls(
             name=req.name,
             version=get_version(req),
             dependencies=sorted([name_version(d) for d in deps],
                                 key=itemgetter(0)),
-            source=finder.find_requirement(req, upgrade=False),
+            source=source,
             pip_req=req,
         )
 
