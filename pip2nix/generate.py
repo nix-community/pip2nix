@@ -8,7 +8,10 @@ from operator import attrgetter
 import os
 import shutil
 
-from pip._internal import cmdoptions
+try:
+    from pip._internal.cli import cmdoptions
+except:
+    from pip._internal import cmdoptions
 from pip._internal.cache import WheelCache
 from pip._internal.commands.install import InstallCommand
 from pip._internal.operations.prepare import RequirementPreparer
