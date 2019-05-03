@@ -128,7 +128,7 @@ class PythonPackage(object):
     def override(self, config):
         self.raw_args = config.get('args', {})
 
-    def to_nix(self, include_lic):
+    def to_nix(self, include_lic, cache={}):
         template = '\n'.join((
             'super.buildPythonPackage {{',
             '  {args}',
@@ -143,7 +143,7 @@ class PythonPackage(object):
         args = dict(
             name='"{s.name}-{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
-            src=link_to_nix(self.source),
+            src=link_to_nix(self.source, cache=cache),
         )
 
         if self.dependencies:
@@ -246,12 +246,15 @@ def license_to_nix(license_name, nixpkgs='pkgs'):
     return full_name_template.format(full_name=full_name)
 
 
-def link_to_nix(link):
+def link_to_nix(link, cache={}):
     if link.scheme == 'file':
         return './' + os.path.relpath(link.path)
     elif link.scheme in ('http', 'https'):
-        print('Prefetching {url}.'.format(url=link.url_without_fragment))
-        hash = prefetch_url(link.url_without_fragment)
+        if link.url_without_fragment in cache:
+            hash = cache[link.url_without_fragment]
+        else:
+            print('Prefetching {url}.'.format(url=link.url_without_fragment))
+            hash = prefetch_url(link.url_without_fragment)
         return '\n'.join((
             'fetchurl {{',
             '  url = "{url}";',

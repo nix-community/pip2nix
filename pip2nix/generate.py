@@ -6,6 +6,7 @@ from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
 import os
+import re
 import shutil
 
 try:
@@ -89,13 +90,22 @@ class NixFreezeCommand(InstallCommand):
 
         include_lic = self.config['pip2nix']['licenses']
 
+        cache = ''
+        if os.path.exists(self.config['pip2nix']['output']):
+            with open(self.config['pip2nix']['output'], 'r') as f:
+                cache = f.read()
+        cache = re.sub('\s+', ' ', cache, re.M & re.I)
+        cache = re.findall('url = "([^"]+)"; sha256 = "([^"]+)"', cache, re.M)
+        cache = dict(cache)
+
         with open(self.config['pip2nix']['output'], 'w') as f:
             self._write_about_comment(f)
             f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
             f.write('self: super: {\n')
             f.write('  ' + indent(2, '\n'.join(
                 '"{}" = {}'.format(pkg.name,
-                                 pkg.to_nix(include_lic=include_lic))
+                                   pkg.to_nix(include_lic=include_lic,
+                                              cache=cache))
                 for pkg in sorted(packages.values(),
                                   key=attrgetter('name'))
             )))
