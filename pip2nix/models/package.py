@@ -154,7 +154,7 @@ class PythonPackage(object):
             ))
 
         try:
-            if self.source.url_without_fragment.endswith('zip'):
+            if self.source.url_without_fragment.endswith('.zip'):
                 args.update(dict(
                     nativeBuildInputs ='[\n  ' + (
                         '\n  '.join(['pkgs."unzip"'])) + '\n]'
