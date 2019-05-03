@@ -153,9 +153,18 @@ class PythonPackage(object):
                                 in self.dependencies)) + '\n]'
             ))
 
+        try:
+            if self.source.url_without_fragment.endswith('zip'):
+                args.update(dict(
+                    nativeBuildInputs ='[\n  ' + (
+                        '\n  '.join(['pkgs."unzip"'])) + '\n]'
+                ))
+        except AttributeError:
+            pass
+
         if self.test_dependencies:
             args.update(dict(
-                buildInputs='[\n  ' + (
+                checkInputs='[\n  ' + (
                     '\n  '.join('self."{}"'.format(name) for name, version
                             in self.test_dependencies or ())) + '\n]'
             ))
