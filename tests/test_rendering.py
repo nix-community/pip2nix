@@ -1,5 +1,5 @@
 import os
-from pip.index import Link
+from pip._internal.index import Link
 from pip2nix.models.package import link_to_nix
 import pytest
 

@@ -4,12 +4,9 @@ sudo: required
 dist: trusty
 env:
   - ATTR=pip2nix.python27
-  # TODO: pytest installation fails
-  # - ATTR=pip2nix.python33
-  - ATTR=pip2nix.python34
-  - ATTR=pip2nix.python35
   - ATTR=pip2nix.python35
   - ATTR=pip2nix.python36
+  - ATTR=pip2nix.python37
   - ATTR=docs
   - MODE=bootstrap
 install: bash <(curl https://nixos.org/nix/install)

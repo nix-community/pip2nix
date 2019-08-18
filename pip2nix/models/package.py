@@ -1,6 +1,13 @@
 import json
 import os
+import pkg_resources
 from subprocess import check_output, STDOUT
+from operator import itemgetter
+
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = OSError
 
 
 _nix_licenses = None
@@ -76,6 +83,14 @@ def indent(amount, string):
             '\n'.join(' ' * amount + l for l in lines[1:]))
 
 
+def get_version(req):
+    try:
+        return req.get_dist().version
+    except FileNotFoundError:
+        for dist in pkg_resources.find_on_path(None, req.source_dir):
+            return dist.version
+
+
 class PythonPackage(object):
     def __init__(self, name, version, dependencies, source, pip_req):
         """
@@ -91,27 +106,29 @@ class PythonPackage(object):
         self.pip_req = pip_req
 
     @classmethod
-    def from_requirements(cls, req, deps):
-        pkg_info = req.pkg_info()
-
+    def from_requirements(cls, req, deps, finder):
         def name_version(dep):
             return (
                 dep.name,
-                dep.pkg_info()['Version'] if dep.source_dir else None,
+                get_version(dep),
             )
-
+        source = req.link
+        if source.path.endswith('.whl') or source.path.endswith('.egg'):
+            # replace wheels and eggs with sdists
+            source=finder.find_requirement(req, upgrade=False)
         return cls(
             name=req.name,
-            version=pkg_info['Version'],
-            dependencies=[name_version(d) for d in deps],
-            source=req.link,
+            version=get_version(req),
+            dependencies=sorted([name_version(d) for d in deps],
+                                key=itemgetter(0)),
+            source=source,
             pip_req=req,
         )
 
     def override(self, config):
         self.raw_args = config.get('args', {})
 
-    def to_nix(self, include_lic):
+    def to_nix(self, include_lic, cache={}):
         template = '\n'.join((
             'super.buildPythonPackage {{',
             '  {args}',
@@ -126,7 +143,7 @@ class PythonPackage(object):
         args = dict(
             name='"{s.name}-{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
-            src=link_to_nix(self.source),
+            src=link_to_nix(self.source, cache=cache),
         )
 
         if self.dependencies:
@@ -136,9 +153,18 @@ class PythonPackage(object):
                                 in self.dependencies)) + '\n]'
             ))
 
+        try:
+            if self.source.url_without_fragment.endswith('.zip'):
+                args.update(dict(
+                    nativeBuildInputs ='[\n  ' + (
+                        '\n  '.join(['pkgs."unzip"'])) + '\n]'
+                ))
+        except AttributeError:
+            pass
+
         if self.test_dependencies:
             args.update(dict(
-                buildInputs='[\n  ' + (
+                checkInputs='[\n  ' + (
                     '\n  '.join('self."{}"'.format(name) for name, version
                             in self.test_dependencies or ())) + '\n]'
             ))
@@ -229,12 +255,15 @@ def license_to_nix(license_name, nixpkgs='pkgs'):
     return full_name_template.format(full_name=full_name)
 
 
-def link_to_nix(link):
+def link_to_nix(link, cache={}):
     if link.scheme == 'file':
         return './' + os.path.relpath(link.path)
     elif link.scheme in ('http', 'https'):
-        print('Prefetching {url}.'.format(url=link.url_without_fragment))
-        hash = prefetch_url(link.url_without_fragment)
+        if link.url_without_fragment in cache:
+            hash = cache[link.url_without_fragment]
+        else:
+            print('Prefetching {url}.'.format(url=link.url_without_fragment))
+            hash = prefetch_url(link.url_without_fragment)
         return '\n'.join((
             'fetchurl {{',
             '  url = "{url}";',
