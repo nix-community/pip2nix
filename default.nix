@@ -47,7 +47,7 @@ let
 
   pythonPackagesGenerated = import ./python-packages.nix {
     inherit pkgs;
-    inherit (pkgs) fetchurl fetchgit;
+    inherit (pkgs) fetchurl fetchgit fetchhg;
   };
 
   myPythonPackages =

@@ -144,6 +144,8 @@ class PythonPackage(object):
             name='"{s.name}-{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
             src=link_to_nix(self.source, cache=cache),
+            buildInputs='[]',
+            propagatedBuildInputs='[]',
         )
 
         if self.dependencies:
