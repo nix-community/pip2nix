@@ -63,7 +63,7 @@ setup(
         'contexter',
         'jinja2',
     ],
-    tests_require=['pytest'],
+    tests_require=['pytest<5'],
     packages=['pip2nix', 'pip2nix.models'],
     package_data={'pip2nix': ['*.ini', '*.j2']},
     cmdclass={'test': PyTest},

@@ -134,6 +134,7 @@ class NixFreezeCommand(InstallCommand):
 
         with self._build_session(options) as session:
             finder = self._build_package_finder(options, session)
+            finder.format_control.disallow_binaries()
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
             requirement_set = RequirementSet(
                 require_hashes=options.require_hashes,

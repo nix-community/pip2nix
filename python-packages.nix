@@ -20,8 +20,8 @@ self: super: {
     doCheck = false;
     propagatedBuildInputs = [];
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl";
-      sha256 = "04rbcbf5p4kdc7ghlsddxrnglsvk4rsmzphnlxyfdfcmcdg0cd93";
+      url = "https://files.pythonhosted.org/packages/f8/5c/f60e9d8a1e77005f664b76ff8aeaee5bc05d0a91798afd7f53fc998dbc47/Click-7.0.tar.gz";
+      sha256 = "1mzjixd4vjbjvzb6vylki9w1556a9qmdh35kzmq6cign46av952v";
     };
   };
   "configobj" = super.buildPythonPackage {
@@ -42,8 +42,8 @@ self: super: {
     doCheck = false;
     propagatedBuildInputs = [];
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/84/0f/6368331608d39498fac773e22d4de23c304181f9718b6065161a555e0c1b/contexter-0.1.4-py2-none-any.whl";
-      sha256 = "08h84d2fzpj489p38m11xcrv9pm89wwnz3697srvmr66h2xsd8rn";
+      url = "https://files.pythonhosted.org/packages/83/8e/fa97d40616c8d1bda8f83b12ab0ccf9fe0420cb89cf73184436bd3c581fe/contexter-0.1.4.tar.gz";
+      sha256 = "1a50bqqbzf9hvggblmppv00pvjnx3kmdhl33990m2l4i385qjc67";
     };
   };
   "jinja2" = super.buildPythonPackage {
@@ -54,8 +54,8 @@ self: super: {
       self."MarkupSafe"
     ];
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/1d/e7/fd8b501e7a6dfe492a433deb7b9d833d39ca74916fa8bc63dd1a4947a671/Jinja2-2.10.1-py2.py3-none-any.whl";
-      sha256 = "0yqwnvqsxf74l4m5ayfv7slkp1a0mi77hv7q10gv5ar72npnrp8l";
+      url = "https://files.pythonhosted.org/packages/93/ea/d884a06f8c7f9b7afbc8138b762e80479fb17aedbbe2b06515a12de9378d/Jinja2-2.10.1.tar.gz";
+      sha256 = "04shqrs56aj04ipyqykj512rw2l0zfammvj9krawzxz7xc14yp06";
     };
   };
   "pip" = super.buildPythonPackage {
@@ -64,8 +64,8 @@ self: super: {
     doCheck = false;
     propagatedBuildInputs = [];
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/8d/07/f7d7ced2f97ca3098c16565efbe6b15fafcba53e8d9bdb431e09140514b0/pip-19.2.2-py2.py3-none-any.whl";
-      sha256 = "15qrws0a863nqhg8y5qqa5z34fl2s3v7yqr2l9gzr0dlnzc6p5ab";
+      url = "https://files.pythonhosted.org/packages/aa/1a/62fb0b95b1572c76dbc3cc31124a8b6866cbe9139eb7659ac7349457cf7c/pip-19.2.2.tar.gz";
+      sha256 = "0lsa4908zi84cdcfzlvmsyfxj3kvb14f9is41bai1qkib2106lg0";
     };
   };
   "pip2nix" = super.buildPythonPackage {
@@ -84,10 +84,12 @@ self: super: {
   };
   "six" = super.buildPythonPackage {
     name = "six-1.12.0";
+    buildInputs = [];
     doCheck = false;
+    propagatedBuildInputs = [];
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl";
-      sha256 = "073nyd09fqi2xwalmsi2lf8lrwnma85hscs84iaizcam0ngq0l1k";
+      url = "https://files.pythonhosted.org/packages/dd/bf/4138e7bfb757de47d1f4b6994648ec67a51efe58fa907c1e11e350cddfca/six-1.12.0.tar.gz";
+      sha256 = "0wxs1q74v07ssjywbbm7x6h5v9qx209ld2yfsif4060sxi0h2sni";
     };
   };
 
