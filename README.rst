@@ -1,6 +1,9 @@
 pip2nix
 =======
 
+
+.. note:: nix-community/pip2nix master is in currently in work-in-progress state; soon back to normal
+
 Generate nix expressions for Python packages.
 
 .. image:: https://travis-ci.org/nix-community/pip2nix.svg?branch=master
