@@ -80,7 +80,9 @@ class NixFreezeCommand(InstallCommand):
                 r for r in requirement_set.requirements.values()
                 if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
-            packages_base = requirement_set.requirements.values()
+            packages_base = list(requirement_set.requirements.values())
+
+        # Ensure resolved set
         packages = {
             req.name: PythonPackage.from_requirements(
                 req, resolver._discovered_dependencies.get(req.name, []),
@@ -89,22 +91,33 @@ class NixFreezeCommand(InstallCommand):
             for req in packages_base
             if not req.constraint
         }
-        requirements = {}
-        for name, package in packages.items():
-            for req in package.setup_requires + package.tests_require:
-                if req.name in packages:
-                    continue
-                requirement_set.add_requirement(req, req.comes_from)
-                requirements[req.name] = req
-        finder.format_control.no_binary = set()  # allow binaries
-        finder.format_control.only_binary = set(requirements)
-        resolver.resolve(requirement_set)
-        for req in requirements.values():
-            packages[req.name] = PythonPackage.from_requirements(
-                requirement_set.requirements[req.name],
-                resolver._discovered_dependencies.get(req.name, []),
-                finder,
-            )
+
+        # Ensure setup_requires and test_requires and their dependencies
+        while True and not self.config.get_config('pip2nix', 'only_direct'):
+            requirements = {}
+            for name, package in packages.items():
+                for req in (
+                    package.setup_requires +
+                    package.tests_require +
+                    resolver._discovered_dependencies.get(name, [])
+                ):
+                    if req.name in packages:
+                        continue
+                    requirement_set.add_requirement(req, req.comes_from)
+                    requirements[req.name] = req
+            if not requirements:
+                break
+            finder.format_control.no_binary = set()  # allow binaries
+            resolver.resolve(requirement_set)
+            for req in requirements.values():
+                packages[req.name] = PythonPackage.from_requirements(
+                    requirement_set.requirements[req.name],
+                    resolver._discovered_dependencies.get(req.name, []),
+                    finder,
+                )
+
+        # If you need a newer version of setuptools, you know it and can add it later
+        packages.pop('setuptools', None)
 
         include_lic = self.config['pip2nix']['licenses']
 

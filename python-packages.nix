@@ -18,6 +18,34 @@ self: super: {
     nativeBuildInputs = [];
     propagatedBuildInputs = [];
   };
+  "atomicwrites" = super.buildPythonPackage rec {
+    pname = "atomicwrites";
+    version = "1.3.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/52/90/6155aa926f43f2b2a22b01be7241be3bfd1ceaf7d0b3267213e8127d41f4/atomicwrites-1.3.0-py2.py3-none-any.whl";
+      sha256 = "1d0id3y2hbnwjfm8hf6spfzpya5qdak2qk3y4alinp9cxcq2qiq3";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "attrs" = super.buildPythonPackage rec {
+    pname = "attrs";
+    version = "19.1.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl";
+      sha256 = "0ybaycx149w1q2fqkjv119l83vx5115l8167bv5y2b9rxprdph39";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
   "click" = super.buildPythonPackage rec {
     pname = "click";
     version = "7.0";
@@ -48,6 +76,20 @@ self: super: {
       self."six"
     ];
   };
+  "configparser" = super.buildPythonPackage rec {
+    pname = "configparser";
+    version = "3.8.1";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/ab/1a/ec151e5e703ac80041eaccef923611bbcec2b667c20383655a06962732e9/configparser-3.8.1-py2.py3-none-any.whl";
+      sha256 = "064bn99w1942gxz71yn1mkv918dnrvr76p6g0s57mzbcmlm2gla5";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
   "contexter" = super.buildPythonPackage rec {
     pname = "contexter";
     version = "0.1.4";
@@ -61,6 +103,53 @@ self: super: {
     checkInputs = [];
     nativeBuildInputs = [];
     propagatedBuildInputs = [];
+  };
+  "contextlib2" = super.buildPythonPackage rec {
+    pname = "contextlib2";
+    version = "0.5.5";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/a2/71/8273a7eeed0aff6a854237ab5453bc9aa67deb49df4832801c21f0ff3782/contextlib2-0.5.5-py2.py3-none-any.whl";
+      sha256 = "004wfr9xkr58s0xi3f9x0lhwzzgg9qpjbi8yr4pg8bwxcxp0l9pm";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "funcsigs" = super.buildPythonPackage rec {
+    pname = "funcsigs";
+    version = "1.0.2";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/69/cb/f5be453359271714c01b9bd06126eaf2e368f1fddfff30818754b5ac2328/funcsigs-1.0.2-py2.py3-none-any.whl";
+      sha256 = "1jipr7k380nysfw7sffg2a85din73lk7ivwzws9fkwgprdyc431k";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "importlib-metadata" = super.buildPythonPackage rec {
+    pname = "importlib-metadata";
+    version = "0.20";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/89/77/8bae90e4534a8fee1e0c3ee4890e2c7d215dccd7386cf2ec7555e529d6bb/importlib_metadata-0.20-py2.py3-none-any.whl";
+      sha256 = "0xc3fqb7sy3wc44diblk7hl5j3ax7s0fk95qh3h2s52llg2v3wcz";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."configparser"
+      self."contextlib2"
+      self."pathlib2"
+      self."zipp"
+    ];
   };
   "jinja2" = super.buildPythonPackage rec {
     pname = "jinja2";
@@ -78,6 +167,57 @@ self: super: {
       self."MarkupSafe"
     ];
   };
+  "more-itertools" = super.buildPythonPackage rec {
+    pname = "more-itertools";
+    version = "5.0.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/2f/9d/dcfe59e213093695f108508af1214cf9cd95cc5489e46877ec5cb56369e5/more_itertools-5.0.0-py2-none-any.whl";
+      sha256 = "1z6lr4y3kzlbmv9cq8g5aj71bjpys5zq7mknmizvv9h925dpi9f0";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."six"
+    ];
+  };
+  "packaging" = super.buildPythonPackage rec {
+    pname = "packaging";
+    version = "19.1";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/ec/22/630ac83e8f8a9566c4f88038447ed9e16e6f10582767a01f31c769d9a71e/packaging-19.1-py2.py3-none-any.whl";
+      sha256 = "1ycca9ak1mfpabc63vdhqgn79lnc6m2gwn401bl7xh7xjxxqdb57";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."attrs"
+      self."pyparsing"
+      self."six"
+    ];
+  };
+  "pathlib2" = super.buildPythonPackage rec {
+    pname = "pathlib2";
+    version = "2.3.4";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/67/c6/4dbf5dfdbe1140cadf765c3896acc098578626c35721bc7d3eb35f6a8fc1/pathlib2-2.3.4-py2.py3-none-any.whl";
+      sha256 = "0zj2g3xamcr80zzcprcxgadghzl8mrzl5ynxr96irlkncmfm4mi1";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."scandir"
+      self."six"
+    ];
+  };
   "pip" = super.buildPythonPackage rec {
     pname = "pip";
     version = "19.2.3";
@@ -89,7 +229,10 @@ self: super: {
     doCheck = false;
     buildInputs = [];
     checkInputs = [];
-    nativeBuildInputs = [];
+    nativeBuildInputs = [
+      self."setuptools"
+      self."wheel"
+    ];
     propagatedBuildInputs = [];
   };
   "pip2nix" = super.buildPythonPackage rec {
@@ -111,6 +254,50 @@ self: super: {
       self."pip"
       self."toml"
     ];
+  };
+  "pluggy" = super.buildPythonPackage rec {
+    pname = "pluggy";
+    version = "0.12.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/06/ee/de89e0582276e3551df3110088bf20844de2b0e7df2748406876cc78e021/pluggy-0.12.0-py2.py3-none-any.whl";
+      sha256 = "0z3mfz5wnx1hpg9swh7wa7kxsv6zyxkqfgsxv1svydjrx4bp90dr";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."importlib-metadata"
+    ];
+  };
+  "py" = super.buildPythonPackage rec {
+    pname = "py";
+    version = "1.8.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/76/bc/394ad449851729244a97857ee14d7cba61ddb268dce3db538ba2f2ba1f0f/py-1.8.0-py2.py3-none-any.whl";
+      sha256 = "1ylkczijmfk6vrv8dj4sdfdmpwf38yhs6rkplb783cz5mramgxk4";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "pyparsing" = super.buildPythonPackage rec {
+    pname = "pyparsing";
+    version = "2.4.2";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/11/fa/0160cd525c62d7abd076a070ff02b2b94de589f1a9789774f17d7c54058e/pyparsing-2.4.2-py2.py3-none-any.whl";
+      sha256 = "1d18n2lq47808yxm55j85q6v2s0r2v18fkhfbbbgbfq357qqscyr";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
   };
   "pytest" = super.buildPythonPackage rec {
     pname = "pytest";
@@ -137,6 +324,20 @@ self: super: {
       self."six"
       self."wcwidth"
     ];
+  };
+  "scandir" = super.buildPythonPackage rec {
+    pname = "scandir";
+    version = "1.10.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/df/f5/9c052db7bd54d0cbf1bc0bb6554362bba1012d03e5888950a4f5c5dadc4e/scandir-1.10.0.tar.gz";
+      sha256 = "1bkqwmf056pkchf05ywbnf659wqlp6lljcdb0y88wr9f0vv32ijd";
+    };
+    format = "setuptools";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
   };
   "six" = super.buildPythonPackage rec {
     pname = "six";
@@ -167,5 +368,49 @@ self: super: {
     checkInputs = [];
     nativeBuildInputs = [];
     propagatedBuildInputs = [];
+  };
+  "wcwidth" = super.buildPythonPackage rec {
+    pname = "wcwidth";
+    version = "0.1.7";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/7e/9f/526a6947247599b084ee5232e4f9190a38f398d7300d866af3ab571a5bfe/wcwidth-0.1.7-py2.py3-none-any.whl";
+      sha256 = "0z6yi9wgxisnsz14c5zpz123bd2rslg7cgsmcjl40yxg4lcygszl";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "wheel" = super.buildPythonPackage rec {
+    pname = "wheel";
+    version = "0.33.6";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/00/83/b4a77d044e78ad1a45610eb88f745be2fd2c6d658f9798a15e384b7d57c9/wheel-0.33.6-py2.py3-none-any.whl";
+      sha256 = "0a5gkxdnhdn8jalrxppx6350xw7h434sf51av4n2xkxysdiignpl";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
+  "zipp" = super.buildPythonPackage rec {
+    pname = "zipp";
+    version = "0.6.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/74/3d/1ee25a26411ba0401b43c6376d2316a71addcc72ef8690b101b4ea56d76a/zipp-0.6.0-py2.py3-none-any.whl";
+      sha256 = "0d9kggxfnvdf51ljciy7mm29mcvan33lljq0f79i4fzly7lh6sgh";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [
+      self."more-itertools"
+    ];
   };
 }
