@@ -339,6 +339,20 @@ self: super: {
     nativeBuildInputs = [];
     propagatedBuildInputs = [];
   };
+  "setuptools" = super.buildPythonPackage rec {
+    pname = "setuptools";
+    version = "41.2.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/b2/86/095d2f7829badc207c893dd4ac767e871f6cd547145df797ea26baea4e2e/setuptools-41.2.0-py2.py3-none-any.whl";
+      sha256 = "1p20h1z8qzlzs33fjw0wnnr87khdd5npqs1dl9dimzag5b7sp023";
+    };
+    format = "wheel";
+    doCheck = false;
+    buildInputs = [];
+    checkInputs = [];
+    nativeBuildInputs = [];
+    propagatedBuildInputs = [];
+  };
   "six" = super.buildPythonPackage rec {
     pname = "six";
     version = "1.12.0";

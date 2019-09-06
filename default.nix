@@ -53,7 +53,8 @@ let
   myPythonPackages =
     (fix
     (extends pythonPackagesLocalOverrides
+    (extends (self: super: { setuptools = basePythonPackages.setuptools; })
     (extends pythonPackagesGenerated
-             basePythonPackagesUnfix)));
+             basePythonPackagesUnfix))));
 
 in myPythonPackages.pip2nix
