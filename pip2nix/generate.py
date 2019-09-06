@@ -116,6 +116,9 @@ class NixFreezeCommand(InstallCommand):
                     finder,
                 )
 
+        # If you need a newer version of setuptools, you know it and can add it later
+        packages.pop('setuptools', None)
+
         include_lic = self.config['pip2nix']['licenses']
 
         cache = ''
