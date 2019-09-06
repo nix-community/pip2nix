@@ -26,8 +26,8 @@ def cli():
               help="Extra index URLs to use.")
 @click.option('--no-index/--index',
               help="Ignore indexes.")
-#@click.option('--find-links', '-f', metavar='<url>',
-#              help="Path or url to a package listing/directory.")
+@click.option('--no-binary', multiple=True,
+              help="Do not use binary packages.")
 
 #TODO:
 # --allow-external <package>  Allow the installation of a package even if it is externally hosted

@@ -1,8 +1,12 @@
 import json
 import os
 import pkg_resources
+import toml
+from glob import glob
 from subprocess import check_output, STDOUT
 from operator import itemgetter
+from pip._vendor.packaging.requirements import Requirement
+from pip._internal.req.req_install import InstallRequirement
 
 try:
     FileNotFoundError
@@ -92,7 +96,7 @@ def get_version(req):
 
 
 class PythonPackage(object):
-    def __init__(self, name, version, dependencies, source, pip_req):
+    def __init__(self, name, version, dependencies, source, pip_req, setup_requires, tests_require):
         """
         :param dependencies: list of (name, version) pairs.
         """
@@ -102,7 +106,8 @@ class PythonPackage(object):
         self.raw_args = {}
         self.source = source
         self.check = False
-        self.test_dependencies = None
+        self.setup_requires = setup_requires
+        self.tests_require = tests_require
         self.pip_req = pip_req
 
     @classmethod
@@ -113,6 +118,43 @@ class PythonPackage(object):
                 get_version(dep),
             )
         source = req.link
+
+        setup_requires = []
+        tests_require = []
+
+        toml_path = os.path.join(req.source_dir, 'pyproject.toml')
+        if os.path.isfile(toml_path):
+            toml_dict = toml.load(toml_path)
+            for requirement in (
+                toml_dict.get('build-system') or {}
+            ).get('requires') or []:
+                setup_requires.append(
+                    InstallRequirement(Requirement(requirement), comes_from=req))
+
+        if (not setup_requires
+                and getattr(req, 'source_dir', None) and os.path.isdir(req.source_dir)):
+            pattern = os.path.join(req.source_dir, '.eggs', '*', '*', 'PKG-INFO')
+            for path in glob(pattern):
+                with open(path) as fp:
+                    for line in fp.readlines():
+                        if line.startswith('Name: '):
+                            setup_requires.append(
+                                InstallRequirement(Requirement(line[6:].strip()),
+                                                   comes_from=req))
+                            break
+            pattern = os.path.join(req.source_dir, '*', '*', 'tests_require.txt')
+            for path in glob(pattern):
+                with open(path) as fp:
+                    for line in fp.readlines():
+                        tests_require.append(
+                            InstallRequirement(Requirement(line.strip()),
+                                               comes_from=req))
+                        break
+
+        if ((source.path.endswith('.whl') and not source.path.endswith('-any.whl'))
+                or source.path.endswith('.egg')):
+            finder.format_control.disallow_binaries()
+            source = finder.find_requirement(req, upgrade=False)
         return cls(
             name=req.name,
             version=get_version(req),
@@ -120,6 +162,8 @@ class PythonPackage(object):
                                 key=itemgetter(0)),
             source=source,
             pip_req=req,
+            setup_requires=setup_requires,
+            tests_require=tests_require,
         )
 
     def override(self, config):
@@ -127,7 +171,7 @@ class PythonPackage(object):
 
     def to_nix(self, include_lic, cache={}):
         template = '\n'.join((
-            'super.buildPythonPackage {{',
+            'super.buildPythonPackage rec {{',
             '  {args}',
             '}};',
         ))
@@ -138,12 +182,20 @@ class PythonPackage(object):
         ))
 
         args = dict(
-            name='"{s.name}-{s.version}"'.format(s=self),
+            pname='"{s.name}"'.format(s=self),
+            version='"{s.version}"'.format(s=self),
             doCheck='true' if self.check else 'false',
             src=link_to_nix(self.source, cache=cache),
             buildInputs='[]',
+            checkInputs='[]',
+            nativeBuildInputs='[]',
             propagatedBuildInputs='[]',
         )
+
+        if self.source.path.endswith('.whl'):
+            args.update(dict(format='"wheel"'))
+        else:
+            args.update(dict(format='"setuptools"'))
 
         if self.dependencies:
             args.update(dict(
@@ -152,20 +204,18 @@ class PythonPackage(object):
                                 in self.dependencies)) + '\n]'
             ))
 
-        try:
-            if self.source.url_without_fragment.endswith('.zip'):
-                args.update(dict(
-                    nativeBuildInputs ='[\n  ' + (
-                        '\n  '.join(['pkgs."unzip"'])) + '\n]'
-                ))
-        except AttributeError:
-            pass
-
-        if self.test_dependencies:
+        if self.tests_require:
             args.update(dict(
                 checkInputs='[\n  ' + (
-                    '\n  '.join('self."{}"'.format(name) for name, version
-                            in self.test_dependencies or ())) + '\n]'
+                    '\n  '.join('self."{}"'.format(req.name) for req
+                            in self.tests_require or ())) + '\n]'
+            ))
+
+        if self.setup_requires:
+            args.update(dict(
+                nativeBuildInputs='[\n  ' + (
+                    '\n  '.join('self."{}"'.format(req.name) for req
+                            in self.setup_requires or ())) + '\n]'
             ))
 
         args.update(self.raw_args)
@@ -178,7 +228,11 @@ class PythonPackage(object):
                 meta_args['license'] = license_nix
 
         # Render name first
-        raw_args = 'name = {};'.format(args.pop('name'))
+        raw_args = 'pname = {};\n'.format(args.pop('pname'))
+        raw_args += 'version = {};\n'.format(args.pop('version'))
+        raw_args += 'src = {};\n'.format(args.pop('src'))
+        raw_args += 'format = {};\n'.format(args.pop('format'))
+        raw_args += 'doCheck = {};'.format(args.pop('doCheck'))
         for k, v in sorted(args.items()):
             raw_args += '\n{} = {};'.format(k, v)
 
