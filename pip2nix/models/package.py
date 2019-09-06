@@ -146,7 +146,7 @@ class PythonPackage(object):
             for path in glob(pattern):
                 with open(path) as fp:
                     for line in fp.readlines():
-                        if line.strip():
+                        if len(line.strip() > 1):  # survives tests_require = "string"
                             tests_require.append(
                                 InstallRequirement(Requirement(line.strip()),
                                                    comes_from=req))
