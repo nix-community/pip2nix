@@ -146,10 +146,11 @@ class PythonPackage(object):
             for path in glob(pattern):
                 with open(path) as fp:
                     for line in fp.readlines():
-                        tests_require.append(
-                            InstallRequirement(Requirement(line.strip()),
-                                               comes_from=req))
-                        break
+                        if line.strip():
+                            tests_require.append(
+                                InstallRequirement(Requirement(line.strip()),
+                                                   comes_from=req))
+                            break
 
         if ((source.path.endswith('.whl') and not source.path.endswith('-any.whl'))
                 or source.path.endswith('.egg')):
