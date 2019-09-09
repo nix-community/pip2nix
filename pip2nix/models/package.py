@@ -146,11 +146,14 @@ class PythonPackage(object):
             for path in glob(pattern):
                 with open(path) as fp:
                     for line in fp.readlines():
-                        if len(line.strip()) > 1:  # survives tests_require = "string"
+                        # These lines may contain anything...
+                        try:
                             tests_require.append(
                                 InstallRequirement(Requirement(line.strip()),
                                                    comes_from=req))
-                            break
+                        except:
+                            pass
+                        break
 
         if ((source.path.endswith('.whl') and not source.path.endswith('-any.whl'))
                 or source.path.endswith('.egg')):
