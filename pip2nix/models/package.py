@@ -215,9 +215,17 @@ class PythonPackage(object):
                             in self.tests_require or ())) + '\n]'
             ))
 
-        if self.setup_requires:
+        unzip = True
+        try:
+            if self.source.url_without_fragment.endswith('zip'):
+                unzip = True
+        except AttributeError:
+            pass
+        if unzip or self.setup_requires:
             args.update(dict(
                 nativeBuildInputs='[\n  ' + (
+                    unzip and self.setup_requires and 'pkgs."unzip"\n  ' or
+                    unzip and 'pkgs."unzip"' or '') + (
                     '\n  '.join('self."{}"'.format(req.name) for req
                             in self.setup_requires or ())) + '\n]'
             ))
