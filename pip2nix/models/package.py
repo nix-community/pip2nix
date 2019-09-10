@@ -215,7 +215,7 @@ class PythonPackage(object):
                             in self.tests_require or ())) + '\n]'
             ))
 
-        unzip = True
+        unzip = False
         try:
             if self.source.url_without_fragment.endswith('zip'):
                 unzip = True
