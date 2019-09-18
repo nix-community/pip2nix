@@ -147,6 +147,8 @@ class PythonPackage(object):
                 with open(path) as fp:
                     for line in fp.readlines():
                         # These lines may contain anything...
+                        if (not line.strip() or len(line.strip()) == 1):
+                            continue
                         try:
                             tests_require.append(
                                 InstallRequirement(Requirement(line.strip()),
