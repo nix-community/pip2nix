@@ -116,8 +116,10 @@ class NixFreezeCommand(InstallCommand):
                     finder,
                 )
 
-        # If you need a newer version of setuptools, you know it and can add it later
+        # If you need a newer version of setuptools or wheel, you know it and
+        # can add it later; By default these would cause issues.
         packages.pop('setuptools', None)
+        packages.pop('wheel', None)
 
         include_lic = self.config['pip2nix']['licenses']
 
