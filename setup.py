@@ -57,6 +57,7 @@ setup(
     keywords='nix pip',
 
     install_requires=[
+        'setuptools',
         'pip>=18',
         'configobj>=5',
         'click',

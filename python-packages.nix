@@ -252,6 +252,7 @@ self: super: {
       self."contexter"
       self."jinja2"
       self."pip"
+      self."setuptools"
       self."toml"
     ];
   };
