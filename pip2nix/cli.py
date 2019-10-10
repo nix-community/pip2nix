@@ -69,7 +69,10 @@ def generate(specifiers, **kwargs):
 
     from pip2nix.main import main
     from pip2nix.generate import generate
+    import os
     import sys
+
+    sys.executable = os.environ.get("PIP2NIX_PYTHON_EXECUTABLE") or sys.executable
     generate(config)
 
 

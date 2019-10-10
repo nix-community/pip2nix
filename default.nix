@@ -31,15 +31,28 @@ let
   pip2nix-src = builtins.filterSource src-filter ./.;
 
   pythonPackagesLocalOverrides = self: super: {
-    pip2nix = super.pip2nix.override (attrs: {
+    pip2nix = super.pip2nix.override (attrs: rec {
       src = pip2nix-src;
       buildInputs = [
         self.pip
         pkgs.nix
       ] ++ attrs.buildInputs;
+      pythonWithSetuptools = self.python.withPackages(ps: with ps; [
+        setuptools
+      ]);
+      propagatedBuildInputs = [
+        pythonWithSetuptools
+      ] ++ attrs.propagatedBuildInputs;
       preBuild = ''
         export NIX_PATH=nixpkgs=${pkgs.path}
         export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+      '';
+      postInstall = ''
+        for f in $out/bin/*
+        do
+          wrapProgram $f \
+            --set PIP2NIX_PYTHON_EXECUTABLE ${pythonWithSetuptools}/bin/python
+        done
       '';
     });
     pip = basePythonPackages.pip;
