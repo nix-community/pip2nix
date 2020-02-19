@@ -7,6 +7,7 @@ from subprocess import check_output, STDOUT
 from operator import itemgetter
 from pip._vendor.packaging.requirements import Requirement
 from pip._internal.req.req_install import InstallRequirement
+from pip._internal.utils.packaging import get_metadata
 
 try:
     FileNotFoundError
@@ -90,7 +91,7 @@ def indent(amount, string):
 def get_version(req):
     try:
         return req.get_dist().version
-    except FileNotFoundError:
+    except (FileNotFoundError, AttributeError):
         for dist in pkg_resources.find_on_path(None, req.source_dir):
             return dist.version
 

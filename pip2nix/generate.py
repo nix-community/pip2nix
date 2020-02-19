@@ -5,6 +5,7 @@ from contexter import Contexter, contextmanager
 from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
+from functools import partial
 import os
 import re
 import shutil
@@ -62,7 +63,12 @@ class NixFreezeCommand(InstallCommand):
     )
 
     def __init__(self, pip2nix_config, *args, **kwargs):
-        super(NixFreezeCommand, self).__init__(*args, **kwargs)
+        try:
+            super(NixFreezeCommand, self).__init__(*args, **kwargs)
+        except TypeError:  # TypeError: __init__() takes at least 3 arguments (1 given)
+            super(NixFreezeCommand, self).__init__(self.name, self.summary,
+                                                   *args, **kwargs)
+
         self.config = pip2nix_config
         cmd_opts = self.cmd_opts
         for opt in cmd_opts.option_list:
@@ -110,11 +116,19 @@ class NixFreezeCommand(InstallCommand):
             finder.format_control.no_binary = set()  # allow binaries
             resolver.resolve(requirement_set)
             for req in requirements.values():
-                packages[req.name] = PythonPackage.from_requirements(
-                    requirement_set.requirements[req.name],
-                    resolver._discovered_dependencies.get(req.name, []),
-                    finder,
-                )
+                try:
+                    packages[req.name] = PythonPackage.from_requirements(
+                        requirement_set.requirements[req.name],
+                        resolver._discovered_dependencies.get(req.name, []),
+                        finder,
+                    )
+                except KeyError:
+                    req.req.name = req.name.lower()  # try to work around case differences
+                    packages[req.name] = PythonPackage.from_requirements(
+                        requirement_set.requirements[req.name],
+                        resolver._discovered_dependencies.get(req.name, []),
+                        finder,
+                    )
 
         # If you need a newer version of setuptools or wheel, you know it and
         # can add it later; By default these would cause issues.
@@ -165,39 +179,89 @@ class NixFreezeCommand(InstallCommand):
         with self._build_session(options) as session:
             finder = self._build_package_finder(options, session)
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
-            requirement_set = RequirementSet(
-                require_hashes=options.require_hashes,
-            )
             try:
-                with RequirementTracker() as req_tracker, TempDirectory(
+                requirement_set = RequirementSet(
+                    require_hashes=options.require_hashes,
+                )
+                req_tracker_path = False
+            except TypeError:  # got an unexpected keyword argument 'require_hashes'
+                requirement_set = RequirementSet()
+                req_tracker_path = True   # pip 20
+            try:
+                with TempDirectory(
                     options.build_dir, delete=True, kind="install"
-                ) as directory:
-                    self.populate_requirement_set(
-                        requirement_set, args, options, finder, session,
-                        self.name, wheel_cache
-                    )
-                    preparer = RequirementPreparer(
-                        build_dir=directory.path,
-                        src_dir=options.src_dir,
-                        download_dir=None,
-                        wheel_download_dir=None,
-                        progress_bar=options.progress_bar,
-                        build_isolation=options.build_isolation,
-                        req_tracker=req_tracker,
-                    )
-                    resolver = Resolver(
-                        preparer=preparer,
-                        finder=finder,
-                        session=session,
-                        wheel_cache=wheel_cache,
-                        use_user_site=options.use_user_site,
-                        upgrade_strategy=upgrade_strategy,
-                        force_reinstall=options.force_reinstall,
-                        ignore_dependencies=options.ignore_dependencies,
-                        ignore_requires_python=options.ignore_requires_python,
-                        ignore_installed=options.ignore_installed,
-                        isolated=options.isolated_mode,
-                    )
+                ) as directory, RequirementTracker(*([directory.path] if req_tracker_path else [])) as req_tracker:
+                    try:
+                        self.populate_requirement_set(
+                            requirement_set, args, options, finder, session,
+                            self.name, wheel_cache
+                        )
+                    except TypeError:
+                        self.populate_requirement_set(
+                            requirement_set, args, options, finder, session,
+                            wheel_cache
+                        )
+                    try:
+                        preparer = RequirementPreparer(
+                            build_dir=directory.path,
+                            src_dir=options.src_dir,
+                            download_dir=None,
+                            wheel_download_dir=None,
+                            progress_bar=options.progress_bar,
+                            build_isolation=options.build_isolation,
+                            req_tracker=req_tracker,
+                        )
+                    except TypeError:
+                        from pip._internal.network.download import Downloader
+                        downloader = Downloader(session,
+                                                progress_bar=options.progress_bar)
+                        preparer = RequirementPreparer(
+                            build_dir=directory.path,
+                            download_dir=None,
+                            src_dir=options.src_dir,
+                            wheel_download_dir=None,
+                            build_isolation=options.build_isolation,
+                            req_tracker=req_tracker,
+                            downloader=downloader,
+                            finder=finder,
+                            require_hashes=options.require_hashes,
+                            use_user_site=options.use_user_site,
+                        )
+                    try:
+                        resolver = Resolver(
+                            preparer=preparer,
+                            finder=finder,
+                            session=session,
+                            wheel_cache=wheel_cache,
+                            use_user_site=options.use_user_site,
+                            upgrade_strategy=upgrade_strategy,
+                            force_reinstall=options.force_reinstall,
+                            ignore_dependencies=options.ignore_dependencies,
+                            ignore_requires_python=options.ignore_requires_python,
+                            ignore_installed=options.ignore_installed,
+                            isolated=options.isolated_mode,
+                        )
+                    except TypeError:
+                        from pip._internal.req.constructors import (
+                            install_req_from_req_string,
+                        )
+                        make_install_req = partial(
+                            install_req_from_req_string,
+                            isolated=options.isolated_mode,
+                            wheel_cache=wheel_cache,
+                            use_pep517=options.use_pep517,
+                        )
+                        resolver = Resolver(
+                            preparer=preparer,
+                            finder=finder,
+                            make_install_req=make_install_req,
+                            use_user_site=options.use_user_site,
+                            ignore_dependencies=options.ignore_dependencies,
+                            ignore_installed=options.ignore_installed,
+                            ignore_requires_python=options.ignore_requires_python,
+                            force_reinstall=options.force_reinstall,
+                            upgrade_strategy=upgrade_strategy,
+                        )
                     resolver.resolve(requirement_set)
                     finder.format_control.no_binary = set()  # allow binaries
                     self.process_requirements(
