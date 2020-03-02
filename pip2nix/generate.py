@@ -251,17 +251,31 @@ class NixFreezeCommand(InstallCommand):
                             wheel_cache=wheel_cache,
                             use_pep517=options.use_pep517,
                         )
-                        resolver = Resolver(
-                            preparer=preparer,
-                            finder=finder,
-                            make_install_req=make_install_req,
-                            use_user_site=options.use_user_site,
-                            ignore_dependencies=options.ignore_dependencies,
-                            ignore_installed=options.ignore_installed,
-                            ignore_requires_python=options.ignore_requires_python,
-                            force_reinstall=options.force_reinstall,
-                            upgrade_strategy=upgrade_strategy,
-                        )
+                        try:
+                            resolver = Resolver(
+                                preparer=preparer,
+                                session=session,
+                                finder=finder,
+                                make_install_req=make_install_req,
+                                use_user_site=options.use_user_site,
+                                ignore_dependencies=options.ignore_dependencies,
+                                ignore_installed=options.ignore_installed,
+                                ignore_requires_python=options.ignore_requires_python,
+                                force_reinstall=options.force_reinstall,
+                                upgrade_strategy=upgrade_strategy,
+                            )
+                        except TypeError:
+                            resolver = Resolver(
+                                preparer=preparer,
+                                finder=finder,
+                                make_install_req=make_install_req,
+                                use_user_site=options.use_user_site,
+                                ignore_dependencies=options.ignore_dependencies,
+                                ignore_installed=options.ignore_installed,
+                                ignore_requires_python=options.ignore_requires_python,
+                                force_reinstall=options.force_reinstall,
+                                upgrade_strategy=upgrade_strategy,
+                            )
                     resolver.resolve(requirement_set)
                     finder.format_control.no_binary = set()  # allow binaries
                     self.process_requirements(
