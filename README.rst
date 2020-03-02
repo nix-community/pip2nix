@@ -3,8 +3,8 @@ pip2nix
 
 Generate nix expressions for Python packages.
 
-.. image:: https://travis-ci.org/nix-community/pip2nix.svg?branch=master
-   :target: https://travis-ci.org/nix-community/pip2nix
+.. image:: https://travis-ci.com/nix-community/pip2nix.svg?branch=master
+   :target: https://travis-ci.com/nix-community/pip2nix
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/pip2nix/badge/?version=latest
