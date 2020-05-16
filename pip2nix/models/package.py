@@ -277,7 +277,19 @@ class PythonPackage(object):
         Parses the license string from PKG-INFO file.
         """
         licenses = set()
-        data = self.pip_req.egg_info_data('PKG-INFO')
+        data = ""
+        try:
+            try:
+                data = self.pip_req.get_dist().get_metadata('PKG-INFO')
+            except (FileNotFoundError, IOError):
+                data = self.pip_req.get_dist().get_metadata('METADATA')
+        except (FileNotFoundError, AttributeError):
+            for dist in pkg_resources.find_on_path(None, self.pip_req.source_dir):
+                try:
+                    data = dist.get_metadata('PKG-INFO')
+                except (FileNotFoundError, IOError):
+                    data = dist.get_metadata('METADATA')
+                break
 
         for line in data.split('\n'):
 
