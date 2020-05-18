@@ -92,7 +92,7 @@ class NixFreezeCommand(InstallCommand):
         packages = {
             req.name: PythonPackage.from_requirements(
                 req, resolver._discovered_dependencies.get(req.name, []),
-                finder,
+                finder, self.config["pip2nix"].get("check_inputs")
             )
             for req in packages_base
             if not req.constraint
@@ -120,14 +120,14 @@ class NixFreezeCommand(InstallCommand):
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
                         resolver._discovered_dependencies.get(req.name, []),
-                        finder,
+                        finder, self.config["pip2nix"].get("check_inputs")
                     )
                 except KeyError:
                     req.req.name = req.name.lower()  # try to work around case differences
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
                         resolver._discovered_dependencies.get(req.name, []),
-                        finder,
+                        finder, self.config["pip2nix"].get("check_inputs")
                     )
 
         # If you need a newer version of setuptools or wheel, you know it and
