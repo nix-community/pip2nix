@@ -58,7 +58,7 @@ setup(
 
     install_requires=[
         'setuptools',
-        'pip<20.1',
+        'pip==19.0.3,pip==19.2.3,pip==19.3.1,pip==20.0.2',
         'configobj>=5',
         'click',
         'contexter',
