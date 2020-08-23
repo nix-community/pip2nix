@@ -1,4 +1,4 @@
-from pip.req import RequirementSet
+from pip._internal.req.req_set import RequirementSet
 
 
 class RequirementSetLayer(RequirementSet):

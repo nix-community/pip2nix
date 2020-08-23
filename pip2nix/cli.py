@@ -9,6 +9,8 @@ def cli():
 
 
 @cli.command()
+@click.option('--check-inputs', is_flag=True, default=False,
+              help="Collect test dependencies or not.")
 @click.option('--build', '-b', type=click.Path(), metavar='<dir>',
               help="Directory to unpack packages and build in.")
 @click.option('--download', '-d', type=click.Path(), metavar='<dir>',
@@ -26,8 +28,8 @@ def cli():
               help="Extra index URLs to use.")
 @click.option('--no-index/--index',
               help="Ignore indexes.")
-#@click.option('--find-links', '-f', metavar='<url>',
-#              help="Path or url to a package listing/directory.")
+@click.option('--no-binary', multiple=True,
+              help="Do not use binary packages.")
 
 #TODO:
 # --allow-external <package>  Allow the installation of a package even if it is externally hosted
@@ -69,7 +71,10 @@ def generate(specifiers, **kwargs):
 
     from pip2nix.main import main
     from pip2nix.generate import generate
+    import os
     import sys
+
+    sys.executable = os.environ.get("PIP2NIX_PYTHON_EXECUTABLE") or sys.executable
     generate(config)
 
 

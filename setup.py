@@ -27,7 +27,7 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.rst'), 'rb') as f:
     long_description = f.read().decode('utf-8')
 
-VERSION = '0.8.0.dev1'
+VERSION = '0.9.0.dev1'
 
 setup(
     name="pip2nix",
@@ -57,11 +57,13 @@ setup(
     keywords='nix pip',
 
     install_requires=[
-        'pip>=8,<10',
+        'setuptools',
+        'pip>=18',
         'configobj>=5',
         'click',
         'contexter',
         'jinja2',
+        'toml',
     ],
     tests_require=['pytest'],
     packages=['pip2nix', 'pip2nix.models'],

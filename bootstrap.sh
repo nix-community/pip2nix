@@ -37,4 +37,4 @@ if [ "$FORCE_REBUILD" -o \
     touch ./_bootstrap_env/.done
 fi
 
-./_bootstrap_env/bin/pip2nix generate
+./_bootstrap_env/bin/pip2nix generate --licenses --no-binary :all:

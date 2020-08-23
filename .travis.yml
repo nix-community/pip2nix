@@ -1,20 +1,13 @@
-language: python
-python: "2.7"
-sudo: required
-dist: trusty
+language: nix
 env:
   - ATTR=pip2nix.python27
-  # TODO: pytest installation fails
-  # - ATTR=pip2nix.python33
-  - ATTR=pip2nix.python34
-  - ATTR=pip2nix.python35
   - ATTR=pip2nix.python35
   - ATTR=pip2nix.python36
+  - ATTR=pip2nix.python37
+  - ATTR=pip2nix.python38
   - ATTR=docs
   - MODE=bootstrap
-install: bash <(curl https://nixos.org/nix/install)
 script:
-  - . /home/travis/.nix-profile/etc/profile.d/nix.sh
   - if [ -z "$MODE" ]; then nix-build release.nix -A $ATTR; fi
   - if [ "$MODE" == "bootstrap" ]; then
       ./bootstrap.sh && git --no-pager diff;
