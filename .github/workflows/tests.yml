@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        nixpkgs: [nixpkgs-20.03, nixpkgs-19.09, nixpkgs-19.03, nixpkgs-18.09]
+        nixpkgs: [nixpkgs-20.09, nixpkgs-20.03, nixpkgs-19.09, nixpkgs-19.03, nixpkgs-18.09]
         attr: [pip2nix.python27, pip2nix.python35, pip2nix.python36, pip2nix.python37, pip2nix.python38]
 #       , docs, bootstrap]
         exclude:
+          - nixpkgs: nixpkgs-20.09
+            attr: pip2nix.python35
           - nixpkgs: nixpkgs-19.03
             attr: pip2nix.python38
           - nixpkgs: nixpkgs-18.09
