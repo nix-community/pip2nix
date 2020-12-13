@@ -1,6 +1,6 @@
 { pkgs ? import ./nix { nixpkgs = builtins.getAttr nixpkgs sources; }
 , sources ? import ./nix/sources.nix
-, nixpkgs ? "nixpkgs-20.03"
+, nixpkgs ? "nixpkgs-20.09"
 }:
 
 with pkgs.lib;
@@ -19,14 +19,15 @@ let
 
     pip2nix = filterAttrs (n: v: n != "recurseForDerivations") (
       pkgs.recurseIntoAttrs (
-        builtins.listToAttrs (map make-pip2nix ([
-          {pythonVersion = "27";}
-          {pythonVersion = "34";}
-          {pythonVersion = "35";}
-        ] ++ optional (hasAttr "python33Packages" pkgs) {pythonVersion = "33";}
+        builtins.listToAttrs (map make-pip2nix ([]
+        ++ optional (hasAttr "python27Packages" pkgs) {pythonVersion = "27";}
+        ++ optional (hasAttr "python33Packages" pkgs) {pythonVersion = "33";}
+        ++ optional (hasAttr "python34Packages" pkgs) {pythonVersion = "34";}
+        ++ optional (hasAttr "python35Packages" pkgs) {pythonVersion = "35";}
         ++ optional (hasAttr "python36Packages" pkgs) {pythonVersion = "36";}
         ++ optional (hasAttr "python37Packages" pkgs) {pythonVersion = "37";}
-        ++ optional (hasAttr "python37Packages" pkgs) {pythonVersion = "38";}
+        ++ optional (hasAttr "python38Packages" pkgs) {pythonVersion = "38";}
+        ++ optional (hasAttr "python39Packages" pkgs) {pythonVersion = "39";}
         ))
       )
     );

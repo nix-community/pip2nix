@@ -22,8 +22,8 @@ while [ -n "$1" ]; do
     shift
 done
 
-NIXPKGS="${NIXPKGS:-nixpkgs-20.03}"
-PYTHON="${PYTHON:-python38}"
+NIXPKGS="${NIXPKGS:-nixpkgs-20.09}"
+PYTHON="${PYTHON:-python39}"
 PIP=$(nix eval "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.pip.version")
 PIP=${PIP//\"/}
 
