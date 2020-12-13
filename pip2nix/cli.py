@@ -9,6 +9,8 @@ def cli():
 
 
 @cli.command()
+@click.option('--check-inputs', is_flag=True, default=False,
+              help="Collect test dependencies or not.")
 @click.option('--build', '-b', type=click.Path(), metavar='<dir>',
               help="Directory to unpack packages and build in.")
 @click.option('--download', '-d', type=click.Path(), metavar='<dir>',

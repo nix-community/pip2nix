@@ -112,7 +112,7 @@ class PythonPackage(object):
         self.pip_req = pip_req
 
     @classmethod
-    def from_requirements(cls, req, deps, finder):
+    def from_requirements(cls, req, deps, finder, check):
         def name_version(dep):
             return (
                 dep.name,
@@ -169,8 +169,8 @@ class PythonPackage(object):
                                 key=itemgetter(0)),
             source=source,
             pip_req=req,
-            setup_requires=setup_requires,
-            tests_require=tests_require,
+            setup_requires=setup_requires or [],
+            tests_require=check and tests_require or [],
         )
 
     def override(self, config):
