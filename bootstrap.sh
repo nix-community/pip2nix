@@ -22,6 +22,11 @@ while [ -n "$1" ]; do
     shift
 done
 
+NIXPKGS="${NIXPKGS:-nixpkgs-20.03}"
+PYTHON="${PYTHON:-python38}"
+PIP=$(nix eval "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.pip.version")
+PIP=${PIP//\"/}
+
 if [ "$FORCE_REBUILD" -o \
      ! -f ./_bootstrap_env/.done \
      -o ./_bootstrap_env/.done -ot setup.py ]; then
@@ -29,11 +34,11 @@ if [ "$FORCE_REBUILD" -o \
     VIRTUALENV=$(type -p virtualenv || true)
     if [ ! "$VIRTUALENV" ]; then
         echo -e '\e[1m`virtualenv` not found, restarting self in a nix-shell\e[0m'
-        exec nix-shell -p pythonPackages.virtualenv --run "$0 $@ --force"
+        exec nix-shell -p "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.virtualenv" --run "$0 $@ --force"
     fi
 
     $VIRTUALENV ./_bootstrap_env
-    ./_bootstrap_env/bin/pip install -e ./
+    ./_bootstrap_env/bin/pip install -e ./ pip==$PIP
     touch ./_bootstrap_env/.done
 fi
 
