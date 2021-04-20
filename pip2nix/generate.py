@@ -115,7 +115,6 @@ class NixFreezeCommand(InstallCommand):
                     req.is_direct = False
                     requirement_set.add_requirement(req, req.comes_from)
                     requirements[req.name] = req
-            requirements.pop('setuptools-scm', None)
             requirements.pop('setuptools', None)
             requirements.pop('wheel', None)
             if not requirements:
