@@ -128,6 +128,8 @@ class NixFreezeCommand(InstallCommand):
                     req.is_direct = True
                 resolver.resolve(indirect_deps, check_supported_wheels=True)
             for req in requirements.values():
+                if not req.source_dir:
+                    resolver.resolve([req], check_supported_wheels=True)
                 try:
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
