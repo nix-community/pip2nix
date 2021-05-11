@@ -22,7 +22,10 @@ from pip._internal.req.req_tracker import RequirementTracker
 try:
     from pip._internal.resolve import Resolver
 except ImportError:
-    from pip._internal.legacy_resolve import Resolver
+    try:
+        from pip._internal.legacy_resolve import Resolver
+    except ImportError:
+        from pip._internal.resolution.legacy.resolver import Resolver
 from pip._internal.utils.temp_dir import TempDirectory
 
 try:
@@ -86,7 +89,7 @@ class NixFreezeCommand(InstallCommand):
                 r for r in requirement_set.requirements.values()
                 if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
-            packages_base = list(requirement_set.requirements.values())
+            packages_base = requirement_set.all_requirements
 
         # Ensure resolved set
         packages = {
@@ -109,13 +112,24 @@ class NixFreezeCommand(InstallCommand):
                 ):
                     if req.name in packages:
                         continue
+                    req.is_direct = False
                     requirement_set.add_requirement(req, req.comes_from)
                     requirements[req.name] = req
+            requirements.pop('setuptools', None)
+            requirements.pop('wheel', None)
             if not requirements:
                 break
             finder.format_control.no_binary = set()  # allow binaries
-            resolver.resolve(requirement_set)
+            try:
+                resolver.resolve(requirement_set)
+            except TypeError:
+                indirect_deps = []
+                for req in requirement_set.all_requirements:
+                    req.is_direct = True
+                resolver.resolve(indirect_deps, check_supported_wheels=True)
             for req in requirements.values():
+                if not req.source_dir:
+                    resolver.resolve([req], check_supported_wheels=True)
                 try:
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
@@ -201,6 +215,11 @@ class NixFreezeCommand(InstallCommand):
                             requirement_set, args, options, finder, session,
                             wheel_cache
                         )
+                    except AttributeError:
+                        requirement_set = self.get_requirements(
+                            args, options, finder, session,
+                            wheel_cache
+                        )
                     try:
                         preparer = RequirementPreparer(
                             build_dir=directory.path,
@@ -265,18 +284,40 @@ class NixFreezeCommand(InstallCommand):
                                 upgrade_strategy=upgrade_strategy,
                             )
                         except TypeError:
-                            resolver = Resolver(
-                                preparer=preparer,
-                                finder=finder,
-                                make_install_req=make_install_req,
-                                use_user_site=options.use_user_site,
-                                ignore_dependencies=options.ignore_dependencies,
-                                ignore_installed=options.ignore_installed,
-                                ignore_requires_python=options.ignore_requires_python,
-                                force_reinstall=options.force_reinstall,
-                                upgrade_strategy=upgrade_strategy,
-                            )
-                    resolver.resolve(requirement_set)
+                            try:
+                                resolver = Resolver(
+                                    preparer=preparer,
+                                    finder=finder,
+                                    make_install_req=make_install_req,
+                                    use_user_site=options.use_user_site,
+                                    ignore_dependencies=options.ignore_dependencies,
+                                    ignore_installed=options.ignore_installed,
+                                    ignore_requires_python=options.ignore_requires_python,
+                                    force_reinstall=options.force_reinstall,
+                                    upgrade_strategy=upgrade_strategy,
+                                )
+                            except TypeError:
+                                make_install_req = partial(
+                                    install_req_from_req_string,
+                                    isolated=options.isolated_mode,
+                                    use_pep517=options.use_pep517,
+                                )
+                                resolver = Resolver(
+                                    preparer=preparer,
+                                    finder=finder,
+                                    make_install_req=make_install_req,
+                                    use_user_site=options.use_user_site,
+                                    ignore_dependencies=options.ignore_dependencies,
+                                    ignore_installed=options.ignore_installed,
+                                    ignore_requires_python=options.ignore_requires_python,
+                                    force_reinstall=options.force_reinstall,
+                                    upgrade_strategy=upgrade_strategy,
+                                    wheel_cache=wheel_cache,
+                                )
+                    try:
+                        resolver.resolve(requirement_set)
+                    except TypeError:
+                        requirement_set = resolver.resolve(requirement_set, check_supported_wheels=True)
                     finder.format_control.no_binary = set()  # allow binaries
                     self.process_requirements(
                         options,
@@ -286,8 +327,12 @@ class NixFreezeCommand(InstallCommand):
                     )
 
             finally:
-                requirement_set.cleanup_files()
-                wheel_cache.cleanup()
+                try:
+                   requirement_set.cleanup_files()
+                   wheel_cache.cleanup()
+                except AttributeError:
+                    # https://github.com/pypa/pip/commit/5cca8f10b304a5a7f3a96dfd66937615324cf826
+                    pass
 
         return requirement_set
 
