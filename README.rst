@@ -49,7 +49,7 @@ avoids putting a specific version into the user's environment::
 Alternatively `pip2nix` can be installed into the user's environment::
 
   $ git clone https://github.com/nix-community/pip2nix
-  $ nix-env -f pip2nix/release.nix -iA pip2nix.python35
+  $ nix-env -f pip2nix/release.nix -iA pip2nix.python36
 
 
 Usage
