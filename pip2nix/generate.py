@@ -89,7 +89,10 @@ class NixFreezeCommand(InstallCommand):
                 r for r in requirement_set.requirements.values()
                 if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
-            packages_base = requirement_set.all_requirements
+            try:
+                packages_base = requirement_set.all_requirements
+            except AttributeError:
+                packages_base = [r for r in requirement_set.requirements.values()]
 
         # Ensure resolved set
         packages = {
