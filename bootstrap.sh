@@ -34,7 +34,7 @@ if [ "$FORCE_REBUILD" -o \
     VIRTUALENV=$(type -p virtualenv || true)
     if [ ! "$VIRTUALENV" ]; then
         echo -e '\e[1m`virtualenv` not found, restarting self in a nix-shell\e[0m'
-        exec nix-shell -p "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.virtualenv" --run "$0 $@ --force"
+        exec nix-shell --extra-experimental-features nix-command -p "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.virtualenv" --run "$0 $@ --force"
     fi
 
     $VIRTUALENV ./_bootstrap_env
