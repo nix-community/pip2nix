@@ -132,17 +132,20 @@ class NixFreezeCommand(InstallCommand):
                 resolver.resolve(indirect_deps, check_supported_wheels=True)
             for req in requirements.values():
                 if not req.source_dir:
+                    req.is_direct = True
                     resolver.resolve([req], check_supported_wheels=True)
                 try:
                     packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
+                        req,
+#                       requirement_set.requirements[req.name],
                         resolver._discovered_dependencies.get(req.name, []),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
                 except KeyError:
                     req.req.name = req.name.lower()  # try to work around case differences
                     packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
+                        req,
+#                       requirement_set.requirements[req.name],
                         resolver._discovered_dependencies.get(req.name, []),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
