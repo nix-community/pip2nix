@@ -1,5 +1,5 @@
 { pkgs ? (import <nixpkgs> {})
-, pythonPackages ? "python36Packages"
+, pythonPackages ? "python3Packages"
 }:
 
 with pkgs.lib;
