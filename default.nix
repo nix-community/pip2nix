@@ -50,7 +50,12 @@ let
         done
       '';
     });
-    pip = basePythonPackages.pip;
+
+    pip = super.pip.override (attrs: rec {
+      # pip detects that we already have bootstrapped_pip "installed", so we need
+      # to force it a little.
+      pipInstallFlags = [ "--ignore-installed" ];
+    });
   };
 
   pythonPackagesGenerated = import ./python-packages.nix {
