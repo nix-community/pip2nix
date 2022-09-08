@@ -8,11 +8,6 @@ let
     then pythonPackages
     else getAttr pythonPackages pkgs;
 
-  # Works with the new python-packages, still can fallback to the old
-  # variant.
-  basePythonPackagesUnfix = basePythonPackages.__unfix__ or (
-    self: basePythonPackages.override (a: { inherit self; }));
-
   elem = builtins.elem;
   basename = path: last (splitString "/" path);
   startsWith = prefix: full: let
@@ -63,10 +58,12 @@ let
     inherit (pkgs) fetchurl fetchgit fetchhg;
   };
 
-  myPythonPackages =
-    (fix
-    (extends pythonPackagesLocalOverrides
-    (extends pythonPackagesGenerated
-             basePythonPackagesUnfix)));
+  # See
+  # https://github.com/rihardsk/mautrix-hangouts-nix/commit/f5ed572b4b56b2daff002a860b5f4e00e175ed32
+  myPythonPackages = let
+    composedOverrides =
+      (composeExtensions pythonPackagesGenerated pythonPackagesLocalOverrides);
+    myPython = basePythonPackages.python.override { packageOverrides = composedOverrides; };
+  in myPython.pkgs;
 
 in myPythonPackages.pip2nix
