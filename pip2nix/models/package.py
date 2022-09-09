@@ -7,7 +7,6 @@ from subprocess import check_output, STDOUT
 from operator import itemgetter
 from pip._vendor.packaging.requirements import Requirement
 from pip._internal.req.req_install import InstallRequirement
-from pip._internal.utils.packaging import get_metadata
 
 try:
     FileNotFoundError

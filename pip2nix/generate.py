@@ -15,7 +15,8 @@ from pip._internal.cache import WheelCache
 from pip._internal.commands.install import InstallCommand
 from pip._internal.operations.prepare import RequirementPreparer
 from pip._internal.req import RequirementSet
-from pip._internal.req.req_tracker import RequirementTracker
+# TODO: fixme
+# from pip._internal.req.req_tracker import RequirementTracker
 from pip._internal.resolution.legacy.resolver import Resolver
 from pip._internal.utils.temp_dir import TempDirectory
 
@@ -35,6 +36,13 @@ def temp_dir(name):
 
 
 class NixFreezeCommand(InstallCommand):
+    """
+    Freeze dependencies to Nix.
+
+    Discovering all dependencies does traditionally mean running the
+    installation procedure to capture all potentially dynamic requirements.
+    This is why this class does inherit from ``InstallCommand``.
+    """
 
     name = 'pip2nix'
     usage = InstallCommand.usage.replace('%prog', name)
@@ -51,20 +59,26 @@ class NixFreezeCommand(InstallCommand):
         '--src',
     )
 
-    def __init__(self, pip2nix_config, *args, **kwargs):
-        super(NixFreezeCommand, self).__init__(self.name, self.summary,
-                                                *args, **kwargs)
+    def add_options(self) -> None:
+        """Configure pip2nix specific options."""
+        super().add_options()
+        self._remove_not_passed_through_options()
+        cmd_opts = self.cmd_opts
+        cmd_opts.add_option('--configuration', metavar='CONFIG',
+                            help="Read pip2nix configuration from CONFIG")
+        cmd_opts.add_option('--output', metavar='OUTPUT',
+                            help="Write the generated Nix to OUTPUT")
 
-        self.config = pip2nix_config
+    def _remove_not_passed_through_options(self) -> None:
         cmd_opts = self.cmd_opts
         for opt in cmd_opts.option_list:
             if opt.get_opt_string() not in self.PASSED_THROUGH_OPTIONS:
                 cmd_opts.remove_option(opt.get_opt_string())
 
-        cmd_opts.add_option('--configuration', metavar='CONFIG',
-                            help="Read pip2nix configuration from CONFIG")
-        cmd_opts.add_option('--output', metavar='OUTPUT',
-                            help="Write the generated Nix to OUTPUT")
+    def __init__(self, pip2nix_config, *args, **kwargs):
+        super(NixFreezeCommand, self).__init__(self.name, self.summary,
+                                                *args, **kwargs)
+        self.config = pip2nix_config
 
     def process_requirements(self, options, requirement_set, finder, resolver):
         if self.config.get_config('pip2nix', 'only_direct'):
