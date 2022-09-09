@@ -19,11 +19,6 @@ from pip._internal.req.req_tracker import RequirementTracker
 from pip._internal.resolution.legacy.resolver import Resolver
 from pip._internal.utils.temp_dir import TempDirectory
 
-try:
-    import wheel
-except ImportError:
-    wheel = None
-
 import pip2nix
 from .models.package import PythonPackage, indent
 from .models.requirement_set import RequirementSetLayer
