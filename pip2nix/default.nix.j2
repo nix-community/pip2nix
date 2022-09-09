@@ -5,7 +5,7 @@
 }:
 
 let
-  inherit (pkgs.lib) fix extends;
+  inherit (pkgs.lib) composeExtensions;
   basePythonPackages = with builtins; if isAttrs pythonPackages
     then pythonPackages
     else getAttr pythonPackages pkgs;
