@@ -106,6 +106,8 @@ class NixFreezeCommand(InstallCommand):
             if not requirements:
                 break
             finder.format_control.no_binary = set()  # allow binaries
+
+            # TODO: Investigate what the following really does
             try:
                 resolver.resolve(requirement_set)
             except TypeError:
@@ -113,6 +115,7 @@ class NixFreezeCommand(InstallCommand):
                 for req in requirement_set.all_requirements:
                     req.is_direct = True
                 resolver.resolve(indirect_deps, check_supported_wheels=True)
+
             for req in requirements.values():
                 if not req.source_dir:
                     resolver.resolve([req], check_supported_wheels=True)
@@ -179,131 +182,55 @@ class NixFreezeCommand(InstallCommand):
         with self._build_session(options) as session:
             finder = self._build_package_finder(options, session)
             wheel_cache = WheelCache(options.cache_dir, options.format_control)
-            try:
-                requirement_set = RequirementSet(
-                    require_hashes=options.require_hashes,
-                )
-                req_tracker_path = False
-            except TypeError:  # got an unexpected keyword argument 'require_hashes'
-                requirement_set = RequirementSet()
-                req_tracker_path = True   # pip 20
+            requirement_set = RequirementSet()
+            req_tracker_path = True   # pip 20
             try:
                 with TempDirectory(
                     options.build_dir, delete=True, kind="install"
                 ) as directory, RequirementTracker(*([directory.path] if req_tracker_path else [])) as req_tracker:
-                    try:
-                        self.populate_requirement_set(
-                            requirement_set, args, options, finder, session,
-                            self.name, wheel_cache
-                        )
-                    except TypeError:
-                        self.populate_requirement_set(
-                            requirement_set, args, options, finder, session,
-                            wheel_cache
-                        )
-                    except AttributeError:
-                        requirement_set = self.get_requirements(
-                            args, options, finder, session,
-                            wheel_cache
-                        )
-                    try:
-                        preparer = RequirementPreparer(
-                            build_dir=directory.path,
-                            src_dir=options.src_dir,
-                            download_dir=None,
-                            wheel_download_dir=None,
-                            progress_bar=options.progress_bar,
-                            build_isolation=options.build_isolation,
-                            req_tracker=req_tracker,
-                        )
-                    except TypeError:
-                        from pip._internal.network.download import Downloader
-                        downloader = Downloader(session,
-                                                progress_bar=options.progress_bar)
-                        preparer = RequirementPreparer(
-                            build_dir=directory.path,
-                            download_dir=None,
-                            src_dir=options.src_dir,
-                            wheel_download_dir=None,
-                            build_isolation=options.build_isolation,
-                            req_tracker=req_tracker,
-                            downloader=downloader,
-                            finder=finder,
-                            require_hashes=options.require_hashes,
-                            use_user_site=options.use_user_site,
-                        )
-                    try:
-                        resolver = Resolver(
-                            preparer=preparer,
-                            finder=finder,
-                            session=session,
-                            wheel_cache=wheel_cache,
-                            use_user_site=options.use_user_site,
-                            upgrade_strategy=upgrade_strategy,
-                            force_reinstall=options.force_reinstall,
-                            ignore_dependencies=options.ignore_dependencies,
-                            ignore_requires_python=options.ignore_requires_python,
-                            ignore_installed=options.ignore_installed,
-                            isolated=options.isolated_mode,
-                        )
-                    except TypeError:
-                        from pip._internal.req.constructors import (
-                            install_req_from_req_string,
-                        )
-                        make_install_req = partial(
-                            install_req_from_req_string,
-                            isolated=options.isolated_mode,
-                            wheel_cache=wheel_cache,
-                            use_pep517=options.use_pep517,
-                        )
-                        try:
-                            resolver = Resolver(
-                                preparer=preparer,
-                                session=session,
-                                finder=finder,
-                                make_install_req=make_install_req,
-                                use_user_site=options.use_user_site,
-                                ignore_dependencies=options.ignore_dependencies,
-                                ignore_installed=options.ignore_installed,
-                                ignore_requires_python=options.ignore_requires_python,
-                                force_reinstall=options.force_reinstall,
-                                upgrade_strategy=upgrade_strategy,
-                            )
-                        except TypeError:
-                            try:
-                                resolver = Resolver(
-                                    preparer=preparer,
-                                    finder=finder,
-                                    make_install_req=make_install_req,
-                                    use_user_site=options.use_user_site,
-                                    ignore_dependencies=options.ignore_dependencies,
-                                    ignore_installed=options.ignore_installed,
-                                    ignore_requires_python=options.ignore_requires_python,
-                                    force_reinstall=options.force_reinstall,
-                                    upgrade_strategy=upgrade_strategy,
-                                )
-                            except TypeError:
-                                make_install_req = partial(
-                                    install_req_from_req_string,
-                                    isolated=options.isolated_mode,
-                                    use_pep517=options.use_pep517,
-                                )
-                                resolver = Resolver(
-                                    preparer=preparer,
-                                    finder=finder,
-                                    make_install_req=make_install_req,
-                                    use_user_site=options.use_user_site,
-                                    ignore_dependencies=options.ignore_dependencies,
-                                    ignore_installed=options.ignore_installed,
-                                    ignore_requires_python=options.ignore_requires_python,
-                                    force_reinstall=options.force_reinstall,
-                                    upgrade_strategy=upgrade_strategy,
-                                    wheel_cache=wheel_cache,
-                                )
-                    try:
-                        resolver.resolve(requirement_set)
-                    except TypeError:
-                        requirement_set = resolver.resolve(requirement_set, check_supported_wheels=True)
+                    requirement_set = self.get_requirements(
+                        args, options, finder, session,
+                        wheel_cache
+                    )
+
+                    from pip._internal.network.download import Downloader
+                    downloader = Downloader(session,
+                                            progress_bar=options.progress_bar)
+                    preparer = RequirementPreparer(
+                        build_dir=directory.path,
+                        download_dir=None,
+                        src_dir=options.src_dir,
+                        wheel_download_dir=None,
+                        build_isolation=options.build_isolation,
+                        req_tracker=req_tracker,
+                        downloader=downloader,
+                        finder=finder,
+                        require_hashes=options.require_hashes,
+                        use_user_site=options.use_user_site,
+                    )
+
+                    from pip._internal.req.constructors import (
+                        install_req_from_req_string,
+                    )
+                    make_install_req = partial(
+                        install_req_from_req_string,
+                        isolated=options.isolated_mode,
+                        use_pep517=options.use_pep517,
+                    )
+                    resolver = Resolver(
+                        preparer=preparer,
+                        finder=finder,
+                        make_install_req=make_install_req,
+                        use_user_site=options.use_user_site,
+                        ignore_dependencies=options.ignore_dependencies,
+                        ignore_installed=options.ignore_installed,
+                        ignore_requires_python=options.ignore_requires_python,
+                        force_reinstall=options.force_reinstall,
+                        upgrade_strategy=upgrade_strategy,
+                        wheel_cache=wheel_cache,
+                    )
+
+                    requirement_set = resolver.resolve(requirement_set, check_supported_wheels=True)
                     finder.format_control.no_binary = set()  # allow binaries
                     self.process_requirements(
                         options,
