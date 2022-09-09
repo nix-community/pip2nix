@@ -44,10 +44,6 @@ class NixFreezeCommand(InstallCommand):
     This is why this class does inherit from ``InstallCommand``.
     """
 
-    name = 'pip2nix'
-    usage = InstallCommand.usage.replace('%prog', name)
-    summary = "Generate Nix expressions from requirements."
-
     PASSED_THROUGH_OPTIONS = (
         '--build',
         '--download',
@@ -75,9 +71,8 @@ class NixFreezeCommand(InstallCommand):
             if opt.get_opt_string() not in self.PASSED_THROUGH_OPTIONS:
                 cmd_opts.remove_option(opt.get_opt_string())
 
-    def __init__(self, pip2nix_config, *args, **kwargs):
-        super(NixFreezeCommand, self).__init__(self.name, self.summary,
-                                                *args, **kwargs)
+    def __init__(self, pip2nix_config, name, summary, *args, **kwargs):
+        super(NixFreezeCommand, self).__init__(name, summary, *args, **kwargs)
         self.config = pip2nix_config
 
     def process_requirements(self, options, requirement_set, finder, resolver):
@@ -311,6 +306,10 @@ class NixFreezeCommand(InstallCommand):
 
 
 def generate(config):
-    cmd = NixFreezeCommand(config)
+    """Run the generate command with the given configuration in config."""
+    cmd = NixFreezeCommand(
+        name="generate",
+        summary="Generate Nix expressions from requirements.",
+        pip2nix_config=config)
 
     return cmd.main([])
