@@ -52,11 +52,8 @@ class NixFreezeCommand(InstallCommand):
     )
 
     def __init__(self, pip2nix_config, *args, **kwargs):
-        try:
-            super(NixFreezeCommand, self).__init__(*args, **kwargs)
-        except TypeError:  # TypeError: __init__() takes at least 3 arguments (1 given)
-            super(NixFreezeCommand, self).__init__(self.name, self.summary,
-                                                   *args, **kwargs)
+        super(NixFreezeCommand, self).__init__(self.name, self.summary,
+                                                *args, **kwargs)
 
         self.config = pip2nix_config
         cmd_opts = self.cmd_opts
