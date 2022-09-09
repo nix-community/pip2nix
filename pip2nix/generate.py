@@ -6,20 +6,43 @@ from tempfile import mkdtemp
 from itertools import chain
 from operator import attrgetter
 from functools import partial
+from typing import List, Optional
 import os
 import re
 import shutil
 
 from pip._internal.cli import cmdoptions
-from pip._internal.cli.req_command import with_cleanup
+from pip._internal.cli.status_codes import ERROR, SUCCESS
+from pip._internal.cli.cmdoptions import make_target_python
+from pip._internal.cli.req_command import (
+    with_cleanup,
+    warn_if_run_as_root,
+)
 from pip._internal.cache import WheelCache
-from pip._internal.commands.install import InstallCommand
+from pip._internal.commands.install import (
+    create_os_error_message,
+    decide_user_install,
+    get_check_binary_allowed,
+    InstallCommand,
+    reject_location_related_install_options,
+)
+from pip._internal.exceptions import CommandError, InstallationError
+from pip._internal.operations.build.build_tracker import get_build_tracker
 from pip._internal.operations.prepare import RequirementPreparer
 from pip._internal.req import RequirementSet
 # TODO: fixme
 # from pip._internal.req.req_tracker import RequirementTracker
 from pip._internal.resolution.legacy.resolver import Resolver
+from pip._internal.utils.logging import getLogger
 from pip._internal.utils.temp_dir import TempDirectory
+from pip._internal.utils.misc import (
+    get_pip_version,
+    protect_pip_from_modification_on_windows,
+)
+from pip._internal.wheel_builder import (
+    build,
+    should_build_for_install_command,
+)
 
 import pip2nix
 from .models.package import PythonPackage, indent
@@ -27,6 +50,8 @@ from .models.requirement_set import RequirementSetLayer
 
 
 flatten = chain.from_iterable
+
+logger = getLogger(__name__)
 
 
 @contextmanager
@@ -82,6 +107,7 @@ class NixFreezeCommand(InstallCommand):
                 r for r in requirement_set.requirements.values()
                 if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
+            # TODO: avoid try-except
             try:
                 packages_base = requirement_set.all_requirements
             except AttributeError:
@@ -90,12 +116,22 @@ class NixFreezeCommand(InstallCommand):
         # Ensure resolved set
         packages = {
             req.name: PythonPackage.from_requirements(
-                req, resolver._discovered_dependencies.get(req.name, []),
+                # TODO: refactor, duplication of getting dependencies
+                req, list(resolver._result.graph.iter_children(req.name)),
                 finder, self.config["pip2nix"].get("check_inputs")
             )
             for req in packages_base
             if not req.constraint
         }
+
+        def _get_dependencies(name, result):
+            try:
+                return [
+                    result.mapping[dep]
+                    for dep in result.graph.iter_children(name)]
+            except Exception:
+                print("TODO: Proper handling required")
+                return []
 
         # Ensure setup_requires and test_requires and their dependencies
         while True and not self.config.get_config('pip2nix', 'only_direct'):
@@ -104,12 +140,12 @@ class NixFreezeCommand(InstallCommand):
                 for req in (
                     package.setup_requires +
                     package.tests_require +
-                    resolver._discovered_dependencies.get(name, [])
+                    _get_dependencies(name, resolver._result)
                 ):
                     if req.name in packages:
                         continue
                     req.is_direct = False
-                    requirement_set.add_requirement(req, req.comes_from)
+                    requirement_set.add_named_requirement(req)
                     requirements[req.name] = req
             requirements.pop('setuptools', None)
             requirements.pop('wheel', None)
@@ -127,19 +163,23 @@ class NixFreezeCommand(InstallCommand):
                 resolver.resolve(indirect_deps, check_supported_wheels=True)
 
             for req in requirements.values():
+                # TODO: Proper solution
+                if not hasattr(req, 'source_dir'):
+                    print("WARNING: No source_dir on {}".format(req))
+                    continue
                 if not req.source_dir:
                     resolver.resolve([req], check_supported_wheels=True)
                 try:
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
-                        resolver._discovered_dependencies.get(req.name, []),
+                        resolver._result.graph.iter_children(req.name),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
                 except KeyError:
                     req.req.name = req.name.lower()  # try to work around case differences
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
-                        resolver._discovered_dependencies.get(req.name, []),
+                        resolver._result.graph.iter_children(req.name),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
 
@@ -184,88 +224,252 @@ class NixFreezeCommand(InstallCommand):
 
     @with_cleanup
     def super_run(self, options, args):
-        """Copy of relevant parts from InstallCommand's run()"""
+        """
+        Copy of relevant parts from InstallCommand's ``run()``.
 
-        upgrade_strategy = "eager"
+        The basic idea is that a very similar behavior to the run method is
+        required. Basically everything except the actual installation is
+        needed.
+
+        At the end of this method a call to ``process_requirements`` is made,
+        so that the discovered dependencies will be rendered into a Nix file.
+        """
+        if options.use_user_site and options.target_dir is not None:
+            raise CommandError("Can not combine '--user' and '--target'")
+
+        cmdoptions.check_install_build_global(options)
+        upgrade_strategy = "to-satisfy-only"
         if options.upgrade:
             upgrade_strategy = options.upgrade_strategy
 
-        with self._build_session(options) as session:
-            finder = self._build_package_finder(options, session)
-            wheel_cache = WheelCache(options.cache_dir, options.format_control)
-            requirement_set = RequirementSet()
-            req_tracker_path = True   # pip 20
+        cmdoptions.check_dist_restriction(options, check_target=True)
+
+        logger.verbose("Using %s", get_pip_version())
+        options.use_user_site = decide_user_install(
+            options.use_user_site,
+            prefix_path=options.prefix_path,
+            target_dir=options.target_dir,
+            root_path=options.root_path,
+            isolated_mode=options.isolated_mode,
+        )
+
+        target_temp_dir: Optional[TempDirectory] = None
+        if options.target_dir:
+            options.ignore_installed = True
+            options.target_dir = os.path.abspath(options.target_dir)
+            if (
+                # fmt: off
+                os.path.exists(options.target_dir) and
+                not os.path.isdir(options.target_dir)
+                # fmt: on
+            ):
+                raise CommandError(
+                    "Target path exists but is not a directory, will not continue."
+                )
+
+            # Create a target directory for using with the target option
+            target_temp_dir = TempDirectory(kind="target")
+            self.enter_context(target_temp_dir)
+
+        session = self.get_default_session(options)
+
+        target_python = make_target_python(options)
+        finder = self._build_package_finder(
+            options=options,
+            session=session,
+            target_python=target_python,
+            ignore_requires_python=options.ignore_requires_python,
+        )
+        wheel_cache = WheelCache(options.cache_dir, options.format_control)
+
+        build_tracker = self.enter_context(get_build_tracker())
+
+        directory = TempDirectory(
+            delete=not options.no_clean,
+            kind="install",
+            globally_managed=True,
+        )
+
+        try:
+            reqs = self.get_requirements(args, options, finder, session)
+
+            # Only when installing is it permitted to use PEP 660.
+            # In other circumstances (pip wheel, pip download) we generate
+            # regular (i.e. non editable) metadata and wheels.
+            for req in reqs:
+                req.permit_editable_wheels = True
+
+            reject_location_related_install_options(reqs, options.install_options)
+
+            preparer = self.make_requirement_preparer(
+                temp_build_dir=directory,
+                options=options,
+                build_tracker=build_tracker,
+                session=session,
+                finder=finder,
+                use_user_site=options.use_user_site,
+                verbosity=self.verbosity,
+            )
+            resolver = self.make_resolver(
+                preparer=preparer,
+                finder=finder,
+                options=options,
+                wheel_cache=wheel_cache,
+                use_user_site=options.use_user_site,
+                ignore_installed=options.ignore_installed,
+                ignore_requires_python=options.ignore_requires_python,
+                force_reinstall=options.force_reinstall,
+                upgrade_strategy=upgrade_strategy,
+                use_pep517=options.use_pep517,
+            )
+
+            self.trace_basic_info(finder)
+
+            requirement_set = resolver.resolve(
+                reqs, check_supported_wheels=not options.target_dir
+            )
+
             try:
-                with TempDirectory(
-                    options.build_dir, delete=True, kind="install"
-                ) as directory, RequirementTracker(*([directory.path] if req_tracker_path else [])) as req_tracker:
-                    requirement_set = self.get_requirements(
-                        args, options, finder, session,
-                        wheel_cache
-                    )
+                pip_req = requirement_set.get_requirement("pip")
+            except KeyError:
+                modifying_pip = False
+            else:
+                # If we're not replacing an already installed pip,
+                # we're not modifying it.
+                modifying_pip = pip_req.satisfied_by is None
+            protect_pip_from_modification_on_windows(modifying_pip=modifying_pip)
 
-                    from pip._internal.network.download import Downloader
-                    downloader = Downloader(session,
-                                            progress_bar=options.progress_bar)
-                    preparer = RequirementPreparer(
-                        build_dir=directory.path,
-                        download_dir=None,
-                        src_dir=options.src_dir,
-                        wheel_download_dir=None,
-                        build_isolation=options.build_isolation,
-                        req_tracker=req_tracker,
-                        downloader=downloader,
-                        finder=finder,
-                        require_hashes=options.require_hashes,
-                        use_user_site=options.use_user_site,
-                    )
+            check_binary_allowed = get_check_binary_allowed(finder.format_control)
 
-                    from pip._internal.req.constructors import (
-                        install_req_from_req_string,
-                    )
-                    make_install_req = partial(
-                        install_req_from_req_string,
-                        isolated=options.isolated_mode,
-                        use_pep517=options.use_pep517,
-                    )
-                    resolver = Resolver(
-                        preparer=preparer,
-                        finder=finder,
-                        make_install_req=make_install_req,
-                        use_user_site=options.use_user_site,
-                        ignore_dependencies=options.ignore_dependencies,
-                        ignore_installed=options.ignore_installed,
-                        ignore_requires_python=options.ignore_requires_python,
-                        force_reinstall=options.force_reinstall,
-                        upgrade_strategy=upgrade_strategy,
-                        wheel_cache=wheel_cache,
-                    )
+            reqs_to_build = [
+                r
+                for r in requirement_set.requirements.values()
+                if should_build_for_install_command(r, check_binary_allowed)
+            ]
 
-                    requirement_set = resolver.resolve(requirement_set, check_supported_wheels=True)
-                    finder.format_control.no_binary = set()  # allow binaries
-                    self.process_requirements(
-                        options,
-                        requirement_set,
-                        finder,
-                        resolver
+            _, build_failures = build(
+                reqs_to_build,
+                wheel_cache=wheel_cache,
+                verify=True,
+                build_options=[],
+                global_options=[],
+            )
+
+            # If we're using PEP 517, we cannot do a legacy setup.py install
+            # so we fail here.
+            pep517_build_failure_names: List[str] = [
+                r.name for r in build_failures if r.use_pep517  # type: ignore
+            ]
+            if pep517_build_failure_names:
+                raise InstallationError(
+                    "Could not build wheels for {}, which is required to "
+                    "install pyproject.toml-based projects".format(
+                        ", ".join(pep517_build_failure_names)
                     )
+                )
 
-            finally:
-                try:
-                   requirement_set.cleanup_files()
-                   wheel_cache.cleanup()
-                except AttributeError:
-                    # https://github.com/pypa/pip/commit/5cca8f10b304a5a7f3a96dfd66937615324cf826
-                    pass
+            # For now, we just warn about failures building legacy
+            # requirements, as we'll fall through to a setup.py install for
+            # those.
+            for r in build_failures:
+                if not r.use_pep517:
+                    r.legacy_install_reason = 8368
 
-        return requirement_set
+            # to_install = resolver.get_installation_order(requirement_set)
+
+            # Check for conflicts in the package set we're installing.
+            # conflicts: Optional[ConflictDetails] = None
+            # should_warn_about_conflicts = (
+            #     not options.ignore_dependencies and options.warn_about_conflicts
+            # )
+            # if should_warn_about_conflicts:
+            #     conflicts = self._determine_conflicts(to_install)
+
+            # Don't warn about script install locations if
+            # --target or --prefix has been specified
+            # warn_script_location = options.warn_script_location
+            # if options.target_dir or options.prefix_path:
+            #     warn_script_location = False
+
+            # installed = install_given_reqs(
+            #     to_install,
+            #     install_options,
+            #     global_options,
+            #     root=options.root_path,
+            #     home=target_temp_dir_path,
+            #     prefix=options.prefix_path,
+            #     warn_script_location=warn_script_location,
+            #     use_user_site=options.use_user_site,
+            #     pycompile=options.compile,
+            # )
+
+            # lib_locations = get_lib_location_guesses(
+            #     user=options.use_user_site,
+            #     home=target_temp_dir_path,
+            #     root=options.root_path,
+            #     prefix=options.prefix_path,
+            #     isolated=options.isolated_mode,
+            # )
+            # env = get_environment(lib_locations)
+
+            # installed.sort(key=operator.attrgetter("name"))
+            # items = []
+            # for result in installed:
+            #     item = result.name
+            #     try:
+            #         installed_dist = env.get_distribution(item)
+            #         if installed_dist is not None:
+            #             item = f"{item}-{installed_dist.version}"
+            #     except Exception:
+            #         pass
+            #     items.append(item)
+
+            # if conflicts is not None:
+            #     self._warn_about_conflicts(
+            #         conflicts,
+            #         resolver_variant=self.determine_resolver_variant(options),
+            #     )
+
+            # installed_desc = " ".join(items)
+            # if installed_desc:
+            #     write_output(
+            #         "Successfully installed %s",
+            #         installed_desc,
+            #     )
+        except OSError as error:
+            show_traceback = self.verbosity >= 1
+
+            message = create_os_error_message(
+                error,
+                show_traceback,
+                options.use_user_site,
+            )
+            logger.error(message, exc_info=show_traceback)  # noqa
+
+            return ERROR
+
+        if options.target_dir:
+            assert target_temp_dir
+            self._handle_target_dir(
+                options.target_dir, target_temp_dir, options.upgrade
+            )
+        if options.root_user_action == "warn":
+            warn_if_run_as_root()
+
+        self.process_requirements(
+            options,
+            requirement_set,
+            finder,
+            resolver
+        )
+
+        return SUCCESS
 
     def run(self, options, _args):
         with Contexter() as ctx:
             self.cleanup = ctx
             options, args = self.prepare_options(options)
-            requirement_set = self.super_run(options, args)
-            return requirement_set
+            return self.super_run(options, args)
 
     def prepare_options(self, options):
         """Load configuration from self.config into pip options.

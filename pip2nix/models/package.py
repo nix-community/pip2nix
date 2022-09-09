@@ -114,8 +114,8 @@ class PythonPackage(object):
     def from_requirements(cls, req, deps, finder, check):
         def name_version(dep):
             return (
-                dep.name,
-                get_version(dep),
+                dep,
+                get_version(req),
             )
         source = req.link
 
