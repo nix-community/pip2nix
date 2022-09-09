@@ -11,6 +11,7 @@ import re
 import shutil
 
 from pip._internal.cli import cmdoptions
+from pip._internal.cli.req_command import with_cleanup
 from pip._internal.cache import WheelCache
 from pip._internal.commands.install import InstallCommand
 from pip._internal.operations.prepare import RequirementPreparer
@@ -181,6 +182,7 @@ class NixFreezeCommand(InstallCommand):
         test_req_set.prepare_files(finder)
         return test_req_set
 
+    @with_cleanup
     def super_run(self, options, args):
         """Copy of relevant parts from InstallCommand's run()"""
 
