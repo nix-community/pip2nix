@@ -336,21 +336,17 @@ class NixFreezeCommand(InstallCommand):
         else:
             packages_base = requirement_set.all_requirements
 
-        def _get_dependencies(name, result):
+        def _get_dependencies(req, requirement_set):
             results = []
-            try:
-                for dep in result.graph.iter_children(name):
-                    install_requirement = result.mapping[dep].get_install_requirement()
-                    if install_requirement:
-                        results.append(install_requirement)
-            except Exception:
-                print("TODO: Proper handling required")
+            for dep in req.get_dist().iter_dependencies():
+                install_requirement = requirement_set.get_requirement(dep.name)
+                results.append(install_requirement)
             return results
 
         # Ensure resolved set
         packages = {
             req.name: PythonPackage.from_requirements(
-                req, _get_dependencies(req.name, resolver._result),
+                req, _get_dependencies(req, requirement_set),
                 finder, self.config["pip2nix"].get("check_inputs")
             )
             for req in packages_base
@@ -358,54 +354,30 @@ class NixFreezeCommand(InstallCommand):
         }
 
         # Ensure setup_requires and test_requires and their dependencies
-        while True and not self.config.get_config('pip2nix', 'only_direct'):
+        if not self.config.get_config('pip2nix', 'only_direct'):
             requirements = {}
             for name, package in packages.items():
                 for req in (
                     package.setup_requires +
-                    package.tests_require +
-                    _get_dependencies(name, resolver._result)
+                    package.tests_require
                 ):
                     if req.name in packages:
                         continue
                     req.is_direct = False
-                    requirement_set.add_named_requirement(req)
                     requirements[req.name] = req
             requirements.pop('setuptools', None)
             requirements.pop('wheel', None)
-            if not requirements:
-                break
-            finder.format_control.no_binary = set()  # allow binaries
 
-            # TODO: Investigate what the following really does
-            try:
-                resolver.resolve(requirement_set)
-            except TypeError:
-                indirect_deps = []
-                for req in requirement_set.all_requirements:
-                    req.is_direct = True
-                resolver.resolve(indirect_deps, check_supported_wheels=True)
+            # TODO: which value should "check_supported_wheels" really have?
+            new_requirement_set = resolver.resolve(
+                requirements.values(), check_supported_wheels=True)
 
-            for req in requirements.values():
-                # TODO: Proper solution
-                if not hasattr(req, 'source_dir'):
-                    print("WARNING: No source_dir on {}".format(req))
-                    continue
-                if not req.source_dir:
-                    resolver.resolve([req], check_supported_wheels=True)
-                try:
-                    packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
-                        _get_dependencies(req.name, resolver._result),
-                        finder, self.config["pip2nix"].get("check_inputs")
-                    )
-                except KeyError:
-                    req.req.name = req.name.lower()  # try to work around case differences
-                    packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
-                        _get_dependencies(req.name, resolver._result),
-                        finder, self.config["pip2nix"].get("check_inputs")
-                    )
+            for req in new_requirement_set.all_requirements:
+                packages[req.name] = PythonPackage.from_requirements(
+                    req,
+                    _get_dependencies(req, new_requirement_set),
+                    finder, self.config["pip2nix"].get("check_inputs")
+                )
 
         # If you need a newer version of setuptools or wheel, you know it and
         # can add it later; By default these would cause issues.
