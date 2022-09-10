@@ -375,67 +375,6 @@ class NixFreezeCommand(InstallCommand):
                 if not r.use_pep517:
                     r.legacy_install_reason = 8368
 
-            # to_install = resolver.get_installation_order(requirement_set)
-
-            # Check for conflicts in the package set we're installing.
-            # conflicts: Optional[ConflictDetails] = None
-            # should_warn_about_conflicts = (
-            #     not options.ignore_dependencies and options.warn_about_conflicts
-            # )
-            # if should_warn_about_conflicts:
-            #     conflicts = self._determine_conflicts(to_install)
-
-            # Don't warn about script install locations if
-            # --target or --prefix has been specified
-            # warn_script_location = options.warn_script_location
-            # if options.target_dir or options.prefix_path:
-            #     warn_script_location = False
-
-            # installed = install_given_reqs(
-            #     to_install,
-            #     install_options,
-            #     global_options,
-            #     root=options.root_path,
-            #     home=target_temp_dir_path,
-            #     prefix=options.prefix_path,
-            #     warn_script_location=warn_script_location,
-            #     use_user_site=options.use_user_site,
-            #     pycompile=options.compile,
-            # )
-
-            # lib_locations = get_lib_location_guesses(
-            #     user=options.use_user_site,
-            #     home=target_temp_dir_path,
-            #     root=options.root_path,
-            #     prefix=options.prefix_path,
-            #     isolated=options.isolated_mode,
-            # )
-            # env = get_environment(lib_locations)
-
-            # installed.sort(key=operator.attrgetter("name"))
-            # items = []
-            # for result in installed:
-            #     item = result.name
-            #     try:
-            #         installed_dist = env.get_distribution(item)
-            #         if installed_dist is not None:
-            #             item = f"{item}-{installed_dist.version}"
-            #     except Exception:
-            #         pass
-            #     items.append(item)
-
-            # if conflicts is not None:
-            #     self._warn_about_conflicts(
-            #         conflicts,
-            #         resolver_variant=self.determine_resolver_variant(options),
-            #     )
-
-            # installed_desc = " ".join(items)
-            # if installed_desc:
-            #     write_output(
-            #         "Successfully installed %s",
-            #         installed_desc,
-            #     )
         except OSError as error:
             show_traceback = self.verbosity >= 1
 
