@@ -337,13 +337,15 @@ class NixFreezeCommand(InstallCommand):
             packages_base = requirement_set.all_requirements
 
         def _get_dependencies(name, result):
+            results = []
             try:
-                return [
-                    result.mapping[dep]
-                    for dep in result.graph.iter_children(name)]
+                for dep in result.graph.iter_children(name):
+                    install_requirement = result.mapping[dep].get_install_requirement()
+                    if install_requirement:
+                        results.append(install_requirement)
             except Exception:
                 print("TODO: Proper handling required")
-                return []
+            return results
 
         # Ensure resolved set
         packages = {

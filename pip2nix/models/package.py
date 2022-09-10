@@ -115,7 +115,7 @@ class PythonPackage(object):
         def name_version(dep):
             return (
                 dep.name,
-                dep.version,
+                get_version(dep),
             )
         source = req.link
 
