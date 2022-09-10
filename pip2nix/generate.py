@@ -334,22 +334,7 @@ class NixFreezeCommand(InstallCommand):
                 r for r in requirement_set.requirements.values()
                 if r.is_direct and not r.comes_from.startswith('-c ')]
         else:
-            # TODO: avoid try-except
-            try:
-                packages_base = requirement_set.all_requirements
-            except AttributeError:
-                packages_base = [r for r in requirement_set.requirements.values()]
-
-        # Ensure resolved set
-        packages = {
-            req.name: PythonPackage.from_requirements(
-                # TODO: refactor, duplication of getting dependencies
-                req, list(resolver._result.graph.iter_children(req.name)),
-                finder, self.config["pip2nix"].get("check_inputs")
-            )
-            for req in packages_base
-            if not req.constraint
-        }
+            packages_base = requirement_set.all_requirements
 
         def _get_dependencies(name, result):
             try:
@@ -359,6 +344,16 @@ class NixFreezeCommand(InstallCommand):
             except Exception:
                 print("TODO: Proper handling required")
                 return []
+
+        # Ensure resolved set
+        packages = {
+            req.name: PythonPackage.from_requirements(
+                req, _get_dependencies(req.name, resolver._result),
+                finder, self.config["pip2nix"].get("check_inputs")
+            )
+            for req in packages_base
+            if not req.constraint
+        }
 
         # Ensure setup_requires and test_requires and their dependencies
         while True and not self.config.get_config('pip2nix', 'only_direct'):
@@ -399,14 +394,14 @@ class NixFreezeCommand(InstallCommand):
                 try:
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
-                        resolver._result.graph.iter_children(req.name),
+                        _get_dependencies(req.name, resolver._result),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
                 except KeyError:
                     req.req.name = req.name.lower()  # try to work around case differences
                     packages[req.name] = PythonPackage.from_requirements(
                         requirement_set.requirements[req.name],
-                        resolver._result.graph.iter_children(req.name),
+                        _get_dependencies(req.name, resolver._result),
                         finder, self.config["pip2nix"].get("check_inputs")
                     )
 
