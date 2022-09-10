@@ -101,126 +101,50 @@ class NixFreezeCommand(InstallCommand):
         super(NixFreezeCommand, self).__init__(name, summary, *args, **kwargs)
         self.config = pip2nix_config
 
-    def process_requirements(self, options, requirement_set, finder, resolver):
-        if self.config.get_config('pip2nix', 'only_direct'):
-            packages_base = [
-                r for r in requirement_set.requirements.values()
-                if r.is_direct and not r.comes_from.startswith('-c ')]
-        else:
-            # TODO: avoid try-except
-            try:
-                packages_base = requirement_set.all_requirements
-            except AttributeError:
-                packages_base = [r for r in requirement_set.requirements.values()]
+    def run(self, options, _args):
+        with Contexter() as ctx:
+            self.cleanup = ctx
+            options, args = self.prepare_options(options)
+            return self.super_run(options, args)
 
-        # Ensure resolved set
-        packages = {
-            req.name: PythonPackage.from_requirements(
-                # TODO: refactor, duplication of getting dependencies
-                req, list(resolver._result.graph.iter_children(req.name)),
-                finder, self.config["pip2nix"].get("check_inputs")
-            )
-            for req in packages_base
-            if not req.constraint
-        }
+    def prepare_options(self, options):
+        """Load configuration from self.config into pip options.
 
-        def _get_dependencies(name, result):
-            try:
-                return [
-                    result.mapping[dep]
-                    for dep in result.graph.iter_children(name)]
-            except Exception:
-                print("TODO: Proper handling required")
-                return []
+        Returns a (options, args) tuple."""
+        for opt_name, path in [
+                ('build', ('build', )),
+                ('download', ('download',)),
+                ('index_url', ('index_url', )),
+                ('no_binary', ('no_binary', )),
+                ('output', ('output', )),
+                ('src', ('src',))]:
+            value = self.config.get_config('pip2nix', *path)
+            if value is not None:
+                setattr(options, opt_name, value)
 
-        # Ensure setup_requires and test_requires and their dependencies
-        while True and not self.config.get_config('pip2nix', 'only_direct'):
-            requirements = {}
-            for name, package in packages.items():
-                for req in (
-                    package.setup_requires +
-                    package.tests_require +
-                    _get_dependencies(name, resolver._result)
-                ):
-                    if req.name in packages:
-                        continue
-                    req.is_direct = False
-                    requirement_set.add_named_requirement(req)
-                    requirements[req.name] = req
-            requirements.pop('setuptools', None)
-            requirements.pop('wheel', None)
-            if not requirements:
-                break
-            finder.format_control.no_binary = set()  # allow binaries
+        requirements = defaultdict(list)
+        for req_type, req in self.config.get_requirements():
+            requirements[req_type].append(req)
 
-            # TODO: Investigate what the following really does
-            try:
-                resolver.resolve(requirement_set)
-            except TypeError:
-                indirect_deps = []
-                for req in requirement_set.all_requirements:
-                    req.is_direct = True
-                resolver.resolve(indirect_deps, check_supported_wheels=True)
+        args = requirements[None]
+        options.requirements = requirements['-r']
+        options.format_control.no_binary = set(options.no_binary)
+        options.no_install = True  # Download only
+        options.upgrade = True  # Download all packages
+        options.use_wheel = False  # We'll build the wheels ourself
+        options.no_clean = True  # This is needed to access pkg_info later
+        options.download_dir = self.config.get_config('pip2nix', 'download') \
+            or (self.cleanup << temp_dir('pip2nix'))
+        options.constraints = self.config.get_constraints()
 
-            for req in requirements.values():
-                # TODO: Proper solution
-                if not hasattr(req, 'source_dir'):
-                    print("WARNING: No source_dir on {}".format(req))
-                    continue
-                if not req.source_dir:
-                    resolver.resolve([req], check_supported_wheels=True)
-                try:
-                    packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
-                        resolver._result.graph.iter_children(req.name),
-                        finder, self.config["pip2nix"].get("check_inputs")
-                    )
-                except KeyError:
-                    req.req.name = req.name.lower()  # try to work around case differences
-                    packages[req.name] = PythonPackage.from_requirements(
-                        requirement_set.requirements[req.name],
-                        resolver._result.graph.iter_children(req.name),
-                        finder, self.config["pip2nix"].get("check_inputs")
-                    )
+        # TODO: What are those about/for?
+        cmdoptions.check_install_build_global(options)
 
-        # If you need a newer version of setuptools or wheel, you know it and
-        # can add it later; By default these would cause issues.
-        packages.pop('setuptools', None)
-        packages.pop('wheel', None)
+        options.ignore_installed = True
+        src_dir = self.config.get_config('pip2nix', 'src')
+        options.src_dir = os.path.abspath(src_dir) if src_dir else None
 
-        include_lic = self.config['pip2nix']['licenses']
-
-        cache = ''
-        if os.path.exists(self.config['pip2nix']['output']):
-            with open(self.config['pip2nix']['output'], 'r') as f:
-                cache = f.read()
-        cache = re.sub('\s+', ' ', cache, re.M & re.I)
-        cache = re.findall('url = "([^"]+)"; sha256 = "([^"]+)"', cache, re.M)
-        cache = dict(cache)
-
-        with open(self.config['pip2nix']['output'], 'w') as f:
-            self._write_about_comment(f)
-            f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
-            f.write('self: super: {\n')
-            f.write('  ' + indent(2, '\n'.join(
-                '"{}" = {}'.format(pkg.name,
-                                   pkg.to_nix(include_lic=include_lic,
-                                              cache=cache))
-                for pkg in sorted(packages.values(),
-                                  key=attrgetter('name'))
-            )))
-            f.write('\n}\n')
-
-    def _write_about_comment(self, target):
-        target.write('# Generated by pip2nix {}\n'.format(pip2nix.__version__))
-        target.write('# See https://github.com/nix-community/pip2nix\n\n')
-
-    def get_tests_requirements_set(self, base_set, finder, test_dependencies):
-        test_req_set = RequirementSetLayer(base=base_set)
-        for dep in test_dependencies:
-            test_req_set.add_requirement(dep)
-        test_req_set.prepare_files(finder)
-        return test_req_set
+        return options, args
 
     @with_cleanup
     def super_run(self, options, args):
@@ -404,50 +328,126 @@ class NixFreezeCommand(InstallCommand):
 
         return SUCCESS
 
-    def run(self, options, _args):
-        with Contexter() as ctx:
-            self.cleanup = ctx
-            options, args = self.prepare_options(options)
-            return self.super_run(options, args)
+    def process_requirements(self, options, requirement_set, finder, resolver):
+        if self.config.get_config('pip2nix', 'only_direct'):
+            packages_base = [
+                r for r in requirement_set.requirements.values()
+                if r.is_direct and not r.comes_from.startswith('-c ')]
+        else:
+            # TODO: avoid try-except
+            try:
+                packages_base = requirement_set.all_requirements
+            except AttributeError:
+                packages_base = [r for r in requirement_set.requirements.values()]
 
-    def prepare_options(self, options):
-        """Load configuration from self.config into pip options.
+        # Ensure resolved set
+        packages = {
+            req.name: PythonPackage.from_requirements(
+                # TODO: refactor, duplication of getting dependencies
+                req, list(resolver._result.graph.iter_children(req.name)),
+                finder, self.config["pip2nix"].get("check_inputs")
+            )
+            for req in packages_base
+            if not req.constraint
+        }
 
-        Returns a (options, args) tuple."""
-        for opt_name, path in [
-                ('build', ('build', )),
-                ('download', ('download',)),
-                ('index_url', ('index_url', )),
-                ('no_binary', ('no_binary', )),
-                ('output', ('output', )),
-                ('src', ('src',))]:
-            value = self.config.get_config('pip2nix', *path)
-            if value is not None:
-                setattr(options, opt_name, value)
+        def _get_dependencies(name, result):
+            try:
+                return [
+                    result.mapping[dep]
+                    for dep in result.graph.iter_children(name)]
+            except Exception:
+                print("TODO: Proper handling required")
+                return []
 
-        requirements = defaultdict(list)
-        for req_type, req in self.config.get_requirements():
-            requirements[req_type].append(req)
+        # Ensure setup_requires and test_requires and their dependencies
+        while True and not self.config.get_config('pip2nix', 'only_direct'):
+            requirements = {}
+            for name, package in packages.items():
+                for req in (
+                    package.setup_requires +
+                    package.tests_require +
+                    _get_dependencies(name, resolver._result)
+                ):
+                    if req.name in packages:
+                        continue
+                    req.is_direct = False
+                    requirement_set.add_named_requirement(req)
+                    requirements[req.name] = req
+            requirements.pop('setuptools', None)
+            requirements.pop('wheel', None)
+            if not requirements:
+                break
+            finder.format_control.no_binary = set()  # allow binaries
 
-        args = requirements[None]
-        options.requirements = requirements['-r']
-        options.format_control.no_binary = set(options.no_binary)
-        options.no_install = True  # Download only
-        options.upgrade = True  # Download all packages
-        options.use_wheel = False  # We'll build the wheels ourself
-        options.no_clean = True  # This is needed to access pkg_info later
-        options.download_dir = self.config.get_config('pip2nix', 'download') \
-            or (self.cleanup << temp_dir('pip2nix'))
-        options.constraints = self.config.get_constraints()
+            # TODO: Investigate what the following really does
+            try:
+                resolver.resolve(requirement_set)
+            except TypeError:
+                indirect_deps = []
+                for req in requirement_set.all_requirements:
+                    req.is_direct = True
+                resolver.resolve(indirect_deps, check_supported_wheels=True)
 
-        # TODO: What are those about/for?
-        cmdoptions.check_install_build_global(options)
+            for req in requirements.values():
+                # TODO: Proper solution
+                if not hasattr(req, 'source_dir'):
+                    print("WARNING: No source_dir on {}".format(req))
+                    continue
+                if not req.source_dir:
+                    resolver.resolve([req], check_supported_wheels=True)
+                try:
+                    packages[req.name] = PythonPackage.from_requirements(
+                        requirement_set.requirements[req.name],
+                        resolver._result.graph.iter_children(req.name),
+                        finder, self.config["pip2nix"].get("check_inputs")
+                    )
+                except KeyError:
+                    req.req.name = req.name.lower()  # try to work around case differences
+                    packages[req.name] = PythonPackage.from_requirements(
+                        requirement_set.requirements[req.name],
+                        resolver._result.graph.iter_children(req.name),
+                        finder, self.config["pip2nix"].get("check_inputs")
+                    )
 
-        options.ignore_installed = True
-        src_dir = self.config.get_config('pip2nix', 'src')
-        options.src_dir = os.path.abspath(src_dir) if src_dir else None
+        # If you need a newer version of setuptools or wheel, you know it and
+        # can add it later; By default these would cause issues.
+        packages.pop('setuptools', None)
+        packages.pop('wheel', None)
 
-        return options, args
+        include_lic = self.config['pip2nix']['licenses']
+
+        cache = ''
+        if os.path.exists(self.config['pip2nix']['output']):
+            with open(self.config['pip2nix']['output'], 'r') as f:
+                cache = f.read()
+        cache = re.sub('\s+', ' ', cache, re.M & re.I)
+        cache = re.findall('url = "([^"]+)"; sha256 = "([^"]+)"', cache, re.M)
+        cache = dict(cache)
+
+        with open(self.config['pip2nix']['output'], 'w') as f:
+            self._write_about_comment(f)
+            f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
+            f.write('self: super: {\n')
+            f.write('  ' + indent(2, '\n'.join(
+                '"{}" = {}'.format(pkg.name,
+                                   pkg.to_nix(include_lic=include_lic,
+                                              cache=cache))
+                for pkg in sorted(packages.values(),
+                                  key=attrgetter('name'))
+            )))
+            f.write('\n}\n')
+
+    def _write_about_comment(self, target):
+        target.write('# Generated by pip2nix {}\n'.format(pip2nix.__version__))
+        target.write('# See https://github.com/nix-community/pip2nix\n\n')
+
+    def get_tests_requirements_set(self, base_set, finder, test_dependencies):
+        test_req_set = RequirementSetLayer(base=base_set)
+        for dep in test_dependencies:
+            test_req_set.add_requirement(dep)
+        test_req_set.prepare_files(finder)
+        return test_req_set
 
 
 def generate(config):
