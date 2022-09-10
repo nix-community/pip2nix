@@ -263,42 +263,6 @@ class NixFreezeCommand(InstallCommand):
                 modifying_pip = pip_req.satisfied_by is None
             protect_pip_from_modification_on_windows(modifying_pip=modifying_pip)
 
-            check_binary_allowed = get_check_binary_allowed(finder.format_control)
-
-            reqs_to_build = [
-                r
-                for r in requirement_set.requirements.values()
-                if should_build_for_install_command(r, check_binary_allowed)
-            ]
-
-            _, build_failures = build(
-                reqs_to_build,
-                wheel_cache=wheel_cache,
-                verify=True,
-                build_options=[],
-                global_options=[],
-            )
-
-            # If we're using PEP 517, we cannot do a legacy setup.py install
-            # so we fail here.
-            pep517_build_failure_names: List[str] = [
-                r.name for r in build_failures if r.use_pep517  # type: ignore
-            ]
-            if pep517_build_failure_names:
-                raise InstallationError(
-                    "Could not build wheels for {}, which is required to "
-                    "install pyproject.toml-based projects".format(
-                        ", ".join(pep517_build_failure_names)
-                    )
-                )
-
-            # For now, we just warn about failures building legacy
-            # requirements, as we'll fall through to a setup.py install for
-            # those.
-            for r in build_failures:
-                if not r.use_pep517:
-                    r.legacy_install_reason = 8368
-
         except OSError as error:
             show_traceback = self.verbosity >= 1
 
