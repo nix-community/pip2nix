@@ -29,7 +29,7 @@ The original author of `pip2nix` started the project with the following motivati
   VCS links, and dependency links. I couldn't get any of the other generators to
   work, so I started my own :-)
 
-Major difference between `pip2nix` and `pypi2nix` is that `pip2nix` can be used to extend `nixpkgs` Python package set and reuse its package functions where `pypi2nix` maintains separate package tree from `nixpkgs`. Bot approaches have their own pros and cons.
+Major difference between `pip2nix` and `pypi2nix` is that `pip2nix` can be used to extend `nixpkgs` Python package set and reuse its package functions where `pypi2nix` maintains separate package tree from `nixpkgs`. Both approaches have their own pros and cons.
 
 
 Installation
