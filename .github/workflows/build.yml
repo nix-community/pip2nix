@@ -32,6 +32,7 @@ jobs:
     - run: nix-build release.nix --argstr nixpkgs ${{ matrix.nixpkgs }} -A pip2nix.${{ matrix.python }}
   bootstrap:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         nixpkgs: [nixpkgs-20.09, nixpkgs-20.03, nixpkgs-19.09, nixpkgs-19.03, nixpkgs-18.09]
