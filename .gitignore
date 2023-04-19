@@ -5,6 +5,7 @@
 /result
 /result-*
 /_bootstrap_env/
+*.swp
 
 # Docs
 /docs/_build/
