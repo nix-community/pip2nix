@@ -95,10 +95,10 @@ self: super: {
   };
   "pip" = super.buildPythonPackage rec {
     pname = "pip";
-    version = "20.3.1";
+    version = "20.1.1";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/cb/5f/ae1eb8bda1cde4952bd12e468ab8a254c345a0189402bf1421457577f4f3/pip-20.3.1.tar.gz";
-      sha256 = "1qnjz61583g19y51fw6qcm4rj1fx258mll9rkn09bnq53y0x7xs3";
+      url = "https://files.pythonhosted.org/packages/08/25/f204a6138dade2f6757b4ae99bc3994aac28a5602c97ddb2a35e0e22fbc4/pip-20.1.1.tar.gz";
+      sha256 = "sha256-J/jcKTh92DJJ4G5oHOCH5gYYJlghmKQlCF4L9MHPOlU=";
     };
     format = "setuptools";
     doCheck = false;
