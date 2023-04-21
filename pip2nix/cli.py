@@ -29,7 +29,8 @@ def cli():
 @click.option('--no-index/--index',
               help="Ignore indexes.")
 @click.option('--no-binary', multiple=True,
-              help="Do not use binary packages.")
+              help="Do not use binary packages. Use \":all:\" to select "
+                   "all packages.")
 
 #TODO:
 # --allow-external <package>  Allow the installation of a package even if it is externally hosted
