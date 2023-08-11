@@ -24,7 +24,7 @@ done
 
 NIXPKGS="${NIXPKGS:-nixpkgs-20.09}"
 PYTHON="${PYTHON:-python39}"
-PIP=$(nix eval --impure --expr "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.pip.version")
+PIP=$(nix-instantiate --eval -E "(import ./nix { nixpkgs = (import ./nix/sources.nix).\"$NIXPKGS\"; }).${PYTHON}Packages.pip.version")
 PIP=${PIP//\"/}
 
 if [ "$FORCE_REBUILD" -o \
