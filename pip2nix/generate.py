@@ -354,6 +354,7 @@ class NixFreezeCommand(InstallCommand):
                 ('build', ('build', )),
                 ('download', ('download',)),
                 ('index_url', ('index_url', )),
+                ('extra_index_urls', ('extra_index_url', )),
                 ('no_binary', ('no_binary', )),
                 ('output', ('output', )),
                 ('src', ('src',))]:
