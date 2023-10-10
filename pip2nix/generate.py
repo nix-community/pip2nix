@@ -351,7 +351,7 @@ class NixFreezeCommand(InstallCommand):
 
         Returns a (options, args) tuple."""
         for opt_name, path in [
-                ('build', ('build', )),
+                ('build_dir', ('build_dir', )),
                 ('download', ('download',)),
                 ('index_url', ('index_url', )),
                 ('extra_index_urls', ('extra_index_url', )),
