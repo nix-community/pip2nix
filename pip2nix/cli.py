@@ -24,7 +24,7 @@ def cli():
               help="Only render direct dependencies.")
 @click.option('--index-url', '-i', metavar='<url>',
               help="Base URL of Python Package Index.")
-@click.option('--extra-index-url', metavar='<url>',
+@click.option('--extra-index-url', multiple=True, metavar='<url>',
               help="Extra index URLs to use.")
 @click.option('--no-index/--index',
               help="Ignore indexes.")
