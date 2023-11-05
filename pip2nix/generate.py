@@ -87,7 +87,7 @@ class NixFreezeCommand(InstallCommand):
         if self.config.get_config('pip2nix', 'only_direct'):
             packages_base = [
                 r for r in requirement_set.requirements.values()
-                if r.is_direct and not r.comes_from.startswith('-c ')]
+                if _is_direct_requirement(r)]
         else:
             try:
                 packages_base = requirement_set.all_requirements
@@ -390,3 +390,11 @@ def generate(config):
     cmd = NixFreezeCommand(config)
 
     return cmd.main([])
+
+
+def _is_direct_requirement(r):
+    return r.is_direct and not _comes_from_constraint(r)
+
+
+def _comes_from_constraint(r):
+    return r.comes_from and r.comes_from.startswith('-c ')
