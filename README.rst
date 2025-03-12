@@ -52,12 +52,18 @@ Alternatively `pip2nix` can be installed into the user's environment::
   $ nix-env -f pip2nix/release.nix -iA pip2nix.python36
 
 
+
 Usage
 =====
 
 To generate python-packages.nix for a set of requirements::
 
     $ pip2nix generate -r requirements.txt
+
+Alternatively if having flakes enabled you can run `pip2nix` without the need to install it::
+
+    $ nix run github:nix-community/pip2nix -- generate -r requirements.txt
+
 
 ``pip2nix generate`` takes the same set of package specifications ``pip
 install`` does.
