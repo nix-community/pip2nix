@@ -6,10 +6,10 @@
 self: super: {
   "MarkupSafe" = super.buildPythonPackage rec {
     pname = "MarkupSafe";
-    version = "1.1.1";
+    version = "2.1.1";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/b9/2e/64db92e53b86efccfaea71321f597fa2e1b2bd3853d8ce658568f7a13094/MarkupSafe-1.1.1.tar.gz";
-      sha256 = "0sqipg4fk7xbixqd8kq6rlkxj664d157bdwbh93farcphf92x1r9";
+      url = "https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz";
+      sha256 = "0jqxp5sfrc0byp6bk0gwdmildi4mck2gprp42afri3z4r5y1k4bz";
     };
     format = "setuptools";
     doCheck = false;
@@ -23,10 +23,10 @@ self: super: {
   };
   "click" = super.buildPythonPackage rec {
     pname = "click";
-    version = "7.1.2";
+    version = "8.1.3";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz";
-      sha256 = "06kbzd6sjfkqan3miwj9wqyddfxc2b6hi7p5s4dvqjb3gif2bdfj";
+      url = "https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz";
+      sha256 = "13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn";
     };
     format = "setuptools";
     doCheck = false;
@@ -76,10 +76,10 @@ self: super: {
   };
   "jinja2" = super.buildPythonPackage rec {
     pname = "jinja2";
-    version = "2.11.2";
+    version = "3.1.2";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/64/a7/45e11eebf2f15bf987c3bc11d37dcc838d9dc81250e67e4c5968f6008b6c/Jinja2-2.11.2.tar.gz";
-      sha256 = "1c1v3djnr0ymp5xpy1h3h60abcaqxdlm4wsqmls9rxby88av5al9";
+      url = "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz";
+      sha256 = "0lp86yadzf8dph67f6g3yxmvnhrzzi863z58jmsrx2j059q1ld9i";
     };
     format = "setuptools";
     doCheck = false;
@@ -95,10 +95,10 @@ self: super: {
   };
   "pip" = super.buildPythonPackage rec {
     pname = "pip";
-    version = "20.3.1";
+    version = "20.1.1";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/cb/5f/ae1eb8bda1cde4952bd12e468ab8a254c345a0189402bf1421457577f4f3/pip-20.3.1.tar.gz";
-      sha256 = "1qnjz61583g19y51fw6qcm4rj1fx258mll9rkn09bnq53y0x7xs3";
+      url = "https://files.pythonhosted.org/packages/08/25/f204a6138dade2f6757b4ae99bc3994aac28a5602c97ddb2a35e0e22fbc4/pip-20.1.1.tar.gz";
+      sha256 = "0m9srz0z82sy10js9611b0k1h1p6hzh1qs3fw14k5n3x70lxry17";
     };
     format = "setuptools";
     doCheck = false;
@@ -121,31 +121,7 @@ self: super: {
     doCheck = false;
     buildInputs = [];
     checkInputs = [];
-    nativeBuildInputs = [
-      self."MarkupSafe"
-      self."MarkupSafe"
-      self."MarkupSafe"
-      self."toml"
-      self."click"
-      self."jinja2"
-      self."configobj"
-      self."toml"
-      self."jinja2"
-      self."configobj"
-      self."contexter"
-      self."click"
-      self."contexter"
-      self."jinja2"
-      self."six"
-      self."click"
-      self."contexter"
-      self."contexter"
-      self."configobj"
-      self."click"
-      self."toml"
-      self."toml"
-      self."jinja2"
-    ];
+    nativeBuildInputs = [];
     propagatedBuildInputs = [
       self."click"
       self."configobj"
@@ -161,10 +137,10 @@ self: super: {
   };
   "six" = super.buildPythonPackage rec {
     pname = "six";
-    version = "1.15.0";
+    version = "1.16.0";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/6b/34/415834bfdafca3c5f451532e8a8d9ba89a21c9743a0c59fbd0205c7f9426/six-1.15.0.tar.gz";
-      sha256 = "0n82108wxn5giff50hd9ykjhd3zl7cndabdasi6568yvbh1rqqrh";
+      url = "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz";
+      sha256 = "09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y";
     };
     format = "setuptools";
     doCheck = false;
