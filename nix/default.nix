@@ -1,4 +1,4 @@
-{ nixpkgs ? sources."nixpkgs-20.03"
+{ nixpkgs ? sources."nixpkgs-20.09"
 , config ? {}
 , sources ? import ./sources.nix
 }:
