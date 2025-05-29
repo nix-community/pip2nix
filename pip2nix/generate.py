@@ -219,9 +219,14 @@ class NixFreezeCommand(InstallCommand):
                             wheel_cache
                         )
                     except AttributeError:
+                      try:
                         requirement_set = self.get_requirements(
                             args, options, finder, session,
                             wheel_cache
+                        )
+                      except TypeError:
+                        requirement_set = self.get_requirements(
+                            args, options, finder, session
                         )
                     try:
                         preparer = RequirementPreparer(
@@ -237,18 +242,33 @@ class NixFreezeCommand(InstallCommand):
                         from pip._internal.network.download import Downloader
                         downloader = Downloader(session,
                                                 progress_bar=options.progress_bar)
-                        preparer = RequirementPreparer(
-                            build_dir=directory.path,
-                            download_dir=None,
-                            src_dir=options.src_dir,
-                            wheel_download_dir=None,
-                            build_isolation=options.build_isolation,
-                            req_tracker=req_tracker,
-                            downloader=downloader,
-                            finder=finder,
-                            require_hashes=options.require_hashes,
-                            use_user_site=options.use_user_site,
-                        )
+                        try:
+                          preparer = RequirementPreparer(
+                              build_dir=directory.path,
+                              download_dir=None,
+                              src_dir=options.src_dir,
+                              wheel_download_dir=None,
+                              build_isolation=options.build_isolation,
+                              req_tracker=req_tracker,
+                              downloader=downloader,
+                              finder=finder,
+                              require_hashes=options.require_hashes,
+                              use_user_site=options.use_user_site,
+                          )
+                        except TypeError:
+                          preparer = RequirementPreparer(
+                              build_dir=directory.path,
+                              download_dir=None,
+                              src_dir=options.src_dir,
+                              build_isolation=options.build_isolation,
+                              req_tracker=req_tracker,
+                              finder=finder,
+                              require_hashes=options.require_hashes,
+                              use_user_site=options.use_user_site,
+                              session=session,
+                              progress_bar="off",
+                              lazy_wheel=True,
+                          )
                     try:
                         resolver = Resolver(
                             preparer=preparer,
