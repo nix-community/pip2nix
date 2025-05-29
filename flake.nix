@@ -4,7 +4,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-20.09";
+      ref = "nixos-21.05";
     };
 
     flake-utils = {
@@ -26,4 +26,3 @@
       inherit packages defaultPackage;
     });
 }
-

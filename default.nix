@@ -11,7 +11,7 @@ let
   # Works with the new python-packages, still can fallback to the old
   # variant.
   basePythonPackagesUnfix = basePythonPackages.__unfix__ or (
-    self: basePythonPackages.override (a: { inherit self; }));
+    self: basePythonPackages.override (a: { }));
 
   elem = builtins.elem;
   basename = path: last (splitString "/" path);
