@@ -123,14 +123,15 @@ class PythonPackage(object):
         setup_requires = []
         tests_require = []
 
-        toml_path = os.path.join(req.source_dir, 'pyproject.toml')
-        if os.path.isfile(toml_path):
-            toml_dict = toml.load(toml_path)
-            for requirement in (
-                toml_dict.get('build-system') or {}
-            ).get('requires') or []:
-                setup_requires.append(
-                    InstallRequirement(Requirement(requirement), comes_from=req))
+        if req.source_dir:
+          toml_path = os.path.join(req.source_dir, 'pyproject.toml')
+          if os.path.isfile(toml_path):
+              toml_dict = toml.load(toml_path)
+              for requirement in (
+                  toml_dict.get('build-system') or {}
+              ).get('requires') or []:
+                  setup_requires.append(
+                      InstallRequirement(Requirement(requirement), comes_from=req))
 
         if (not setup_requires
                 and getattr(req, 'source_dir', None) and os.path.isdir(req.source_dir)):
