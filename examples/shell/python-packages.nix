@@ -6,10 +6,10 @@
 self: super: {
   "certifi" = super.buildPythonPackage rec {
     pname = "certifi";
-    version = "2020.12.5";
+    version = "2025.7.14";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/5e/a0/5f06e1e1d463903cf0c0eebeb751791119ed7a4b3737fdc9a77f1cdfb51f/certifi-2020.12.5-py2.py3-none-any.whl";
-      sha256 = "0c4qsp7q10hhiryvl6dyxsfh9r1mpja8sfkzri2bvf9kkvxp96ki";
+      url = "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl";
+      sha256 = "1cplq5pzskrr4jzcnmppv4xvanwsnixpb7gngpkrxmqmlijgacbb";
     };
     format = "wheel";
     doCheck = false;
@@ -18,14 +18,14 @@ self: super: {
     nativeBuildInputs = [];
     propagatedBuildInputs = [];
   };
-  "chardet" = super.buildPythonPackage rec {
-    pname = "chardet";
-    version = "3.0.4";
+  "charset-normalizer" = super.buildPythonPackage rec {
+    pname = "charset-normalizer";
+    version = "3.4.2";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl";
-      sha256 = "14b621614q2lw7ik2igdv4qdbblqgdsiglgl5fhf1l5fmvy3ycpw";
+      url = "https://files.pythonhosted.org/packages/e4/33/89c2ced2b67d1c2a61c19c6751aa8902d46ce3dacb23600a283619f5a12d/charset_normalizer-3.4.2.tar.gz";
+      sha256 = "0qqfk84ka3d9hh0yf7n8y0qa0yn08ncdacjjckzix8ybkv5cxbjv";
     };
-    format = "wheel";
+    format = "setuptools";
     doCheck = false;
     buildInputs = [];
     checkInputs = [];
@@ -34,10 +34,10 @@ self: super: {
   };
   "idna" = super.buildPythonPackage rec {
     pname = "idna";
-    version = "2.10";
+    version = "3.10";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl";
-      sha256 = "1h280sli58v5dapmf79rnnqdrrk0xjn8vi3pxppknllv3r5q0zdr";
+      url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl";
+      sha256 = "1lw72a5swas501zvkpd6dsryj5hzjijqxs3526kbp7151md1jvcl";
     };
     format = "wheel";
     doCheck = false;
@@ -48,10 +48,10 @@ self: super: {
   };
   "requests" = super.buildPythonPackage rec {
     pname = "requests";
-    version = "2.25.0";
+    version = "2.32.4";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/39/fc/f91eac5a39a65f75a7adb58eac7fa78871ea9872283fb9c44e6545998134/requests-2.25.0-py2.py3-none-any.whl";
-      sha256 = "1679xipf3rb86zibsa2fnzw4k1qvj8fnmm759mm4w5f9v0lgm1p7";
+      url = "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl";
+      sha256 = "0b1bmhqv0xarifclr53icqwpsw1hk3l4w8230jrm0v9av8ybvfi7";
     };
     format = "wheel";
     doCheck = false;
@@ -60,17 +60,17 @@ self: super: {
     nativeBuildInputs = [];
     propagatedBuildInputs = [
       self."certifi"
-      self."chardet"
+      self."charset-normalizer"
       self."idna"
       self."urllib3"
     ];
   };
   "urllib3" = super.buildPythonPackage rec {
     pname = "urllib3";
-    version = "1.26.2";
+    version = "2.5.0";
     src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/f5/71/45d36a8df68f3ebb098d6861b2c017f3d094538c0fb98fa61d4dc43e69b9/urllib3-1.26.2-py2.py3-none-any.whl";
-      sha256 = "0wwlz4iqzh58lhg767s3wih6iz18807yhmp9ii7pnk91g7cr1zyq";
+      url = "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl";
+      sha256 = "1p7hrw2cc75zyqbb49diqi371gxkis07225mfkii6spsq1ridc76";
     };
     format = "wheel";
     doCheck = false;
