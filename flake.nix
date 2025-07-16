@@ -14,16 +14,33 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      packages = import ./release.nix {
-        pkgs = import nixpkgs {
-          inherit system;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        packages = import ./release.nix {
+          pkgs = import nixpkgs {
+            inherit system;
+          };
         };
-      };
-      defaultPackage = packages.pip2nix.python39;
-    in {
-      inherit packages defaultPackage;
-    });
+      in
+      {
+        packages =
+          (builtins.listToAttrs (
+            builtins.map (subkey: {
+              name = "pip2nix_${subkey}";
+              value = packages.pip2nix.${subkey};
+            }) (builtins.attrNames packages.pip2nix)
+          ))
+          // {
+            docs = packages.docs;
+            default = packages.pip2nix.python39;
+          };
+      }
+    );
 }
-
