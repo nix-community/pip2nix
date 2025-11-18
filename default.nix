@@ -1,6 +1,6 @@
 { pkgs ? import ./nix {}
 , sources ? import ./nix/sources.nix
-, pythonPackages ? "python39Packages"
+, pythonPackages ? "python3Packages"
 }:
 
 with pkgs.lib;
@@ -8,11 +8,6 @@ let
   basePythonPackages = with builtins; if isAttrs pythonPackages
     then pythonPackages
     else getAttr pythonPackages pkgs;
-
-  # Works with the new python-packages, still can fallback to the old
-  # variant.
-  basePythonPackagesUnfix = basePythonPackages.__unfix__ or (
-    self: basePythonPackages.override (a: { inherit self; }));
 
   elem = builtins.elem;
   basename = path: last (splitString "/" path);
@@ -35,7 +30,7 @@ let
     pip2nix = super.pip2nix.override (attrs: rec {
       src = pip2nix-src;
       buildInputs = [
-        self.pip
+        self.pip_legacy
         pkgs.nix
       ] ++ attrs.buildInputs;
       pythonWithSetuptools = self.python.withPackages(ps: with ps; [
@@ -56,7 +51,26 @@ let
         done
       '';
     });
-    pip = basePythonPackages.pip;
+
+    pip2nix-for-shell = self.pip2nix.override (attrs: {
+      format = "other";
+      buildInputs = attrs.buildInputs ++ [
+        self.pytest
+      ];
+    });
+
+    pip_legacy = super.pip_legacy.override (attrs: rec {
+      # Special bootstrapping, to avoid recursion.
+      format = "other";
+      nativeBuildInputs = [ super.bootstrapped-pip ];
+
+      # pip detects that we already have bootstrapped_pip "installed", so we need
+      # to force it a little.
+      pipInstallFlags = [ "--ignore-installed" ];
+
+      # Pending issue since nixpkgs 2022.11.
+      postPatch = "";
+    });
   };
 
   pythonPackagesGenerated = import ./python-packages.nix {
@@ -64,10 +78,12 @@ let
     inherit (pkgs) fetchurl fetchgit fetchhg;
   };
 
-  myPythonPackages =
-    (fix
-    (extends pythonPackagesLocalOverrides
-    (extends pythonPackagesGenerated
-             basePythonPackagesUnfix)));
+  # See
+  # https://github.com/rihardsk/mautrix-hangouts-nix/commit/f5ed572b4b56b2daff002a860b5f4e00e175ed32
+  myPythonPackages = let
+    composedOverrides =
+      (composeExtensions pythonPackagesGenerated pythonPackagesLocalOverrides);
+    myPython = basePythonPackages.python.override { packageOverrides = composedOverrides; };
+  in myPython.pkgs;
 
-in myPythonPackages.pip2nix
+in myPythonPackages

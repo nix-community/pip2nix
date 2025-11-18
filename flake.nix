@@ -4,7 +4,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-20.09";
+      ref = "nixos-22.11";
     };
 
     flake-utils = {
@@ -23,10 +23,14 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        packages = import ./release.nix {
-          pkgs = import nixpkgs {
-            inherit system;
-          };
+        pkgsForSystem = import nixpkgs {
+          inherit system;
+        };
+        releasePackages = import ./release.nix {
+          pkgs = pkgsForSystem;
+        };
+        pythonPackages = import ./default.nix {
+          pkgs = pkgsForSystem;
         };
       in
       {
@@ -34,13 +38,26 @@
           (builtins.listToAttrs (
             builtins.map (subkey: {
               name = "pip2nix_${subkey}";
-              value = packages.pip2nix.${subkey};
-            }) (builtins.attrNames packages.pip2nix)
+              value = releasePackages.pip2nix.${subkey};
+            }) (builtins.attrNames releasePackages.pip2nix)
           ))
           // {
-            docs = packages.docs;
-            default = packages.pip2nix.python39;
+            docs = releasePackages.docs;
+            default = releasePackages.pip2nix.python311;
           };
+
+        devShells = {
+          default = pkgsForSystem.mkShell {
+            inputsFrom = [
+              pythonPackages.pip2nix-for-shell
+            ];
+            packages = [
+              pkgsForSystem.nix-prefetch-git
+              pkgsForSystem.nix-prefetch-hg
+            ];
+          };
+        };
+
       }
     );
 }
