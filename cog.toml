@@ -1,0 +1,10 @@
+tag_prefix = "v"
+disable_changelog = true
+disable_bump_commit = true
+
+pre_bump_hooks = [
+  "just set-version {{version}}",
+  "just changelog {{version}}",
+  "git add -u",
+  "git commit -m 'build: Release version {{version}}'",
+]

@@ -20,6 +20,20 @@ Generate nix expressions for Python packages.
    :alt: PyPI version
 
 
+About this fork
+===============
+
+This is a fork of `nix-community/pip2nix
+<https://github.com/nix-community/pip2nix>`_, maintained by Johannes
+Bornhold. The generator was rebuilt here in 2026 on pip's installation
+report, and the work is meant to go back to nix-community rather than
+to continue as a project of its own.
+
+Releases are not published from this fork; publishing stays upstream's,
+for whenever the work lands there. The links and badges above name
+upstream for the same reason.
+
+
 Why another .nix generator for Python?
 ======================================
 
@@ -39,17 +53,20 @@ Be aware that `pip2nix` is not yet mature software. It is a tool to aid Python
 developers who use Nix to automate a good chunk of the work to maintain a Nix
 based development environments.
 
-The recommended usage at the moment is inside of a `nix-shell`, since this
-avoids putting a specific version into the user's environment::
+The recommended usage at the moment is to build it and use the result,
+since this avoids putting a specific version into the user's
+environment::
 
   $ git clone https://github.com/nix-community/pip2nix
   $ cd pip2nix
-  $ nix-shell release.nix -A pip2nix.python36
+  $ nix build
+  $ ./result/bin/pip2nix generate -r requirements.txt
 
-Alternatively `pip2nix` can be installed into the user's environment::
-
-  $ git clone https://github.com/nix-community/pip2nix
-  $ nix-env -f pip2nix/release.nix -iA pip2nix.python36
+``nix build`` builds against Python 3.13, installing
+``pip2nix3.13`` beside ``pip2nix`` to name the interpreter it resolves
+against. The targets ``.#pip2nix_python311`` up to
+``.#pip2nix_python314`` build against a specific interpreter, and
+``nix develop`` gives a shell to work on pip2nix itself.
 
 
 
@@ -65,8 +82,10 @@ Alternatively if having flakes enabled you can run `pip2nix` without the need to
     $ nix run github:nix-community/pip2nix -- generate -r requirements.txt
 
 
-``pip2nix generate`` takes the same set of package specifications ``pip
-install`` does.
+``pip2nix generate`` understands requirement files (``-r``), package
+specifications and git links, spelled the way ``pip install`` spells
+them. Editable requirements (``-e``) and mercurial repositories are
+rejected rather than resolved.
 
 
 Contact
@@ -88,3 +107,20 @@ https://www.johbo.com.
 
 In 2019 Asko Soukka forked the project below https://github.com/nix-community/
 and took over as maintainer.
+
+It fell into bad shape for a long stretch after that. The generator drove
+pip's internal resolver API, which held it at pip 20.1.1 from 2020 and kept
+it from following recent Python and nixpkgs releases.
+
+In 2026 Johannes Bornhold picked maintenance up again, for his own needs.
+The generator was rebuilt on pip's installation report, which is documented
+and stable, so pip runs as a subprocess and any recent version will do.
+Features that had stopped working along the way were removed rather than
+carried along.
+
+
+License
+=======
+
+GPL-3.0-or-later. The full text is in `LICENSE <LICENSE>`_, and each
+contributor holds the copyright in their own work.

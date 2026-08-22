@@ -1,72 +1,72 @@
 name: "build"
 on:
+  # A branch with an open pull request would otherwise run every job
+  # twice, once for the push and once for the pull request
   push:
+    branches:
+      - master
   pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- lint
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- flake-check
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        nixpkgs: [nixpkgs-20.09, nixpkgs-20.03, nixpkgs-19.09, nixpkgs-19.03, nixpkgs-18.09]
-        python: [python39, python38, python37, python36, python35, python27]
-        exclude:
-          - nixpkgs: nixpkgs-20.09
-            python: python35
-          - nixpkgs: nixpkgs-20.03
-            python: python39
-          - nixpkgs: nixpkgs-19.09
-            python: python39
-          - nixpkgs: nixpkgs-19.03
-            python: python38
-          - nixpkgs: nixpkgs-19.03
-            python: python39
-          - nixpkgs: nixpkgs-18.09
-            python: python38
-          - nixpkgs: nixpkgs-18.09
-            python: python39
     steps:
-    - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v20
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-    - run: nix-build release.nix --argstr nixpkgs ${{ matrix.nixpkgs }} -A pip2nix.${{ matrix.python }}
-  bootstrap:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    strategy:
-      matrix:
-        nixpkgs: [nixpkgs-20.09, nixpkgs-20.03, nixpkgs-19.09, nixpkgs-19.03, nixpkgs-18.09]
-        python: [python39, python38, python37, python36, python35, python27]
-        exclude:
-          - nixpkgs: nixpkgs-20.03
-            python: python39
-          - nixpkgs: nixpkgs-19.09
-            python: python39
-          - nixpkgs: nixpkgs-19.03
-            python: python39
-          - nixpkgs: nixpkgs-19.03
-            python: python38
-          - nixpkgs: nixpkgs-18.09
-            python: python39
-          - nixpkgs: nixpkgs-18.09
-            python: python38
-          - python: python36
-          - python: python35
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
-      - run: NIXPKGS=${{ matrix.nixpkgs }} PYTHON=${{ matrix.python }} ./bootstrap.sh && git --no-pager diff
-      - run: if [ "${{ matrix.nixpkgs }}" != "bootstrap" ]; then nix-build release.nix --argstr nixpkgs ${{ matrix.nixpkgs }} -A pip2nix.${{ matrix.python }}; fi
-  docs:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- build-all
+  dist:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        nixpkgs: [nixpkgs-20.09]
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
         with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- dist
+      - run: nix develop .#release --command just dist-check
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- test
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          # These resolve for real and prefetch what they resolve to,
+          # and the license query evaluates <nixpkgs>
           nix_path: nixpkgs=channel:nixos-unstable
-      - run: nix-build release.nix --argstr nixpkgs ${{ matrix.nixpkgs }} -A docs
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#just -- test-integration

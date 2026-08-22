@@ -1,0 +1,36 @@
+{
+  "version": "1",
+  "pip_version": "26.2.1",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://index.example/packages/certifi-2026.1.1-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=69543e8bad4221c3c7ae7d7f31f275757bff8a66936368e013fa0256f8d6b512",
+          "hashes": {
+            "sha256": "69543e8bad4221c3c7ae7d7f31f275757bff8a66936368e013fa0256f8d6b512"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "requested_extras": [],
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "certifi",
+        "version": "2026.1.1",
+        "summary": "Python package for providing Mozilla's CA Bundle.",
+        "requires_python": ">=3.7"
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.13.13",
+    "platform_system": "Linux",
+    "python_full_version": "3.13.13",
+    "python_version": "3.13",
+    "sys_platform": "linux"
+  }
+}

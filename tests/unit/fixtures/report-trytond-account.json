@@ -1,0 +1,1465 @@
+{
+  "version": "1",
+  "pip_version": "25.3",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/4b/03/5da940226bfe91d8c79131c07f5a88537759152afe21983ecc3672bd1c24/trytond_account-7.0.28-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=1103fb8e23cbb4127c1bdc327599464944c667c4ccb4d7cfc574cda13fefbed7",
+          "hashes": {
+            "sha256": "1103fb8e23cbb4127c1bdc327599464944c667c4ccb4d7cfc574cda13fefbed7"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "trytond_account",
+        "version": "7.0.28",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "download-url",
+          "home-page",
+          "keywords",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-dist",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Tryton module for accounting",
+        "description": "##############\nAccount Module\n##############\n\nThe *Account Module* defines the fundamentals needed for basic double entry\naccounting.\nIt also includes templates for a basic chart of accounts, balance sheet and\nincome statement.\n\n",
+        "keywords": [
+          "tryton",
+          "account"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Plugins",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Legal Industry",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Office/Business",
+          "Topic :: Office/Business :: Financial :: Accounting"
+        ],
+        "requires_dist": [
+          "python-dateutil",
+          "python-sql>=0.7",
+          "simpleeval",
+          "trytond_company<7.1,>=7.0",
+          "trytond_currency<7.1,>=7.0",
+          "trytond_party<7.1,>=7.0",
+          "trytond<7.1,>=7.0",
+          "proteus<7.1,>=7.0; extra == \"test\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/modules-account/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "test"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/93/94/e343e70d03aa1559c3ab730b6ce4d766d5f88dfa7f26d35258fde3283e5a/trytond-7.0.55-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=08209895e9a30930efd6d88f5dfe5585310a3f66980981ee6700138ff03b9b0f",
+          "hashes": {
+            "sha256": "08209895e9a30930efd6d88f5dfe5585310a3f66980981ee6700138ff03b9b0f"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "trytond",
+        "version": "7.0.55",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "download-url",
+          "home-page",
+          "keywords",
+          "license",
+          "license-file",
+          "platform",
+          "project-url",
+          "provides-extra",
+          "requires-dist",
+          "requires-python",
+          "summary"
+        ],
+        "platform": [
+          "any"
+        ],
+        "summary": "Tryton server",
+        "description": "trytond\n=======\n\nThe server of Tryton.\nTryton is business software, ideal for companies of any size, easy to use,\ncomplete and 100% Open Source.\nIt provides modularity, scalability and security.\n",
+        "keywords": [
+          "business",
+          "application",
+          "platform",
+          "ERP"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Console",
+          "Environment :: No Input/Output (Daemon)",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Software Development :: Libraries :: Application Frameworks"
+        ],
+        "requires_dist": [
+          "defusedxml",
+          "lxml>=2.0",
+          "relatorio[fodt]>=0.7.0",
+          "Genshi",
+          "python-dateutil",
+          "polib",
+          "python-sql>=1.3",
+          "werkzeug>=0.12",
+          "passlib>=1.7.0",
+          "pytz; python_version < \"3.9\"",
+          "backports.entry-points-selectable; python_version < \"3.10\"",
+          "pillow; extra == \"test\"",
+          "psycopg2>=2.7.0; extra == \"postgresql\"",
+          "pydot; extra == \"graphviz\"",
+          "python-Levenshtein; extra == \"levenshtein\"",
+          "passlib[bcrypt]; extra == \"bcrypt\"",
+          "passlib[argon2]; extra == \"argon2\"",
+          "html2text; extra == \"html2text\"",
+          "weasyprint>=68.0; extra == \"weasyprint\"",
+          "gevent>=1.1; extra == \"coroutine\"",
+          "pillow; extra == \"image\"",
+          "python-barcode[images]; extra == \"barcode\"",
+          "qrcode[pil]; extra == \"qrcode\"",
+          "webcolors; extra == \"qrcode\"",
+          "argcomplete; extra == \"completion\"",
+          "email-validator>=2; extra == \"email-validation\"",
+          "dnspython; extra == \"email-validation\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/latest/server/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "test",
+          "postgresql",
+          "graphviz",
+          "levenshtein",
+          "bcrypt",
+          "argon2",
+          "html2text",
+          "weasyprint",
+          "coroutine",
+          "image",
+          "barcode",
+          "qrcode",
+          "completion",
+          "email-validation"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/ad/34/1f37dcc62da5544de4e2f2394a2c3d2501fdf1853dfb862dd69cd7a7fb93/trytond_company-7.0.4-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=c797a1f074bdc333f3902e818eb3ed79d605ce9391f8a9e1599c485b0e834932",
+          "hashes": {
+            "sha256": "c797a1f074bdc333f3902e818eb3ed79d605ce9391f8a9e1599c485b0e834932"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "trytond_company",
+        "version": "7.0.4",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "download-url",
+          "home-page",
+          "keywords",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-dist",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Tryton module with companies and employees",
+        "description": "##############\nCompany Module\n##############\n\nThe *Company Module* allows the business that is using Tryton to be\nrepresented inside Tryton.\nThis may be a single company or multiple companies.\nIt also allows recording which employees belong to which companies and\nwhat their organisational structure is.\n\n",
+        "keywords": [
+          "tryton",
+          "company",
+          "employee"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Plugins",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Legal Industry",
+          "Intended Audience :: Manufacturing",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Office/Business"
+        ],
+        "requires_dist": [
+          "python-sql>=0.4",
+          "trytond_currency<7.1,>=7.0",
+          "trytond_party<7.1,>=7.0",
+          "trytond<7.1,>=7.0"
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/modules-company/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "test"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/61/e3/adea81d7ca64fd916aa34936eb204de372ead642d9c1c7ed5c17f0c06005/trytond_currency-7.0.1-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=2708d08a9f7a25340f8a4b95d0bf089adaf88bb8ceaef2189889d9eab6ee7bb5",
+          "hashes": {
+            "sha256": "2708d08a9f7a25340f8a4b95d0bf089adaf88bb8ceaef2189889d9eab6ee7bb5"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "trytond_currency",
+        "version": "7.0.1",
+        "platform": [
+          "any"
+        ],
+        "summary": "Tryton module with currencies",
+        "description": "###############\nCurrency Module\n###############\n\nThe *Currency Module* defines the basics needed to work with currencies in\nTryton including a list of standard currencies.\nIt is also possible to define the rates used to convert amounts between\ndifferent currencies.\n\n",
+        "keywords": [
+          "tryton",
+          "currency"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Plugins",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Legal Industry",
+          "Intended Audience :: Manufacturing",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Office/Business"
+        ],
+        "requires_dist": [
+          "python-sql >=0.9",
+          "python-dateutil",
+          "trytond <7.1,>=7.0",
+          "argcomplete ; extra == 'completion'",
+          "pycountry ; extra == 'data'",
+          "proteus <7.1,>=7.0 ; extra == 'data'",
+          "proteus <7.1,>=7.0 ; extra == 'test'",
+          "pycountry ; extra == 'test'"
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/modules-currency/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "completion",
+          "data",
+          "test"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/d5/3d/b3e0fc33eb8784302a063799b4dec852497366462b5bfeef69e5ca94a838/trytond_party-7.0.7-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=62709199cfd39b808d7eb0c3351e3873815cd7326712650f6cfb29db8de4b87f",
+          "hashes": {
+            "sha256": "62709199cfd39b808d7eb0c3351e3873815cd7326712650f6cfb29db8de4b87f"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "trytond_party",
+        "version": "7.0.7",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "download-url",
+          "home-page",
+          "keywords",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-dist",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Tryton module with parties and addresses",
+        "description": "############\nParty Module\n############\n\nThe *Party Module* is used to store and manage information about people,\nbusinesses, organisations, and associations.\nIt allows you to save information such as contact details, addresses,\nidentifiers and the language used by each of these different entities.\n\n",
+        "keywords": [
+          "tryton",
+          "party"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Plugins",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Legal Industry",
+          "Intended Audience :: Manufacturing",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Office/Business"
+        ],
+        "requires_dist": [
+          "python-sql>=0.4",
+          "python-stdnum>=1.19",
+          "trytond_country<7.1,>=7.0",
+          "trytond<7.1,>=7.0",
+          "proteus<7.1,>=7.0; extra == \"test\"",
+          "phonenumbers; extra == \"test\"",
+          "python-stdnum[SOAP]; extra == \"vies\"",
+          "phonenumbers; extra == \"phonenumbers\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/modules-party/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "test",
+          "vies",
+          "phonenumbers"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/89/63/d1962beea8333eac7849353abe43711cad214bda9cff8847c2dff87036b5/trytond_country-7.0.1-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=9e3db592d44e21ff2806d347ae7c5724f157630dbeed2115ba7165b8c096769b",
+          "hashes": {
+            "sha256": "9e3db592d44e21ff2806d347ae7c5724f157630dbeed2115ba7165b8c096769b"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "trytond_country",
+        "version": "7.0.1",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "download-url",
+          "home-page",
+          "keywords",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-dist",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Tryton module with countries",
+        "description": "##############\nCountry Module\n##############\n\nThe *Country Module* provides the basic features needed to handle data\nrelated to countries, their subdivisions, and their postal codes.\nIt also provides some scripts that are used to load standard countries,\nsubdivisions, and selected countries' postal codes into Tryton.\n\n",
+        "keywords": [
+          "tryton",
+          "country"
+        ],
+        "home_page": "http://www.tryton.org/",
+        "download_url": "http://downloads.tryton.org/7.0/",
+        "author": "Tryton",
+        "author_email": "foundation@tryton.org",
+        "license": "GPL-3",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Plugins",
+          "Framework :: Tryton",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Legal Industry",
+          "Intended Audience :: Manufacturing",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: Bulgarian",
+          "Natural Language :: Catalan",
+          "Natural Language :: Chinese (Simplified)",
+          "Natural Language :: Czech",
+          "Natural Language :: Dutch",
+          "Natural Language :: English",
+          "Natural Language :: Finnish",
+          "Natural Language :: French",
+          "Natural Language :: German",
+          "Natural Language :: Hungarian",
+          "Natural Language :: Indonesian",
+          "Natural Language :: Italian",
+          "Natural Language :: Persian",
+          "Natural Language :: Polish",
+          "Natural Language :: Portuguese (Brazilian)",
+          "Natural Language :: Romanian",
+          "Natural Language :: Russian",
+          "Natural Language :: Slovenian",
+          "Natural Language :: Spanish",
+          "Natural Language :: Turkish",
+          "Natural Language :: Ukrainian",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Office/Business"
+        ],
+        "requires_dist": [
+          "python-sql",
+          "trytond<7.1,>=7.0",
+          "pycountry; extra == \"data\"",
+          "proteus<7.1,>=7.0; extra == \"data\"",
+          "proteus<7.1,>=7.0; extra == \"test\"",
+          "pycountry; extra == \"test\"",
+          "proteus<7.1,>=7.0; extra == \"geonames\"",
+          "argcomplete; extra == \"completion\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Bug Tracker, https://bugs.tryton.org/",
+          "Documentation, https://docs.tryton.org/modules-country/",
+          "Forum, https://www.tryton.org/forum",
+          "Source Code, https://code.tryton.org/tryton"
+        ],
+        "provides_extra": [
+          "data",
+          "test",
+          "geonames",
+          "completion"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/a6/76/dbe4a00b50385e40194231dcfe5a12c059de7cf90e89c83407d2b085b719/lxml-6.1.1-cp313-cp313-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+        "archive_info": {
+          "hash": "sha256=1d4962d4c66bf830a7e59ed6cfc17d148149898a3aefa8ec6e59763e6e3ed085",
+          "hashes": {
+            "sha256": "1d4962d4c66bf830a7e59ed6cfc17d148149898a3aefa8ec6e59763e6e3ed085"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "lxml",
+        "version": "6.1.1",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "home-page",
+          "license",
+          "license-file",
+          "maintainer",
+          "maintainer-email",
+          "project-url",
+          "provides-extra",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.",
+        "description": "lxml is a Pythonic, mature binding for the libxml2 and libxslt libraries.\nIt provides safe and convenient access to these libraries using the\nElementTree API.\n\nIt extends the ElementTree API significantly to offer support for XPath,\nRelaxNG, XML Schema, XSLT, C14N and much more.\n\nTo contact the project, go to the `project home page <https://lxml.de/>`_\nor see our bug tracker at https://launchpad.net/lxml\n\nIn case you want to use the current in-development version of lxml,\nyou can get it from the github repository at\nhttps://github.com/lxml/lxml .  Note that this requires Cython to\nbuild the sources, see the build instructions on the project home page.\n\n\nAfter an official release of a new stable series, bug fixes may become available at\nhttps://github.com/lxml/lxml/tree/lxml-6.1 .\nRunning ``pip install https://github.com/lxml/lxml/archive/refs/heads/lxml-6.1.tar.gz``\nwill install the unreleased branch state as soon as a maintenance branch has been established.\nNote that this requires Cython to be installed at an appropriate version for the build.\n\n6.1.1 (2026-05-18)\n==================\n\nBugs fixed\n----------\n\n* The known link attributes in ``lxml.html.defs.link_attrs`` were missing ``xlink:href``,\n  which can be used for URL bypass attacks in embedded SVG/MathML/etc. content.\n  https://github.com/fedora-python/lxml_html_clean/security/advisories/GHSA-4jhm-jv67-739f\n\n* The Linux wheels use a patched libxslt 1.1.43, fixing CVE-2025-7424 and CVE-2025-11731.\n\n* The Windows wheels use libxslt 1.1.45, fixing CVE-2025-7424 and CVE-2025-11731.\n\n\n",
+        "home_page": "https://lxml.de/",
+        "author": "lxml dev team",
+        "author_email": "lxml@lxml.de",
+        "maintainer": "lxml dev team",
+        "maintainer_email": "lxml@lxml.de",
+        "license": "BSD-3-Clause",
+        "license_file": [
+          "LICENSE.txt",
+          "LICENSES.txt"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Information Technology",
+          "Programming Language :: Cython",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: C",
+          "Operating System :: OS Independent",
+          "Topic :: Text Processing :: Markup :: HTML",
+          "Topic :: Text Processing :: Markup :: XML",
+          "Topic :: Software Development :: Libraries :: Python Modules"
+        ],
+        "requires_dist": [
+          "cssselect>=0.7; extra == \"cssselect\"",
+          "html5lib; extra == \"html5\"",
+          "BeautifulSoup4; extra == \"htmlsoup\"",
+          "lxml_html_clean; extra == \"html-clean\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Source, https://github.com/lxml/lxml",
+          "Bug Tracker, https://bugs.launchpad.net/lxml"
+        ],
+        "provides_extra": [
+          "source",
+          "cssselect",
+          "html5",
+          "htmlsoup",
+          "html-clean"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/3b/a4/ab6b7589382ca3df236e03faa71deac88cae040af60c071a78d254a62172/passlib-1.7.4-py2.py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1",
+          "hashes": {
+            "sha256": "aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "passlib",
+        "version": "1.7.4",
+        "summary": "comprehensive password hashing framework supporting over 30 schemes",
+        "description": "Passlib is a password hashing library for Python 2 & 3, which provides\ncross-platform implementations of over 30 password hashing algorithms, as well\nas a framework for managing existing password hashes. It's designed to be useful\nfor a wide range of tasks, from verifying a hash found in /etc/shadow, to\nproviding full-strength password hashing for multi-user applications.\n\n* See the `documentation <https://passlib.readthedocs.io>`_\n  for details, installation instructions, and examples.\n\n* See the `homepage <https://foss.heptapod.net/python-libs/passlib/wikis/home>`_\n  for the latest news and more information.\n\n* See the `changelog <https://passlib.readthedocs.io/en/stable/history>`_\n  for a description of what's new in Passlib.\n\nAll releases are signed with the gpg key\n`4D8592DF4CE1ED31 <http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x4D8592DF4CE1ED31>`_.\n\n\n",
+        "keywords": [
+          "password",
+          "secret",
+          "hash",
+          "security"
+        ],
+        "home_page": "https://passlib.readthedocs.io",
+        "download_url": "https://pypi.python.org/packages/source/p/passlib/passlib-1.7.4.tar.gz",
+        "author": "Eli Collins",
+        "author_email": "elic@assurancetechnologies.com",
+        "license": "BSD",
+        "requires_dist": [
+          "argon2-cffi (>=18.2.0) ; extra == 'argon2'",
+          "bcrypt (>=3.1.0) ; extra == 'bcrypt'",
+          "sphinx (>=1.6) ; extra == 'build_docs'",
+          "sphinxcontrib-fulltoc (>=1.2.0) ; extra == 'build_docs'",
+          "cloud-sptheme (>=1.10.1) ; extra == 'build_docs'",
+          "cryptography ; extra == 'totp'"
+        ],
+        "provides_extra": [
+          "argon2",
+          "bcrypt",
+          "build_docs",
+          "totp"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/77/ac/3603bbdde340f7354c975431c94b70ef3e99966c5b170fa121f8e64d269e/python_sql-1.8.1-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=5d2091a2c9cb7684930e68eeccc8251c51dc95332126c6173d07c85c2587e8ff",
+          "hashes": {
+            "sha256": "5d2091a2c9cb7684930e68eeccc8251c51dc95332126c6173d07c85c2587e8ff"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "python-sql",
+        "version": "1.8.1",
+        "summary": "Library to write SQL queries",
+        "description": "python-sql\n==========\n\npython-sql is a library to write SQL queries in a pythonic way.\n\nNutshell\n--------\n\nImport::\n\n    >>> from sql import *\n    >>> from sql.aggregate import *\n    >>> from sql.conditionals import *\n\nSimple selects::\n\n    >>> user = Table('user')\n    >>> select = user.select()\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\"', ())\n\n    >>> select = user.select(user.name)\n    >>> tuple(select)\n    ('SELECT \"a\".\"name\" FROM \"user\" AS \"a\"', ())\n\n    >>> select = user.select(Count(Literal(1)))\n    >>> tuple(select)\n    ('SELECT COUNT(%s) FROM \"user\" AS \"a\"', (1,))\n\n    >>> select = user.select(user.name, distinct=True)\n    >>> tuple(select)\n    ('SELECT DISTINCT \"a\".\"name\" FROM \"user\" AS \"a\"', ())\n\n    >>> select = user.select(user.id, user.name)\n    >>> tuple(select)\n    ('SELECT \"a\".\"id\", \"a\".\"name\" FROM \"user\" AS \"a\"', ())\n\nSelect with where condition::\n\n    >>> select.where = user.name == 'foo'\n    >>> tuple(select)\n    ('SELECT \"a\".\"id\", \"a\".\"name\" FROM \"user\" AS \"a\" WHERE \"a\".\"name\" = %s', ('foo',))\n\n    >>> select.where = (user.name == 'foo') & (user.active == True)\n    >>> tuple(select)\n    ('SELECT \"a\".\"id\", \"a\".\"name\" FROM \"user\" AS \"a\" WHERE (\"a\".\"name\" = %s) AND (\"a\".\"active\" = %s)', ('foo', True))\n    >>> select.where = user.name == user.login\n    >>> tuple(select)\n    ('SELECT \"a\".\"id\", \"a\".\"name\" FROM \"user\" AS \"a\" WHERE \"a\".\"name\" = \"a\".\"login\"', ())\n\nSelect with join::\n\n    >>> join = user.join(Table('user_group'))\n    >>> join.condition = join.right.user == user.id\n    >>> select = join.select(user.name, join.right.group)\n    >>> tuple(select)\n    ('SELECT \"a\".\"name\", \"b\".\"group\" FROM \"user\" AS \"a\" INNER JOIN \"user_group\" AS \"b\" ON \"b\".\"user\" = \"a\".\"id\"', ())\n\nSelect with multiple joins::\n\n    >>> join1 = user.join(Table('user'))\n    >>> join2 = join1.join(Table('user'))\n    >>> select = join2.select(user.id, join1.right.id, join2.right.id)\n    >>> tuple(select)\n    ('SELECT \"a\".\"id\", \"b\".\"id\", \"c\".\"id\" FROM \"user\" AS \"a\" INNER JOIN \"user\" AS \"b\" INNER JOIN \"user\" AS \"c\"', ())\n\nSelect with group_by::\n\n    >>> invoice = Table('invoice')\n    >>> select = invoice.select(Sum(invoice.amount), invoice.currency,\n    ...         group_by=invoice.currency)\n    >>> tuple(select)\n    ('SELECT SUM(\"a\".\"amount\"), \"a\".\"currency\" FROM \"invoice\" AS \"a\" GROUP BY \"a\".\"currency\"', ())\n\nSelect with output name::\n\n    >>> tuple(user.select(user.name.as_('First Name')))\n    ('SELECT \"a\".\"name\" AS \"First Name\" FROM \"user\" AS \"a\"', ())\n\nSelect with order_by::\n\n    >>> tuple(user.select(order_by=user.date))\n    ('SELECT * FROM \"user\" AS \"a\" ORDER BY \"a\".\"date\"', ())\n    >>> tuple(user.select(order_by=Asc(user.date)))\n    ('SELECT * FROM \"user\" AS \"a\" ORDER BY \"a\".\"date\" ASC', ())\n    >>> tuple(user.select(order_by=(user.date.asc, user.id.desc)))\n    ('SELECT * FROM \"user\" AS \"a\" ORDER BY \"a\".\"date\" ASC, \"a\".\"id\" DESC', ())\n\nSelect with sub-select::\n\n    >>> user_group = Table('user_group')\n    >>> subselect = user_group.select(user_group.user,\n    ...     where=user_group.active == True)\n    >>> user = Table('user')\n    >>> tuple(user.select(user.id, where=user.id.in_(subselect)))\n    ('SELECT \"a\".\"id\" FROM \"user\" AS \"a\" WHERE \"a\".\"id\" IN (SELECT \"b\".\"user\" FROM \"user_group\" AS \"b\" WHERE \"b\".\"active\" = %s)', (True,))\n    >>> tuple(subselect.select(subselect.user))\n    ('SELECT \"a\".\"user\" FROM (SELECT \"b\".\"user\" FROM \"user_group\" AS \"b\" WHERE \"b\".\"active\" = %s) AS \"a\"', (True,))\n\nSelect on other schema::\n\n    >>> other_table = Table('user', 'myschema')\n    >>> tuple(other_table.select())\n    ('SELECT * FROM \"myschema\".\"user\" AS \"a\"', ())\n\nInsert query with default values::\n\n    >>> tuple(user.insert())\n    ('INSERT INTO \"user\" DEFAULT VALUES', ())\n\nInsert query with values::\n\n    >>> tuple(user.insert(columns=[user.name, user.login],\n    ...         values=[['Foo', 'foo']]))\n    ('INSERT INTO \"user\" (\"name\", \"login\") VALUES (%s, %s)', ('Foo', 'foo'))\n    >>> tuple(user.insert(columns=[user.name, user.login],\n    ...         values=[['Foo', 'foo'], ['Bar', 'bar']]))\n    ('INSERT INTO \"user\" (\"name\", \"login\") VALUES (%s, %s), (%s, %s)', ('Foo', 'foo', 'Bar', 'bar'))\n\nInsert query with query::\n\n    >>> passwd = Table('passwd')\n    >>> select = passwd.select(passwd.login, passwd.passwd)\n    >>> tuple(user.insert(values=select))\n    ('INSERT INTO \"user\" SELECT \"a\".\"login\", \"a\".\"passwd\" FROM \"passwd\" AS \"a\"', ())\n\nUpdate query with values::\n\n    >>> tuple(user.update(columns=[user.active], values=[True]))\n    ('UPDATE \"user\" AS \"a\" SET \"active\" = %s', (True,))\n    >>> tuple(invoice.update(columns=[invoice.total], values=[invoice.amount + invoice.tax]))\n    ('UPDATE \"invoice\" AS \"a\" SET \"total\" = \"a\".\"amount\" + \"a\".\"tax\"', ())\n\nUpdate query with where condition::\n\n    >>> tuple(user.update(columns=[user.active], values=[True],\n    ...          where=user.active == False))\n    ('UPDATE \"user\" AS \"a\" SET \"active\" = %s WHERE \"a\".\"active\" = %s', (True, False))\n\nUpdate query with from list::\n\n    >>> group = Table('user_group')\n    >>> tuple(user.update(columns=[user.active], values=[group.active],\n    ...         from_=[group], where=user.id == group.user))\n    ('UPDATE \"user\" AS \"b\" SET \"active\" = \"a\".\"active\" FROM \"user_group\" AS \"a\" WHERE \"b\".\"id\" = \"a\".\"user\"', ())\n\nDelete query::\n\n    >>> tuple(user.delete())\n    ('DELETE FROM \"user\"', ())\n\nDelete query with where condition::\n\n    >>> tuple(user.delete(where=user.name == 'foo'))\n    ('DELETE FROM \"user\" WHERE \"name\" = %s', ('foo',))\n\nDelete query with sub-query::\n\n    >>> tuple(user.delete(\n    ...             where=user.id.in_(user_group.select(user_group.user))))\n    ('DELETE FROM \"user\" WHERE \"id\" IN (SELECT \"a\".\"user\" FROM \"user_group\" AS \"a\")', ())\n\nFlavors::\n\n    >>> select = user.select()\n    >>> select.offset = 10\n    >>> Flavor.set(Flavor())\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" OFFSET %s', (10,))\n    >>> Flavor.set(Flavor(max_limit=18446744073709551615))\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" LIMIT 18446744073709551615 OFFSET %s', (10,))\n    >>> Flavor.set(Flavor(max_limit=-1))\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" LIMIT -1 OFFSET %s', (10,))\n\nLimit style::\n\n    >>> select = user.select(limit=10, offset=20)\n    >>> Flavor.set(Flavor(limitstyle='limit'))\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" LIMIT %s OFFSET %s', (10, 20))\n    >>> Flavor.set(Flavor(limitstyle='fetch'))\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" OFFSET (%s) ROWS FETCH FIRST (%s) ROWS ONLY', (20, 10))\n    >>> Flavor.set(Flavor(limitstyle='rownum'))\n    >>> tuple(select)\n    ('SELECT \"a\".* FROM (SELECT \"b\".*, ROWNUM AS \"rnum\" FROM (SELECT * FROM \"user\" AS \"c\") AS \"b\" WHERE ROWNUM <= %s) AS \"a\" WHERE \"rnum\" > %s', (30, 20))\n\nqmark style::\n\n    >>> Flavor.set(Flavor(paramstyle='qmark'))\n    >>> select = user.select()\n    >>> select.where = user.name == 'foo'\n    >>> tuple(select)\n    ('SELECT * FROM \"user\" AS \"a\" WHERE \"a\".\"name\" = ?', ('foo',))\n\nnumeric style::\n\n    >>> Flavor.set(Flavor(paramstyle='format'))\n    >>> select = user.select()\n    >>> select.where = user.name == 'foo'\n    >>> format2numeric(*select)\n    ('SELECT * FROM \"user\" AS \"a\" WHERE \"a\".\"name\" = :0', ('foo',))\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "SQL",
+          "database",
+          "query"
+        ],
+        "author": "B2CK SRL",
+        "author_email": "Cédric Krier <cedric.krier@b2ck.com>, Nicolas Évrard <nicolas.evrard@b2ck.com>",
+        "maintainer_email": "Tryton <foundation@tryton.org>",
+        "license_expression": "BSD-3-Clause",
+        "license_file": [
+          "COPYRIGHT"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Topic :: Database",
+          "Topic :: Software Development :: Libraries :: Python Modules"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "homepage, https://www.tryton.org/",
+          "changelog, https://code.tryton.org/python-sql/-/blob/branch/default/CHANGELOG",
+          "forum, https://discuss.tryton.org/tags/python-sql",
+          "issues, https://bugs.tryton.org/python-sql",
+          "repository, https://code.tryton.org/python-sql"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/2f/61/aa32d9c79f83a2fae033cd6496fb2a24aba918d31c73704271dfcfb48375/python_stdnum-2.2-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=bdf98fd117a0ca152e4047aa8ad254bae63853d4e915ddd4e0effb33ba0e9260",
+          "hashes": {
+            "sha256": "bdf98fd117a0ca152e4047aa8ad254bae63853d4e915ddd4e0effb33ba0e9260"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "python-stdnum",
+        "version": "2.2",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "description-content-type",
+          "home-page",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Python module to handle standardized numbers and codes",
+        "description": "python-stdnum\n=============\n\nA Python module to parse, validate and reformat standard numbers and codes\nin different formats. It contains a large collection of number formats.\n\nBasically any number or code that has some validation mechanism available\nor some common formatting is eligible for inclusion in this library.\n\nhttps://arthurdejong.org/python-stdnum/\n\n\nAvailable formats\n-----------------\n\nCurrently this package supports the following formats:\n\n * NRT (Número de Registre Tributari, Andorra tax number)\n * NIPT, NUIS (Numri i Identifikimit për Personin e Tatueshëm, Albanian tax number)\n * CBU (Clave Bancaria Uniforme, Argentine bank account number)\n * CUIT (Código Único de Identificación Tributaria, Argentinian tax number)\n * DNI (Documento Nacional de Identidad, Argentinian national identity nr.)\n * Austrian Company Register Numbers\n * Postleitzahl (Austrian postal code)\n * Abgabenkontonummer (Austrian tax identification number)\n * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)\n * VNR, SVNR, VSNR (Versicherungsnummer, Austrian social security number)\n * ABN (Australian Business Number)\n * ACN (Australian Company Number)\n * TFN (Australian Tax File Number)\n * VÖEN (Vergi ödəyicisinin eyniləşdirmə nömrəsi, Azerbaijan tax number)\n * BIS (Belgian BIS number)\n * eID Number (Belgian electronic Identity Card Number)\n * Belgian IBAN (International Bank Account Number)\n * NN, NISS, RRN (Belgian national number)\n * Belgian OGM-VCS\n * SSN, INSZ, NISS (Belgian social security number)\n * BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)\n * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)\n * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)\n * VAT (Идентификационен номер по ДДС, Bulgarian VAT number)\n * BIC (ISO 9362 Business identifier codes)\n * Bitcoin address\n * CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier)\n * CPF (Cadastro de Pessoas Físicas, Brazilian national identifier)\n * УНП, UNP (Учетный номер плательщика, the Belarus VAT number)\n * BC PHN (British Columbia Personal Health Number)\n * BN (Canadian Business Number)\n * SIN (Canadian Social Insurance Number)\n * CAS RN (Chemical Abstracts Service Registry Number)\n * CFI (ISO 10962 Classification of Financial Instruments)\n * ESR, ISR, QR-reference (reference number on Swiss payment slips)\n * Swiss social security number (\"Sozialversicherungsnummer\")\n * UID (Unternehmens-Identifikationsnummer, Swiss business identifier)\n * VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)\n * RUT (Rol Único Tributario, Chilean national tax number)\n * RIC No. (Chinese Resident Identity Card Number)\n * USCC (Unified Social Credit Code, 统一社会信用代码, China tax number)\n * NIT (Número De Identificación Tributaria, Colombian identity code)\n * CPF (Cédula de Persona Física, Costa Rica physical person ID number)\n * CPJ (Cédula de Persona Jurídica, Costa Rica tax number)\n * CR (Cédula de Residencia, Costa Rica foreigners ID number)\n * NI (Número de identidad, Cuban identity card numbers)\n * CUSIP number (financial security identification number)\n * Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)\n * Czech bank account number\n * DIČ (Daňové identifikační číslo, Czech VAT number)\n * RČ (Rodné číslo, the Czech birth number)\n * Handelsregisternummer (German company register number)\n * IdNr (Steuerliche Identifikationsnummer, German personal tax number)\n * Leitweg-ID, a buyer reference or routing identifier for electronic invoices\n * St.-Nr. (Steuernummer, German tax number)\n * Ust ID Nr. (Umsatzsteur Identifikationnummer, German VAT number)\n * Wertpapierkennnummer (German securities identification code)\n * CPR (personnummer, the Danish citizen number)\n * CVR (Momsregistreringsnummer, Danish VAT number)\n * Cedula (Dominican Republic national identification number)\n * NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)\n * RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)\n * NIF, sometimes N.I.F. (Numéro d'Identification Fiscale, Algeria tax number)\n * EAN (International Article Number)\n * CI (Cédula de identidad, Ecuadorian personal identity code)\n * RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)\n * Isikukood (Estonian Personal ID number)\n * KMKR (Käibemaksukohuslase, Estonian VAT number)\n * Registrikood (Estonian organisation registration code)\n * Tax Registration Number (الرقم الضريبي, Egypt tax number)\n * CAE (Código de Actividad y Establecimiento, Spanish activity establishment code)\n * CCC (Código Cuenta Corriente, Spanish Bank Account Code)\n * CIF (Código de Identificación Fiscal, Spanish company tax number)\n * CUPS (Código Unificado de Punto de Suministro, Spanish meter point number)\n * DNI (Documento Nacional de Identidad, Spanish personal identity codes)\n * Spanish IBAN (International Bank Account Number)\n * NIE (Número de Identificación de Extranjero, Spanish foreigner number)\n * NIF (Número de Identificación Fiscal, Spanish VAT number)\n * Postcode (the Spanish postal code)\n * Referencia Catastral (Spanish real estate property id)\n * SEPA Identifier of the Creditor (AT-02)\n * Euro banknote serial numbers\n * EC Number (European Community number)\n * EIC (European Energy Identification Code)\n * European Excise Number\n * NACE (classification for businesses in the European Union)\n * OSS (European VAT on e-Commerce - One Stop Shop)\n * VAT (European Union VAT number)\n * ALV nro (Arvonlisäveronumero, Finnish VAT number)\n * Finnish Association Identifier\n * HETU (Henkilötunnus, Finnish personal identity code)\n * Veronumero (Finnish individual tax number)\n * Y-tunnus (Finnish business identifier)\n * FIGI (Financial Instrument Global Identifier)\n * V-number (Vinnutal, Faroe Islands tax number)\n * n° d'accise (French number to identify taxpayers of excise taxes)\n * NIF (Numéro d'Immatriculation Fiscale, French tax identification number)\n * NIR (French personal identification number)\n * RCS (French trade registration number for commercial companies)\n * SIREN (a French company identification number)\n * SIRET (a French company establishment identification number)\n * n° TVA (taxe sur la valeur ajoutée, French VAT number)\n * NHS (United Kingdom National Health Service patient identifier)\n * SEDOL number (Stock Exchange Daily Official List number)\n * UPN (English Unique Pupil Number)\n * UTR (United Kingdom Unique Taxpayer Reference)\n * VAT (United Kingdom (and Isle of Man) VAT registration number)\n * TIN (Taxpayer Identification Number, Ghana tax number)\n * NIFp (Numéro d'Identification Fiscale Permanent, Guinea tax number)\n * AMKA (Αριθμός Μητρώου Κοινωνικής Ασφάλισης, Greek social security number)\n * FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)\n * GRid (Global Release Identifier)\n * GS1-128 (Standard to encode product information in Code 128 barcodes)\n * NIT (Número de Identificación Tributaria, Guatemala tax number)\n * OIB (Osobni identifikacijski broj, Croatian identification number)\n * ANUM (Közösségi adószám, Hungarian VAT number)\n * IBAN (International Bank Account Number)\n * NIK (Nomor Induk Kependudukan, Indonesian identity number)\n * NPWP (Nomor Pokok Wajib Pajak, Indonesian VAT Number)\n * PPS No (Personal Public Service Number, Irish personal number)\n * VAT (Irish tax reference number)\n * Company Number (מספר חברה, or short ח.פ. Israeli company number)\n * Identity Number (Mispar Zehut, מספר זהות, Israeli identity number)\n * IMEI (International Mobile Equipment Identity)\n * IMO number (International Maritime Organization number)\n * IMSI (International Mobile Subscriber Identity)\n * Aadhaar (Indian personal identity number)\n * EPIC (Electoral Photo Identity Card, Indian Voter ID)\n * GSTIN (Goods and Services Tax identification number, Indian VAT number)\n * PAN (Permanent Account Number, Indian income tax identifier)\n * VID (Indian personal virtual identity number)\n * Kennitala (Icelandic personal and organisation identity code)\n * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)\n * ISAN (International Standard Audiovisual Number)\n * ISBN (International Standard Book Number)\n * ISIL (International Standard Identifier for Libraries)\n * ISIN (International Securities Identification Number)\n * ISMN (International Standard Music Number)\n * ISNI (International Standard Name Identifier)\n * ISO 11649 (Structured Creditor Reference)\n * ISO 6346 (International standard for container identification)\n * ISRC (International Standard Recording Code)\n * ISSN (International Standard Serial Number)\n * AIC (Italian code for identification of drugs)\n * Codice Fiscale (Italian tax code for individuals)\n * Partita IVA (Italian VAT number)\n * CN (法人番号, hōjin bangō, Japanese Corporate Number)\n * IN (個人番号, kojin bangō, Japanese Individual Number)\n * PIN (Personal Identification Number, Kenya tax number)\n * BRN (사업자 등록 번호, South Korea Business Registration Number)\n * RRN (South Korean resident registration number)\n * LEI (Legal Entity Identifier)\n * PEID (Liechtenstein tax code for individuals and entities)\n * Asmens kodas (Lithuanian, personal numbers)\n * PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)\n * TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)\n * PVN (Pievienotās vērtības nodokļa, Latvian VAT number)\n * ICE (Identifiant Commun de l’Entreprise, التعريف الموحد للمقاولة, Morocco tax number)\n * MAC address (Media Access Control address)\n * n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)\n * IDNO (Moldavian company identification number)\n * Montenegro IBAN (International Bank Account Number)\n * PIB (Poreski Identifikacioni Broj, Montenegro tax number)\n * MEID (Mobile Equipment Identifier)\n * ЕДБ (Едниствен Даночен Број, North Macedonia tax number)\n * VAT (Maltese VAT number)\n * ID number (Mauritian national identifier)\n * CURP (Clave Única de Registro de Población, Mexican personal ID)\n * RFC (Registro Federal de Contribuyentes, Mexican tax number)\n * NRIC No. (Malaysian National Registration Identity Card Number)\n * NUIT (Número Único de Identificação Tributaria, Mozambique tax number)\n * BRIN number (the Dutch school identification number)\n * BSN (Burgerservicenummer, the Dutch citizen identification number)\n * Btw-identificatienummer (Omzetbelastingnummer, the Dutch VAT number)\n * Identiteitskaartnummer, Paspoortnummer (the Dutch passport number)\n * Onderwijsnummer (the Dutch student identification number)\n * Postcode (the Dutch postal code)\n * Fødselsnummer (Norwegian birth number, the national identity number)\n * Norwegian IBAN (International Bank Account Number)\n * Konto nr. (Norwegian bank account number)\n * MVA (Merverdiavgift, Norwegian VAT number)\n * Orgnr (Organisasjonsnummer, Norwegian organisation number)\n * New Zealand bank account number\n * IRD number (New Zealand Inland Revenue Department (Te Tari Tāke) number)\n * CUI (Cédula Única de Identidad, Peruvian identity number)\n * RUC (Registro Único de Contribuyentes, Peruvian company tax number)\n * CNIC number (Pakistani Computerised National Identity Card number)\n * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)\n * PESEL (Polish national identification number)\n * REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)\n * CC (Número de Cartão de Cidadão, Portuguese Identity number)\n * NIF (Número de identificação fiscal, Portuguese VAT number)\n * RUC number (Registro Único de Contribuyentes, Paraguay tax number)\n * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)\n * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)\n * CUI or CIF (Codul Unic de Înregistrare, Romanian company identifier)\n * ONRC (Ordine din Registrul Comerţului, Romanian Trade Register identifier)\n * PIB (Poreski Identifikacioni Broj, Serbian tax identification number)\n * ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)\n * ОГРН, OGRN, PSRN, ОГРНИП, OGRNIP (Russian Primary State Registration Number)\n * Orgnr (Organisationsnummer, Swedish company number)\n * Personnummer (Swedish personal identity number)\n * Postcode (the Swedish postal code)\n * VAT (Moms, Mervärdesskatt, Swedish VAT number)\n * UEN (Singapore's Unique Entity Number)\n * ID za DDV (Davčna številka, Slovenian VAT number)\n * Enotna matična številka občana (Unique Master Citizen Number)\n * Matična številka poslovnega registra (Corporate Registration Number)\n * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)\n * RČ (Rodné číslo, the Slovak birth number)\n * COE (Codice operatore economico, San Marino national tax number)\n * NINEA (Numéro d'Identification Nationale des Entreprises et Associations, Senegal tax number)\n * NIT (Número de Identificación Tributaria, El Salvador tax number)\n * MOA (Thailand Memorandum of Association Number)\n * PIN (Thailand Personal Identification Number)\n * TIN (Thailand Taxpayer Identification Number)\n * MF (Matricule Fiscal, Tunisia tax number)\n * T.C. Kimlik No. (Turkish personal identification number)\n * VKN (Vergi Kimlik Numarası, Turkish tax identification number)\n * UBN (Unified Business Number, 統一編號, Taiwanese tax number)\n * ЄДРПОУ, EDRPOU (Identifier for enterprises and organizations in Ukraine)\n * РНОКПП, RNTRC (Individual taxpayer registration number in Ukraine)\n * ATIN (U.S. Adoption Taxpayer Identification Number)\n * EIN (U.S. Employer Identification Number)\n * ITIN (U.S. Individual Taxpayer Identification Number)\n * PTIN (U.S. Preparer Tax Identification Number)\n * RTN (Routing transport number)\n * SSN (U.S. Social Security Number)\n * TIN (U.S. Taxpayer Identification Number)\n * RUT (Registro Único Tributario, Uruguay tax number)\n * VATIN (International value added tax identification number)\n * RIF (Registro de Identificación Fiscal, Venezuelan VAT number)\n * MST (Mã số thuế, Vietnam tax number)\n * ID number (South African Identity Document number)\n * TIN (South African Tax Identification Number)\n\nFurthermore a number of generic check digit algorithms are available:\n\n * the Verhoeff algorithm\n * the Damm algorithm\n * the Luhn and Luhn mod N algorithms\n * some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,\n   Mod 97, 10, Mod 11, 10 and Mod 37, 36\n\nBasically any number or code that has some validation mechanism available\nor some common formatting is eligible for inclusion into this library.\n\nThese modules generally do not provide background information on the meaning\nand use of the specified numbers, only parsing and handling functions.\n\nInterface\n---------\n\nAll modules implement a common interface. For example for ISBN validation:\n\n    >>> from stdnum import isbn\n    >>> isbn.validate('978-9024538270')\n    '9789024538270'\n    >>> isbn.validate('978-9024538271')\n    Traceback (most recent call last):\n        ...\n    InvalidChecksum: ...\n\nMost of these modules implement the following functions:\n\n * `validate()`\n    validate the correctness of the passed number and return a compact\n    representation of the number invalid numbers are rejected with one of the\n    exceptions from the stdnum.exceptions module\n * `compact()`\n   return a compact representation of the number or code this function\n   generally does not do validation but may raise exceptions for wildly\n   incorrect numbers\n * `format()`\n   return a formatted version of the number in the preferred format this\n   function generally expects to be passed a valid number or code\n\nApart from the above, the module may add extra parsing, validation or\nconversion functions.\n\nRequirements\n------------\n\nThe modules should not require any external Python modules and should be pure\nPython. The modules are developed and tested with Python 3 versions (see `setup.py`).\n\nCopyright\n---------\n\nCopyright (C) 2010-2026 Arthur de Jong and others\n\nThis library is free software; you can redistribute it and/or\nmodify it under the terms of the GNU Lesser General Public\nLicense as published by the Free Software Foundation; either\nversion 2.1 of the License, or (at your option) any later version.\n\nThis library is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\nLesser General Public License for more details.\n\nYou should have received a copy of the GNU Lesser General Public\nLicense along with this library; if not, write to the Free Software\nFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA\n02110-1301 USA\n\nFeedback and bug reports\n------------------------\n\nIf you have any questions regarding python-stdnum, would like to report a bug\nor request addition of a format please send an email to\n<python-stdnum-users@lists.arthurdejong.org>\nPatches and code contributions are more than welcome.\n",
+        "description_content_type": "text/markdown",
+        "home_page": "https://arthurdejong.org/python-stdnum/",
+        "author": "Arthur de Jong",
+        "author_email": "arthur@arthurdejong.org",
+        "license": "LGPL",
+        "license_file": [
+          "COPYING"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Financial and Insurance Industry",
+          "Intended Audience :: Information Technology",
+          "Intended Audience :: Telecommunications Industry",
+          "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Office/Business :: Financial",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Topic :: Text Processing :: General"
+        ],
+        "requires_dist": [
+          "zeep; extra == \"soap\""
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Documentation, https://arthurdejong.org/python-stdnum/doc/",
+          "GitHub, https://github.com/arthurdejong/python-stdnum/"
+        ],
+        "provides_extra": [
+          "soap"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/74/eb/798c426ebd54f52c27aed6593eaf96ed07dca3ca1d084822cc34f0db5159/relatorio-1.0.0-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=d6fefc3258de1182db2d7a5f2b0639a7874e4f2c1a40978b3d0ad5cdb457016f",
+          "hashes": {
+            "sha256": "d6fefc3258de1182db2d7a5f2b0639a7874e4f2c1a40978b3d0ad5cdb457016f"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "relatorio",
+        "version": "1.0.0",
+        "summary": "A templating library able to output odt files",
+        "description": "#########\nRelatorio\n#########\n\nRelatorio is a templating library which provides a way to easily generate\nvarious kinds of documents (odt, ods, png, svg, ...) from a template.\nSupport for more filetypes can be added by creating plugins for them.\n\nRelatorio also provides a report repository allowing you to link python objects\nand reports together, and find reports by mimetype/name/python object.\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "OpenDocument",
+          "templating"
+        ],
+        "author": "Gaëtan de Menten, B2CK SRL, Udo Spallek, OpenHex SPRL",
+        "author_email": "Nicolas Évrard <nicolas.evrard@b2ck.com>, Cédric Krier <cedric.krier@b2ck.com>",
+        "maintainer_email": "Tryton <foundation@tryton.org>",
+        "license_expression": "GPL-3.0-or-later",
+        "license_file": [
+          "COPYRIGHT",
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Topic :: Text Processing"
+        ],
+        "requires_dist": [
+          "genshi>=0.5",
+          "lxml>=2.0",
+          "puremagic; extra == 'fodt'"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "homepage, https://www.tryton.org/",
+          "documentation, https://docs.tryton.org/relatorio",
+          "changelog, https://docs.tryton.org/relatorio/releases.html",
+          "forum, https://discuss.tryton.org/tags/relatorio",
+          "issues, https://bugs.tryton.org/relatorio",
+          "repository, https://code.tryton.org/relatorio"
+        ],
+        "provides_extra": [
+          "fodt"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/b7/27/503016bc329720ba2856eb4831d6ba36089cd6f15bc4fe85db69fea5b563/genshi-0.7.11-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=3fdd03ab9c255db1dd612f7189ba94e3310e2b77d5f94bce37e2952eb9977842",
+          "hashes": {
+            "sha256": "3fdd03ab9c255db1dd612f7189ba94e3310e2b77d5f94bce37e2952eb9977842"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "Genshi",
+        "version": "0.7.11",
+        "summary": "A toolkit for generation of output for the web",
+        "description": "\nGenshi is a Python library that provides an integrated set of\ncomponents for parsing, generating, and processing HTML, XML or\nother textual content for output generation on the web. The major\nfeature is a template language, which is heavily inspired by Kid.\n",
+        "keywords": [
+          "python.templating.engines"
+        ],
+        "home_page": "https://github.com/edgewall/genshi",
+        "author": "Edgewall Software",
+        "author_email": "info@edgewall.org",
+        "license": "BSD",
+        "license_file": [
+          "COPYING"
+        ],
+        "classifier": [
+          "Development Status :: 4 - Beta",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: BSD License",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Topic :: Text Processing :: Markup :: HTML",
+          "Topic :: Text Processing :: Markup :: XML"
+        ],
+        "requires_dist": [
+          "importlib-resources ; python_version < \"3.9\"",
+          "Babel >=0.8 ; extra == 'i18n'",
+          "setuptools >=0.6a2 ; extra == 'plugin'"
+        ],
+        "provides_extra": [
+          "i18n",
+          "plugin"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/93/8c/2e650f2afeb7ee576912636c23ddb621c91ac6a98e66dc8d29c3c69446e1/werkzeug-3.1.8-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50",
+          "hashes": {
+            "sha256": "63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "Werkzeug",
+        "version": "3.1.8",
+        "summary": "The comprehensive WSGI web application library.",
+        "description": "<div align=\"center\"><img src=\"https://raw.githubusercontent.com/pallets/werkzeug/refs/heads/stable/docs/_static/werkzeug-name.svg\" alt=\"\" height=\"150\"></div>\n\n# Werkzeug\n\n*werkzeug* German noun: \"tool\". Etymology: *werk* (\"work\"), *zeug* (\"stuff\")\n\nWerkzeug is a comprehensive [WSGI][] web application library. It began as\na simple collection of various utilities for WSGI applications and has\nbecome one of the most advanced WSGI utility libraries.\n\nIt includes:\n\n-   An interactive debugger that allows inspecting stack traces and\n    source code in the browser with an interactive interpreter for any\n    frame in the stack.\n-   A full-featured request object with objects to interact with\n    headers, query args, form data, files, and cookies.\n-   A response object that can wrap other WSGI applications and handle\n    streaming data.\n-   A routing system for matching URLs to endpoints and generating URLs\n    for endpoints, with an extensible system for capturing variables\n    from URLs.\n-   HTTP utilities to handle entity tags, cache control, dates, user\n    agents, cookies, files, and more.\n-   A threaded WSGI server for use while developing applications\n    locally.\n-   A test client for simulating HTTP requests during testing without\n    requiring running a server.\n\nWerkzeug doesn't enforce any dependencies. It is up to the developer to\nchoose a template engine, database adapter, and even how to handle\nrequests. It can be used to build all sorts of end user applications\nsuch as blogs, wikis, or bulletin boards.\n\n[Flask][] wraps Werkzeug, using it to handle the details of WSGI while\nproviding more structure and patterns for defining powerful\napplications.\n\n[WSGI]: https://wsgi.readthedocs.io/en/latest/\n[Flask]: https://www.palletsprojects.com/p/flask/\n\n\n## A Simple Example\n\n```python\n# save this as app.py\nfrom werkzeug.wrappers import Request, Response\n\n@Request.application\ndef application(request: Request) -> Response:\n    return Response(\"Hello, World!\")\n\nif __name__ == \"__main__\":\n    from werkzeug.serving import run_simple\n    run_simple(\"127.0.0.1\", 5000, application)\n```\n\n```\n$ python -m app\n  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)\n```\n\n\n## Donate\n\nThe Pallets organization develops and supports Werkzeug and other\npopular packages. In order to grow the community of contributors and\nusers, and allow the maintainers to devote more time to the projects,\n[please donate today][].\n\n[please donate today]: https://palletsprojects.com/donate\n\n## Contributing\n\nSee our [detailed contributing documentation][contrib] for many ways to\ncontribute, including reporting issues, requesting features, asking or answering\nquestions, and making PRs.\n\n[contrib]: https://palletsprojects.com/contributing/\n\n",
+        "description_content_type": "text/markdown",
+        "maintainer_email": "Pallets <contact@palletsprojects.com>",
+        "license_expression": "BSD-3-Clause",
+        "license_file": [
+          "LICENSE.txt"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+          "Topic :: Internet :: WWW/HTTP :: WSGI",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+          "Topic :: Software Development :: Libraries :: Application Frameworks",
+          "Typing :: Typed"
+        ],
+        "requires_dist": [
+          "markupsafe>=2.1.1",
+          "watchdog>=2.3 ; extra == \"watchdog\""
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Changes, https://werkzeug.palletsprojects.com/page/changes/",
+          "Chat, https://discord.gg/pallets",
+          "Documentation, https://werkzeug.palletsprojects.com/",
+          "Donate, https://palletsprojects.com/donate",
+          "Source, https://github.com/pallets/werkzeug/"
+        ],
+        "provides_extra": [
+          "watchdog"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/a9/21/9b05698b46f218fc0e118e1f8168395c65c8a2c750ae2bab54fc4bd4e0e8/markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "archive_info": {
+          "hash": "sha256=ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676",
+          "hashes": {
+            "sha256": "ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "MarkupSafe",
+        "version": "3.0.3",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Safely add untrusted strings to HTML/XML markup.",
+        "description": "<div align=\"center\"><img src=\"https://raw.githubusercontent.com/pallets/markupsafe/refs/heads/stable/docs/_static/markupsafe-name.svg\" alt=\"\" height=\"150\"></div>\n\n# MarkupSafe\n\nMarkupSafe implements a text object that escapes characters so it is\nsafe to use in HTML and XML. Characters that have special meanings are\nreplaced so that they display as the actual characters. This mitigates\ninjection attacks, meaning untrusted user input can safely be displayed\non a page.\n\n\n## Examples\n\n```pycon\n>>> from markupsafe import Markup, escape\n\n>>> # escape replaces special characters and wraps in Markup\n>>> escape(\"<script>alert(document.cookie);</script>\")\nMarkup('&lt;script&gt;alert(document.cookie);&lt;/script&gt;')\n\n>>> # wrap in Markup to mark text \"safe\" and prevent escaping\n>>> Markup(\"<strong>Hello</strong>\")\nMarkup('<strong>hello</strong>')\n\n>>> escape(Markup(\"<strong>Hello</strong>\"))\nMarkup('<strong>hello</strong>')\n\n>>> # Markup is a str subclass\n>>> # methods and operators escape their arguments\n>>> template = Markup(\"Hello <em>{name}</em>\")\n>>> template.format(name='\"World\"')\nMarkup('Hello <em>&#34;World&#34;</em>')\n```\n\n## Donate\n\nThe Pallets organization develops and supports MarkupSafe and other\npopular packages. In order to grow the community of contributors and\nusers, and allow the maintainers to devote more time to the projects,\n[please donate today][].\n\n[please donate today]: https://palletsprojects.com/donate\n\n## Contributing\n\nSee our [detailed contributing documentation][contrib] for many ways to\ncontribute, including reporting issues, requesting features, asking or answering\nquestions, and making PRs.\n\n[contrib]: https://palletsprojects.com/contributing/\n",
+        "description_content_type": "text/markdown",
+        "maintainer_email": "Pallets <contact@palletsprojects.com>",
+        "license_expression": "BSD-3-Clause",
+        "license_file": [
+          "LICENSE.txt"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+          "Topic :: Text Processing :: Markup :: HTML",
+          "Typing :: Typed"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Donate, https://palletsprojects.com/donate",
+          "Documentation, https://markupsafe.palletsprojects.com/",
+          "Changes, https://markupsafe.palletsprojects.com/page/changes/",
+          "Source, https://github.com/pallets/markupsafe/",
+          "Chat, https://discord.gg/pallets"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf9301e6d9ef4/defusedxml-0.7.1-py2.py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61",
+          "hashes": {
+            "sha256": "a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "defusedxml",
+        "version": "0.7.1",
+        "platform": [
+          "all"
+        ],
+        "summary": "XML bomb protection for Python stdlib modules",
+        "description": "===================================================\ndefusedxml -- defusing XML bombs and other exploits\n===================================================\n\n.. image:: https://img.shields.io/pypi/v/defusedxml.svg\n    :target: https://pypi.org/project/defusedxml/\n    :alt: Latest Version\n\n.. image:: https://img.shields.io/pypi/pyversions/defusedxml.svg\n    :target: https://pypi.org/project/defusedxml/\n    :alt: Supported Python versions\n\n.. image:: https://travis-ci.org/tiran/defusedxml.svg?branch=master\n    :target: https://travis-ci.org/tiran/defusedxml\n    :alt: Travis CI\n\n.. image:: https://codecov.io/github/tiran/defusedxml/coverage.svg?branch=master\n    :target: https://codecov.io/github/tiran/defusedxml?branch=master\n    :alt: codecov\n\n.. image:: https://img.shields.io/pypi/dm/defusedxml.svg\n    :target: https://pypistats.org/packages/defusedxml\n    :alt: PyPI downloads\n\n.. image:: https://img.shields.io/badge/code%20style-black-000000.svg\n    :target: https://github.com/psf/black\n    :alt: Code style: black\n\n..\n\n    \"It's just XML, what could probably go wrong?\"\n\nChristian Heimes <christian@python.org>\n\nSynopsis\n========\n\nThe results of an attack on a vulnerable XML library can be fairly dramatic.\nWith just a few hundred **Bytes** of XML data an attacker can occupy several\n**Gigabytes** of memory within **seconds**. An attacker can also keep\nCPUs busy for a long time with a small to medium size request. Under some\ncircumstances it is even possible to access local files on your\nserver, to circumvent a firewall, or to abuse services to rebound attacks to\nthird parties.\n\nThe attacks use and abuse less common features of XML and its parsers. The\nmajority of developers are unacquainted with features such as processing\ninstructions and entity expansions that XML inherited from SGML. At best\nthey know about ``<!DOCTYPE>`` from experience with HTML but they are not\naware that a document type definition (DTD) can generate an HTTP request\nor load a file from the file system.\n\nNone of the issues is new. They have been known for a long time. Billion\nlaughs was first reported in 2003. Nevertheless some XML libraries and\napplications are still vulnerable and even heavy users of XML are\nsurprised by these features. It's hard to say whom to blame for the\nsituation. It's too short sighted to shift all blame on XML parsers and\nXML libraries for using insecure default settings. After all they\nproperly implement XML specifications. Application developers must not rely\nthat a library is always configured for security and potential harmful data\nby default.\n\n\n.. contents:: Table of Contents\n   :depth: 2\n\n\nAttack vectors\n==============\n\nbillion laughs / exponential entity expansion\n---------------------------------------------\n\nThe `Billion Laughs`_ attack -- also known as exponential entity expansion --\nuses multiple levels of nested entities. The original example uses 9 levels\nof 10 expansions in each level to expand the string ``lol`` to a string of\n3 * 10 :sup:`9` bytes, hence the name \"billion laughs\". The resulting string\noccupies 3 GB (2.79 GiB) of memory; intermediate strings require additional\nmemory. Because most parsers don't cache the intermediate step for every\nexpansion it is repeated over and over again. It increases the CPU load even\nmore.\n\nAn XML document of just a few hundred bytes can disrupt all services on a\nmachine within seconds.\n\nExample XML::\n\n    <!DOCTYPE xmlbomb [\n    <!ENTITY a \"1234567890\" >\n    <!ENTITY b \"&a;&a;&a;&a;&a;&a;&a;&a;\">\n    <!ENTITY c \"&b;&b;&b;&b;&b;&b;&b;&b;\">\n    <!ENTITY d \"&c;&c;&c;&c;&c;&c;&c;&c;\">\n    ]>\n    <bomb>&d;</bomb>\n\n\nquadratic blowup entity expansion\n---------------------------------\n\nA quadratic blowup attack is similar to a `Billion Laughs`_ attack; it abuses\nentity expansion, too. Instead of nested entities it repeats one large entity\nwith a couple of thousand chars over and over again. The attack isn't as\nefficient as the exponential case but it avoids triggering countermeasures of\nparsers against heavily nested entities. Some parsers limit the depth and\nbreadth of a single entity but not the total amount of expanded text\nthroughout an entire XML document.\n\nA medium-sized XML document with a couple of hundred kilobytes can require a\ncouple of hundred MB to several GB of memory. When the attack is combined\nwith some level of nested expansion an attacker is able to achieve a higher\nratio of success.\n\n::\n\n    <!DOCTYPE bomb [\n    <!ENTITY a \"xxxxxxx... a couple of ten thousand chars\">\n    ]>\n    <bomb>&a;&a;&a;... repeat</bomb>\n\n\nexternal entity expansion (remote)\n----------------------------------\n\nEntity declarations can contain more than just text for replacement. They can\nalso point to external resources by public identifiers or system identifiers.\nSystem identifiers are standard URIs. When the URI is a URL (e.g. a\n``http://`` locator) some parsers download the resource from the remote\nlocation and embed them into the XML document verbatim.\n\nSimple example of a parsed external entity::\n\n    <!DOCTYPE external [\n    <!ENTITY ee SYSTEM \"http://www.python.org/some.xml\">\n    ]>\n    <root>&ee;</root>\n\nThe case of parsed external entities works only for valid XML content. The\nXML standard also supports unparsed external entities with a\n``NData declaration``.\n\nExternal entity expansion opens the door to plenty of exploits. An attacker\ncan abuse a vulnerable XML library and application to rebound and forward\nnetwork requests with the IP address of the server. It highly depends\non the parser and the application what kind of exploit is possible. For\nexample:\n\n* An attacker can circumvent firewalls and gain access to restricted\n  resources as all the requests are made from an internal and trustworthy\n  IP address, not from the outside.\n* An attacker can abuse a service to attack, spy on or DoS your servers but\n  also third party services. The attack is disguised with the IP address of\n  the server and the attacker is able to utilize the high bandwidth of a big\n  machine.\n* An attacker can exhaust additional resources on the machine, e.g. with\n  requests to a service that doesn't respond or responds with very large\n  files.\n* An attacker may gain knowledge, when, how often and from which IP address\n  an XML document is accessed.\n* An attacker could send mail from inside your network if the URL handler\n  supports ``smtp://`` URIs.\n\n\nexternal entity expansion (local file)\n--------------------------------------\n\nExternal entities with references to local files are a sub-case of external\nentity expansion. It's listed as an extra attack because it deserves extra\nattention. Some XML libraries such as lxml disable network access by default\nbut still allow entity expansion with local file access by default. Local\nfiles are either referenced with a ``file://`` URL or by a file path (either\nrelative or absolute).\n\nAn attacker may be able to access and download all files that can be read by\nthe application process. This may include critical configuration files, too.\n\n::\n\n    <!DOCTYPE external [\n    <!ENTITY ee SYSTEM \"file:///PATH/TO/simple.xml\">\n    ]>\n    <root>&ee;</root>\n\n\nDTD retrieval\n-------------\n\nThis case is similar to external entity expansion, too. Some XML libraries\nlike Python's xml.dom.pulldom retrieve document type definitions from remote\nor local locations. Several attack scenarios from the external entity case\napply to this issue as well.\n\n::\n\n    <?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n      \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n    <html>\n        <head/>\n        <body>text</body>\n    </html>\n\n\nPython XML Libraries\n====================\n\n.. csv-table:: vulnerabilities and features\n   :header: \"kind\", \"sax\", \"etree\", \"minidom\", \"pulldom\", \"xmlrpc\", \"lxml\", \"genshi\"\n   :widths: 24, 7, 8, 8, 7, 8, 8, 8\n   :stub-columns: 0\n\n   \"billion laughs\", \"**True**\", \"**True**\", \"**True**\", \"**True**\", \"**True**\", \"False (1)\", \"False (5)\"\n   \"quadratic blowup\", \"**True**\", \"**True**\", \"**True**\", \"**True**\", \"**True**\", \"**True**\", \"False (5)\"\n   \"external entity expansion (remote)\", \"**True**\", \"False (3)\", \"False (4)\", \"**True**\", \"false\", \"False (1)\", \"False (5)\"\n   \"external entity expansion (local file)\", \"**True**\", \"False (3)\", \"False (4)\", \"**True**\", \"false\", \"**True**\", \"False (5)\"\n   \"DTD retrieval\", \"**True**\", \"False\", \"False\", \"**True**\", \"false\", \"False (1)\", \"False\"\n   \"gzip bomb\", \"False\", \"False\", \"False\", \"False\", \"**True**\", \"**partly** (2)\", \"False\"\n   \"xpath support (7)\", \"False\", \"False\", \"False\", \"False\", \"False\", \"**True**\", \"False\"\n   \"xsl(t) support (7)\", \"False\", \"False\", \"False\", \"False\", \"False\", \"**True**\", \"False\"\n   \"xinclude support (7)\", \"False\", \"**True** (6)\", \"False\", \"False\", \"False\", \"**True** (6)\", \"**True**\"\n   \"C library\", \"expat\", \"expat\", \"expat\", \"expat\", \"expat\", \"libxml2\", \"expat\"\n\n1. Lxml is protected against billion laughs attacks and doesn't do network\n   lookups by default.\n2. libxml2 and lxml are not directly vulnerable to gzip decompression bombs\n   but they don't protect you against them either.\n3. xml.etree doesn't expand entities and raises a ParserError when an entity\n   occurs.\n4. minidom doesn't expand entities and simply returns the unexpanded entity\n   verbatim.\n5. genshi.input of genshi 0.6 doesn't support entity expansion and raises a\n   ParserError when an entity occurs.\n6. Library has (limited) XInclude support but requires an additional step to\n   process inclusion.\n7. These are features but they may introduce exploitable holes, see\n   `Other things to consider`_\n\n\nSettings in standard library\n----------------------------\n\n\nxml.sax.handler Features\n........................\n\nfeature_external_ges (http://xml.org/sax/features/external-general-entities)\n  disables external entity expansion\n\nfeature_external_pes (http://xml.org/sax/features/external-parameter-entities)\n  the option is ignored and doesn't modify any functionality\n\nDOM xml.dom.xmlbuilder.Options\n..............................\n\nexternal_parameter_entities\n  ignored\n\nexternal_general_entities\n  ignored\n\nexternal_dtd_subset\n  ignored\n\nentities\n  unsure\n\n\ndefusedxml\n==========\n\nThe `defusedxml package`_ (`defusedxml on PyPI`_)\ncontains several Python-only workarounds and fixes\nfor denial of service and other vulnerabilities in Python's XML libraries.\nIn order to benefit from the protection you just have to import and use the\nlisted functions / classes from the right defusedxml module instead of the\noriginal module. Merely `defusedxml.xmlrpc`_ is implemented as monkey patch.\n\nInstead of::\n\n   >>> from xml.etree.ElementTree import parse\n   >>> et = parse(xmlfile)\n\nalter code to::\n\n   >>> from defusedxml.ElementTree import parse\n   >>> et = parse(xmlfile)\n\nAdditionally the package has an **untested** function to monkey patch\nall stdlib modules with ``defusedxml.defuse_stdlib()``.\n\nAll functions and parser classes accept three additional keyword arguments.\nThey return either the same objects as the original functions or compatible\nsubclasses.\n\nforbid_dtd (default: False)\n  disallow XML with a ``<!DOCTYPE>`` processing instruction and raise a\n  *DTDForbidden* exception when a DTD processing instruction is found.\n\nforbid_entities (default: True)\n  disallow XML with ``<!ENTITY>`` declarations inside the DTD and raise an\n  *EntitiesForbidden* exception when an entity is declared.\n\nforbid_external (default: True)\n  disallow any access to remote or local resources in external entities\n  or DTD and raising an *ExternalReferenceForbidden* exception when a DTD\n  or entity references an external resource.\n\n\ndefusedxml (package)\n--------------------\n\nDefusedXmlException, DTDForbidden, EntitiesForbidden,\nExternalReferenceForbidden, NotSupportedError\n\ndefuse_stdlib() (*experimental*)\n\n\ndefusedxml.cElementTree\n-----------------------\n\n**NOTE** ``defusedxml.cElementTree`` is deprecated and will be removed in a\nfuture release. Import from ``defusedxml.ElementTree`` instead.\n\nparse(), iterparse(), fromstring(), XMLParser\n\n\ndefusedxml.ElementTree\n-----------------------\n\nparse(), iterparse(), fromstring(), XMLParser\n\n\ndefusedxml.expatreader\n----------------------\n\ncreate_parser(), DefusedExpatParser\n\n\ndefusedxml.sax\n--------------\n\nparse(), parseString(), make_parser()\n\n\ndefusedxml.expatbuilder\n-----------------------\n\nparse(), parseString(), DefusedExpatBuilder, DefusedExpatBuilderNS\n\n\ndefusedxml.minidom\n------------------\n\nparse(), parseString()\n\n\ndefusedxml.pulldom\n------------------\n\nparse(), parseString()\n\n\ndefusedxml.xmlrpc\n-----------------\n\nThe fix is implemented as monkey patch for the stdlib's xmlrpc package (3.x)\nor xmlrpclib module (2.x). The function `monkey_patch()` enables the fixes,\n`unmonkey_patch()` removes the patch and puts the code in its former state.\n\nThe monkey patch protects against XML related attacks as well as\ndecompression bombs and excessively large requests or responses. The default\nsetting is 30 MB for requests, responses and gzip decompression. You can\nmodify the default by changing the module variable `MAX_DATA`. A value of\n`-1` disables the limit.\n\n\ndefusedxml.lxml\n---------------\n\n**DEPRECATED** The module is deprecated and will be removed in a future\nrelease.\n\nThe module acts as an *example* how you could protect code that uses\nlxml.etree. It implements a custom Element class that filters out\nEntity instances, a custom parser factory and a thread local storage for\nparser instances. It also has a check_docinfo() function which inspects\na tree for internal or external DTDs and entity declarations. In order to\ncheck for entities lxml > 3.0 is required.\n\nparse(), fromstring()\nRestrictedElement, GlobalParserTLS, getDefaultParser(), check_docinfo()\n\n\ndefusedexpat\n============\n\nThe `defusedexpat package`_ (`defusedexpat on PyPI`_)\ncomes with binary extensions and a\n`modified expat`_ library instead of the standard `expat parser`_. It's\nbasically a stand-alone version of the patches for Python's standard\nlibrary C extensions.\n\nModifications in expat\n----------------------\n\nnew definitions::\n\n  XML_BOMB_PROTECTION\n  XML_DEFAULT_MAX_ENTITY_INDIRECTIONS\n  XML_DEFAULT_MAX_ENTITY_EXPANSIONS\n  XML_DEFAULT_RESET_DTD\n\nnew XML_FeatureEnum members::\n\n  XML_FEATURE_MAX_ENTITY_INDIRECTIONS\n  XML_FEATURE_MAX_ENTITY_EXPANSIONS\n  XML_FEATURE_IGNORE_DTD\n\nnew XML_Error members::\n\n  XML_ERROR_ENTITY_INDIRECTIONS\n  XML_ERROR_ENTITY_EXPANSION\n\nnew API functions::\n\n  int XML_GetFeature(XML_Parser parser,\n                     enum XML_FeatureEnum feature,\n                     long *value);\n  int XML_SetFeature(XML_Parser parser,\n                     enum XML_FeatureEnum feature,\n                     long value);\n  int XML_GetFeatureDefault(enum XML_FeatureEnum feature,\n                            long *value);\n  int XML_SetFeatureDefault(enum XML_FeatureEnum feature,\n                            long value);\n\nXML_FEATURE_MAX_ENTITY_INDIRECTIONS\n   Limit the amount of indirections that are allowed to occur during the\n   expansion of a nested entity. A counter starts when an entity reference\n   is encountered. It resets after the entity is fully expanded. The limit\n   protects the parser against exponential entity expansion attacks (aka\n   billion laughs attack). When the limit is exceeded the parser stops and\n   fails with `XML_ERROR_ENTITY_INDIRECTIONS`.\n   A value of 0 disables the protection.\n\n   Supported range\n     0 .. UINT_MAX\n   Default\n     40\n\nXML_FEATURE_MAX_ENTITY_EXPANSIONS\n   Limit the total length of all entity expansions throughout the entire\n   document. The lengths of all entities are accumulated in a parser variable.\n   The setting protects against quadratic blowup attacks (lots of expansions\n   of a large entity declaration). When the sum of all entities exceeds\n   the limit, the parser stops and fails with `XML_ERROR_ENTITY_EXPANSION`.\n   A value of 0 disables the protection.\n\n   Supported range\n     0 .. UINT_MAX\n   Default\n     8 MiB\n\nXML_FEATURE_RESET_DTD\n   Reset all DTD information after the <!DOCTYPE> block has been parsed. When\n   the flag is set (default: false) all DTD information after the\n   endDoctypeDeclHandler has been called. The flag can be set inside the\n   endDoctypeDeclHandler. Without DTD information any entity reference in\n   the document body leads to `XML_ERROR_UNDEFINED_ENTITY`.\n\n   Supported range\n     0, 1\n   Default\n     0\n\n\nHow to avoid XML vulnerabilities\n================================\n\nBest practices\n--------------\n\n* Don't allow DTDs\n* Don't expand entities\n* Don't resolve externals\n* Limit parse depth\n* Limit total input size\n* Limit parse time\n* Favor a SAX or iterparse-like parser for potential large data\n* Validate and properly quote arguments to XSL transformations and\n  XPath queries\n* Don't use XPath expression from untrusted sources\n* Don't apply XSL transformations that come untrusted sources\n\n(based on Brad Hill's `Attacking XML Security`_)\n\n\nOther things to consider\n========================\n\nXML, XML parsers and processing libraries have more features and possible\nissue that could lead to DoS vulnerabilities or security exploits in\napplications. I have compiled an incomplete list of theoretical issues that\nneed further research and more attention. The list is deliberately pessimistic\nand a bit paranoid, too. It contains things that might go wrong under daffy\ncircumstances.\n\n\nattribute blowup / hash collision attack\n----------------------------------------\n\nXML parsers may use an algorithm with quadratic runtime O(n :sup:`2`) to\nhandle attributes and namespaces. If it uses hash tables (dictionaries) to\nstore attributes and namespaces the implementation may be vulnerable to\nhash collision attacks, thus reducing the performance to O(n :sup:`2`) again.\nIn either case an attacker is able to forge a denial of service attack with\nan XML document that contains thousands upon thousands of attributes in\na single node.\n\nI haven't researched yet if expat, pyexpat or libxml2 are vulnerable.\n\n\ndecompression bomb\n------------------\n\nThe issue of decompression bombs (aka `ZIP bomb`_) apply to all XML libraries\nthat can parse compressed XML stream like gzipped HTTP streams or LZMA-ed\nfiles. For an attacker it can reduce the amount of transmitted data by three\nmagnitudes or more. Gzip is able to compress 1 GiB zeros to roughly 1 MB,\nlzma is even better::\n\n    $ dd if=/dev/zero bs=1M count=1024 | gzip > zeros.gz\n    $ dd if=/dev/zero bs=1M count=1024 | lzma -z > zeros.xy\n    $ ls -sh zeros.*\n    1020K zeros.gz\n     148K zeros.xy\n\nNone of Python's standard XML libraries decompress streams except for\n``xmlrpclib``. The module is vulnerable <https://bugs.python.org/issue16043>\nto decompression bombs.\n\nlxml can load and process compressed data through libxml2 transparently.\nlibxml2 can handle even very large blobs of compressed data efficiently\nwithout using too much memory. But it doesn't protect applications from\ndecompression bombs. A carefully written SAX or iterparse-like approach can\nbe safe.\n\n\nProcessing Instruction\n----------------------\n\n`PI`_'s like::\n\n  <?xml-stylesheet type=\"text/xsl\" href=\"style.xsl\"?>\n\nmay impose more threats for XML processing. It depends if and how a\nprocessor handles processing instructions. The issue of URL retrieval with\nnetwork or local file access apply to processing instructions, too.\n\n\nOther DTD features\n------------------\n\n`DTD`_ has more features like ``<!NOTATION>``. I haven't researched how\nthese features may be a security threat.\n\n\nXPath\n-----\n\nXPath statements may introduce DoS vulnerabilities. Code should never execute\nqueries from untrusted sources. An attacker may also be able to create an XML\ndocument that makes certain XPath queries costly or resource hungry.\n\n\nXPath injection attacks\n-----------------------\n\nXPath injeciton attacks pretty much work like SQL injection attacks.\nArguments to XPath queries must be quoted and validated properly, especially\nwhen they are taken from the user. The page `Avoid the dangers of XPath injection`_\nlist some ramifications of XPath injections.\n\nPython's standard library doesn't have XPath support. Lxml supports\nparameterized XPath queries which does proper quoting. You just have to use\nits xpath() method correctly::\n\n   # DON'T\n   >>> tree.xpath(\"/tag[@id='%s']\" % value)\n\n   # instead do\n   >>> tree.xpath(\"/tag[@id=$tagid]\", tagid=name)\n\n\nXInclude\n--------\n\n`XML Inclusion`_ is another way to load and include external files::\n\n   <root xmlns:xi=\"http://www.w3.org/2001/XInclude\">\n     <xi:include href=\"filename.txt\" parse=\"text\" />\n   </root>\n\nThis feature should be disabled when XML files from an untrusted source are\nprocessed. Some Python XML libraries and libxml2 support XInclude but don't\nhave an option to sandbox inclusion and limit it to allowed directories.\n\n\nXMLSchema location\n------------------\n\nA validating XML parser may download schema files from the information in a\n``xsi:schemaLocation`` attribute.\n\n::\n\n  <ead xmlns=\"urn:isbn:1-931666-22-9\"\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n       xsi:schemaLocation=\"urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd\">\n  </ead>\n\n\nXSL Transformation\n------------------\n\nYou should keep in mind that XSLT is a Turing complete language. Never\nprocess XSLT code from unknown or untrusted source! XSLT processors may\nallow you to interact with external resources in ways you can't even imagine.\nSome processors even support extensions that allow read/write access to file\nsystem, access to JRE objects or scripting with Jython.\n\nExample from `Attacking XML Security`_ for Xalan-J::\n\n    <xsl:stylesheet version=\"1.0\"\n     xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"\n     xmlns:rt=\"http://xml.apache.org/xalan/java/java.lang.Runtime\"\n     xmlns:ob=\"http://xml.apache.org/xalan/java/java.lang.Object\"\n     exclude-result-prefixes= \"rt ob\">\n     <xsl:template match=\"/\">\n       <xsl:variable name=\"runtimeObject\" select=\"rt:getRuntime()\"/>\n       <xsl:variable name=\"command\"\n         select=\"rt:exec($runtimeObject, &apos;c:\\Windows\\system32\\cmd.exe&apos;)\"/>\n       <xsl:variable name=\"commandAsString\" select=\"ob:toString($command)\"/>\n       <xsl:value-of select=\"$commandAsString\"/>\n     </xsl:template>\n    </xsl:stylesheet>\n\n\nRelated CVEs\n============\n\nCVE-2013-1664\n  Unrestricted entity expansion induces DoS vulnerabilities in Python XML\n  libraries (XML bomb)\n\nCVE-2013-1665\n  External entity expansion in Python XML libraries inflicts potential\n  security flaws and DoS vulnerabilities\n\n\nOther languages / frameworks\n=============================\n\nSeveral other programming languages and frameworks are vulnerable as well. A\ncouple of them are affected by the fact that libxml2 up to 2.9.0 has no\nprotection against quadratic blowup attacks. Most of them have potential\ndangerous default settings for entity expansion and external entities, too.\n\nPerl\n----\n\nPerl's XML::Simple is vulnerable to quadratic entity expansion and external\nentity expansion (both local and remote).\n\n\nRuby\n----\n\nRuby's REXML document parser is vulnerable to entity expansion attacks\n(both quadratic and exponential) but it doesn't do external entity\nexpansion by default. In order to counteract entity expansion you have to\ndisable the feature::\n\n  REXML::Document.entity_expansion_limit = 0\n\nlibxml-ruby and hpricot don't expand entities in their default configuration.\n\n\nPHP\n---\n\nPHP's SimpleXML API is vulnerable to quadratic entity expansion and loads\nentities from local and remote resources. The option ``LIBXML_NONET`` disables\nnetwork access but still allows local file access. ``LIBXML_NOENT`` seems to\nhave no effect on entity expansion in PHP 5.4.6.\n\n\nC# / .NET / Mono\n----------------\n\nInformation in `XML DoS and Defenses (MSDN)`_ suggest that .NET is\nvulnerable with its default settings. The article contains code snippets\nhow to create a secure XML reader::\n\n  XmlReaderSettings settings = new XmlReaderSettings();\n  settings.ProhibitDtd = false;\n  settings.MaxCharactersFromEntities = 1024;\n  settings.XmlResolver = null;\n  XmlReader reader = XmlReader.Create(stream, settings);\n\n\nJava\n----\n\nUntested. The documentation of Xerces and its `Xerces SecurityMananger`_\nsounds like Xerces is also vulnerable to billion laugh attacks with its\ndefault settings. It also does entity resolving when an\n``org.xml.sax.EntityResolver`` is configured. I'm not yet sure about the\ndefault setting here.\n\nJava specialists suggest to have a custom builder factory::\n\n  DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();\n  builderFactory.setXIncludeAware(False);\n  builderFactory.setExpandEntityReferences(False);\n  builderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, True);\n  # either\n  builderFactory.setFeature(\"http://apache.org/xml/features/disallow-doctype-decl\", True);\n  # or if you need DTDs\n  builderFactory.setFeature(\"http://xml.org/sax/features/external-general-entities\", False);\n  builderFactory.setFeature(\"http://xml.org/sax/features/external-parameter-entities\", False);\n  builderFactory.setFeature(\"http://apache.org/xml/features/nonvalidating/load-external-dtd\", False);\n  builderFactory.setFeature(\"http://apache.org/xml/features/nonvalidating/load-dtd-grammar\", False);\n\n\nTODO\n====\n\n* DOM: Use xml.dom.xmlbuilder options for entity handling\n* SAX: take feature_external_ges and feature_external_pes (?) into account\n* test experimental monkey patching of stdlib modules\n* improve documentation\n\n\nLicense\n=======\n\nCopyright (c) 2013-2017 by Christian Heimes <christian@python.org>\n\nLicensed to PSF under a Contributor Agreement.\n\nSee https://www.python.org/psf/license for licensing details.\n\n\nAcknowledgements\n================\n\nBrett Cannon (Python Core developer)\n  review and code cleanup\n\nAntoine Pitrou (Python Core developer)\n  code review\n\nAaron Patterson, Ben Murphy and Michael Koziarski (Ruby community)\n  Many thanks to Aaron, Ben and Michael from the Ruby community for their\n  report and assistance.\n\nThierry Carrez (OpenStack)\n  Many thanks to Thierry for his report to the Python Security Response\n  Team on behalf of the OpenStack security team.\n\nCarl Meyer (Django)\n  Many thanks to Carl for his report to PSRT on behalf of the Django security\n  team.\n\nDaniel Veillard (libxml2)\n  Many thanks to Daniel for his insight and assistance with libxml2.\n\nsemantics GmbH (https://www.semantics.de/)\n  Many thanks to my employer semantics for letting me work on the issue\n  during working hours as part of semantics's open source initiative.\n\n\nReferences\n==========\n\n* `XML DoS and Defenses (MSDN)`_\n* `Billion Laughs`_ on Wikipedia\n* `ZIP bomb`_ on Wikipedia\n* `Configure SAX parsers for secure processing`_\n* `Testing for XML Injection`_\n\n.. _defusedxml package: https://github.com/tiran/defusedxml\n.. _defusedxml on PyPI: https://pypi.python.org/pypi/defusedxml\n.. _defusedexpat package: https://github.com/tiran/defusedexpat\n.. _defusedexpat on PyPI: https://pypi.python.org/pypi/defusedexpat\n.. _modified expat: https://github.com/tiran/expat\n.. _expat parser: http://expat.sourceforge.net/\n.. _Attacking XML Security: https://www.isecpartners.com/media/12976/iSEC-HILL-Attacking-XML-Security-bh07.pdf\n.. _Billion Laughs: https://en.wikipedia.org/wiki/Billion_laughs\n.. _XML DoS and Defenses (MSDN): https://msdn.microsoft.com/en-us/magazine/ee335713.aspx\n.. _ZIP bomb: https://en.wikipedia.org/wiki/Zip_bomb\n.. _DTD: https://en.wikipedia.org/wiki/Document_Type_Definition\n.. _PI: https://en.wikipedia.org/wiki/Processing_Instruction\n.. _Avoid the dangers of XPath injection: http://www.ibm.com/developerworks/xml/library/x-xpathinjection/index.html\n.. _Configure SAX parsers for secure processing: http://www.ibm.com/developerworks/xml/library/x-tipcfsx/index.html\n.. _Testing for XML Injection: https://www.owasp.org/index.php/Testing_for_XML_Injection_(OWASP-DV-008)\n.. _Xerces SecurityMananger: https://xerces.apache.org/xerces2-j/javadocs/xerces2/org/apache/xerces/util/SecurityManager.html\n.. _XML Inclusion: https://www.w3.org/TR/xinclude/#include_element\n\nChangelog\n=========\n\ndefusedxml 0.7.1\n---------------------\n\n*Release date: 08-Mar-2021*\n\n- Fix regression ``defusedxml.ElementTree.ParseError`` (#63)\n  The ``ParseError`` exception is now the same class object as\n  ``xml.etree.ElementTree.ParseError`` again.\n\n\ndefusedxml 0.7.0\n----------------\n\n*Release date: 4-Mar-2021*\n\n- No changes\n\n\ndefusedxml 0.7.0rc2\n-------------------\n\n*Release date: 12-Jan-2021*\n\n- Re-add and deprecate ``defusedxml.cElementTree``\n- Use GitHub Actions instead of TravisCI\n- Restore ``ElementTree`` attribute of ``xml.etree`` module after patching\n\ndefusedxml 0.7.0rc1\n-------------------\n\n*Release date: 04-May-2020*\n\n- Add support for Python 3.9\n- ``defusedxml.cElementTree`` is not available with Python 3.9.\n- Python 2 is deprecate. Support for Python 2 will be removed in 0.8.0.\n\n\ndefusedxml 0.6.0\n----------------\n\n*Release date: 17-Apr-2019*\n\n- Increase test coverage.\n- Add badges to README.\n\n\ndefusedxml 0.6.0rc1\n-------------------\n\n*Release date: 14-Apr-2019*\n\n- Test on Python 3.7 stable and 3.8-dev\n- Drop support for Python 3.4\n- No longer pass *html* argument to XMLParse. It has been deprecated and\n  ignored for a long time. The DefusedXMLParser still takes a html argument.\n  A deprecation warning is issued when the argument is False and a TypeError\n  when it's True.\n- defusedxml now fails early when pyexpat stdlib module is not available or\n  broken.\n- defusedxml.ElementTree.__all__ now lists ParseError as public attribute.\n- The defusedxml.ElementTree and defusedxml.cElementTree modules had a typo\n  and used XMLParse instead of XMLParser as an alias for DefusedXMLParser.\n  Both the old and fixed name are now available.\n\n\ndefusedxml 0.5.0\n----------------\n\n*Release date: 07-Feb-2017*\n\n- No changes\n\n\ndefusedxml 0.5.0.rc1\n--------------------\n\n*Release date: 28-Jan-2017*\n\n- Add compatibility with Python 3.6\n- Drop support for Python 2.6, 3.1, 3.2, 3.3\n- Fix lxml tests (XMLSyntaxError: Detected an entity reference loop)\n\n\ndefusedxml 0.4.1\n----------------\n\n*Release date: 28-Mar-2013*\n\n- Add more demo exploits, e.g. python_external.py and Xalan XSLT demos.\n- Improved documentation.\n\n\ndefusedxml 0.4\n--------------\n\n*Release date: 25-Feb-2013*\n\n- As per http://seclists.org/oss-sec/2013/q1/340 please REJECT\n  CVE-2013-0278, CVE-2013-0279 and CVE-2013-0280 and use CVE-2013-1664,\n  CVE-2013-1665 for OpenStack/etc.\n- Add missing parser_list argument to sax.make_parser(). The argument is\n  ignored, though. (thanks to Florian Apolloner)\n- Add demo exploit for external entity attack on Python's SAX parser, XML-RPC\n  and WebDAV.\n\n\ndefusedxml 0.3\n--------------\n\n*Release date: 19-Feb-2013*\n\n- Improve documentation\n\n\ndefusedxml 0.2\n--------------\n\n*Release date: 15-Feb-2013*\n\n- Rename ExternalEntitiesForbidden to ExternalReferenceForbidden\n- Rename defusedxml.lxml.check_dtd() to check_docinfo()\n- Unify argument names in callbacks\n- Add arguments and formatted representation to exceptions\n- Add forbid_external argument to all functions and classes\n- More tests\n- LOTS of documentation\n- Add example code for other languages (Ruby, Perl, PHP) and parsers (Genshi)\n- Add protection against XML and gzip attacks to xmlrpclib\n\ndefusedxml 0.1\n--------------\n\n*Release date: 08-Feb-2013*\n\n- Initial and internal release for PSRT review\n\n\n",
+        "keywords": [
+          "xml",
+          "bomb",
+          "DoS"
+        ],
+        "home_page": "https://github.com/tiran/defusedxml",
+        "download_url": "https://pypi.python.org/pypi/defusedxml",
+        "author": "Christian Heimes",
+        "author_email": "christian@python.org",
+        "maintainer": "Christian Heimes",
+        "maintainer_email": "christian@python.org",
+        "license": "PSFL",
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: Python Software Foundation License",
+          "Natural Language :: English",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.5",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Topic :: Text Processing :: Markup :: XML"
+        ],
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/6b/99/45bb1f9926efe370c6dbe324741c749658e44cb060124f28dad201202274/polib-1.2.0-py2.py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d",
+          "hashes": {
+            "sha256": "1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "polib",
+        "version": "1.2.0",
+        "platform": [
+          "posix"
+        ],
+        "summary": "A library to manipulate gettext files (po and mo files).",
+        "description": "\n=====\npolib\n=====\n\n|pypi-version| |pypi-stats| |build-status-image| |codecov-image| |documentation-status-image| |py-versions|\n\nOverview\n--------\n\npolib is a library to manipulate, create, modify gettext files (pot, po and mo\nfiles). You can load existing files, iterate through it's entries, add, modify\nentries, comments or metadata, etc... or create new po files from scratch.\n\npolib supports out of the box any version of python ranging from 2.7 to latest\n3.X version.\n\npolib is pretty stable now and is used by many \n`opensource projects <http://polib.readthedocs.org/en/latest/projects.html>`_.\n\nThe project code and bugtracker is hosted on \n`Github <https://github.com/izimobil/polib/>`_.\n\npolib is generously documented, you can `browse the documentation online \n<http://polib.readthedocs.org/>`_, a good start is to read \n`the quickstart guide  <http://polib.readthedocs.org/en/latest/quickstart.html>`_.\n\n\nInstallation\n~~~~~~~~~~~~\n\nJust use ``pip``:\n\n.. code:: bash\n\n    $ pip install polib\n\n\nBasic example\n~~~~~~~~~~~~~\n\n.. code:: python\n\n    import polib\n\n    pofile = polib.pofile('/path/to/pofile.po')\n\n    for entry in pofile:\n        print(entry.msgid, entry.msgstr)\n\n\n.. |build-status-image| image:: https://api.travis-ci.com/izimobil/polib.svg?branch=master\n   :target: https://app.travis-ci.com/github/izimobil/polib\n   :alt: Travis build\n\n.. |codecov-image| image:: https://codecov.io/gh/izimobil/polib/branch/master/graph/badge.svg\n  :target: https://codecov.io/gh/izimobil/polib\n\n.. |pypi-version| image:: https://img.shields.io/pypi/v/polib.svg\n   :target: https://pypi.python.org/pypi/polib\n   :alt: Pypi version\n\n.. |pypi-stats| image:: https://img.shields.io/pypi/dm/polib.svg\n   :target: https://pypistats.org/packages/polib\n   :alt: Pypi downloads\n\n.. |documentation-status-image| image:: https://readthedocs.org/projects/polib/badge/?version=latest\n   :target: http://polib.readthedocs.io/en/latest/?badge=latest\n   :alt: Documentation Status\n\n.. |py-versions| image:: https://img.shields.io/pypi/pyversions/polib.svg\n   :target: https://img.shields.io/pypi/pyversions/polib.svg\n   :alt: Python versions\n\n\n=========\nChangelog\n=========\n\nVersion 1.2.0 (2023/02/23)\n--------------------------\n - Added setter for the fuzzy property\n - Escape/unescape \\v, \\b and \\f\n - Added path to error message processing parser symbols\n - Ensure empty previous values for msgid and msgstr are properly saved\n - Fixed relative ordering of comments and translator comments\n - Do not count obsolete entries in fuzzy() method\n - Close files properly\n - Fixed support for loading mo files from bytes object\n - Fixed msgstr_plural comparison\n - Simplified python version check\n - Updated docs\n\nVersion 1.1.1 (2021/03/26)\n--------------------------\n - Strip UTF-16 BOM (U+FEFF) from start of file\n - Message context (msgctxt) support for MO files\n - Dropped Python < 2.7 support\n - Updated docs and README after switch from Bitbucket to Github\n\nVersion 1.1.0 (2017/11/27)\n--------------------------\n - Fixed entries sorting when generating mo file (Fixes #78)\n - Fixed find method (Fixes #84)\n - Refactored POEntry.__cmp__ method (this should fix issues #60, #65 and #79)\n - Fixed duplicated entries when merging po file with pot file (fixes #68)\n - Fixed \"None\" string being outputted when polib deals with syntax error in string (Fixes issue #66)\n - Added a fuzzy property to entries (Fixes #76)\n - Take into account the message context when comparing entries\n - Leave occurence untouched if line number is not a number (fixes #80 and #90)\n - Fixed test for mo files that was failing because since gettext version 0.19.8.1, msgfmt skips the \"POT-Creation-Date\" metadata entry (Fixes #86)\n - Fixed major revision number comparison\n - Dropped python 2.4 support\n\nVersion 1.0.8 (2016/11/21)\n--------------------------\n - Fixed issue #70 (occurrences parsing for windows pathes)\n - Fixed issue #71 (tcomment and flags not saved for obsolete entries)\n - Fixed issue #72 (wrong metadata ordering)\n - Fixed issue #73 (can't always unpickle POFile)\n - Use natural sorting for additional headers (metadata)\n - Fixed typos in various documents\n\nVersion 1.0.7 (2015/07/08)\n--------------------------\n - Fixed bad parsing of indented msgstr_plural\n - Fixed ordering of \"Language\" metadata entry\n - Removed space after \"#\" in header if comment line is empty (like gettext tools)\n - Fixed typos / grammar errors (thanks Jakub Wilk)\n - Take into account msgid_plural if needed when comparing entries (thanks Leonardo Constantino Oliveira)\n - Fixed issue #63 (str() on a bytes instance when using python3) (thanks Jakub Wilk)\n\nVersion 1.0.6 (2015/01/04)\n--------------------------\n - Wheel support\n - Add missing 'Language' and 'Plural-Forms' to metadata ordering\n - More accurate float operation for POFile.percent_translated()\n\nVersion 1.0.5 (2014/08/22)\n--------------------------\n - Fixed issue #59: tokens variable referenced before assignment\n - Implemented feature request #56: line number information in PO entries\n - Fixed issue #61: polib does not handle previous msgid on multilines properly\n\nVersion 1.0.4 (2014/02/19)\n--------------------------\n - Fixed issue #43: improved check that determine if polib is dealing with a filepath or unicode content\n - Fixed issue #44: polib now checks MO files revision number and throws an error if the number is unexpected\n - Fixed issue #45: parse properly mo files with no header entry\n - Fixed issue #47: added flags attribute for MOEntry to be consistent with POEntry\n - Fixed issue #49: use integers rather than strings for msgstr_plural keys\n - Fixed issue #51: if a PO file ends with a comment, polib adds a spurious empty entry at the end\n - Fixed issue #52: bad magic number written on big endian platforms\n - Fixed issue #53: added a __hash__() method to POEntry and MOEntry classes\n - Fixed issue #54: use lowercase for state identifiers. This fixes issues with certain locales and string.lower()\n - Fixed issue #58: use io.open() instead of codecs.open() because the latter doesn't handle very well universal line endings\n - Make sure the mo file is closed at garbage collection, this prevents warnings on unclosed file when running tests with python >= 3.2\n - Better way to test endianness\n - polib download URL is now on Pypi\n\nVersion 1.0.3 (2013/02/09)\n--------------------------\n - Fixed issue #38: POFile.append() raised a duplicate exception when you tried to add a new entry with the same msgid and a different msgctxt (only when check_for_duplicates option is set to True)\n - Fixed issue #39: Added __init__.py file for convenience\n - Fixed issue #41: UnicodeDecodeError when running setup.py build on python3 with C locale\n - polib is now fully PEP8 compliant\n - Small improvements: remove unused \"typ\" var (thanks Rodrigo Silva), improved Makefile, Make sure _BaseFile.__contains__ returns a boolean value\n\nVersion 1.0.2 (2012/10/23)\n--------------------------\n - allow empty comments, flags or occurrences lines\n\nVersion 1.0.1 (2012/09/11)\n--------------------------\n - speed up POFile.merge method (thanks @encukou)\n - allow comments starting with two '#' characters (thanks @goibhniu)\n\nVersion 1.0.0 (2012/06/08)\n--------------------------\nYeah... after nearly 6 years, polib reaches the stable state :)\nChanges and fixes in this release :\n\n - polib.pofile and polib.mofile functions can now return a custom class (thanks Craig Blaszczyk)\n - polib now can find the metadata entry no matter where it is located (thanks François Poirotte)\n - fixed issue #28 (IOError on reading obsolete \"previous msgid\" entries) (thanks James Ni)\n\nVersion 0.7.0 (2011/07/14)\n--------------------------\nThis version adds support for python 3 (thanks to Vinay Sajip).\npolib now supports out-of-the-box any version of python ranging from 2.4 to latest 3.X version.\npolib is now 5 years old ;) so the 0.7.X branch will be the last before the 1.X stable branch.\n\nVersion 0.6.4 (2011/07/13)\n--------------------------\n - Better api, autodetected_encoding is no longer required to explicitly set the encoding (fixes issue #23),\n - Fixed issue #24 Support indented PO files (thanks to François Poirotte).\n\nVersion 0.6.3 (2011/02/19)\n--------------------------\n - Fixed issue #19 (Disappearing newline characters due to textwrap module),\n - ensure wrapping works as expected.\n\nVersion 0.6.2 (2011/02/09)\n--------------------------\n - Backported textwrap.TextWrapper._wrap_chunks that has support for the drop_whitespace parameter added in Python 2.6 (Fixes #18: broken compatibility with python 2.5, thanks @jezdez).\n\nVersion 0.6.1 (2011/02/09)\n--------------------------\n - fixed regression that prevented POFile initialization from data to work (issue #17).\n\nVersion 0.6.0 (2011/02/07)\n--------------------------\n - polib is now `fully documented <http://polib.readthedocs.org>`_,\n - switched from doctests to unit tests to keep the polib.py file clean,\n - fixed issue #7 (wrapping issues, thanks @jezdez),\n - added a __eq__ method to _BaseFile (thanks @kost BebiX),\n - handle msgctxt correctly when compiling mo files,\n - compiled mo files are now exactly the same as those compiled by msgfmt without using hash tables.\n\nVersion 0.5.5 (2010/10/30)\n--------------------------\n - Removed multiline handling code, it was a mess and was the source of potential bugs like issue #11,\n - Fixed typo in README and CHANGELOG, fixes issue #13.\n\nVersion 0.5.4 (2010/10/02)\n--------------------------\n - fixed an issue with detect_encoding(), in some cases it could return an invalid charset.\n\nVersion 0.5.3 (2010/08/29)\n--------------------------\n - correctly unescape lines containing both \\\\\\\\n and \\\\n (thanks to Martin Geisler),\n - fixed issue #6: __str__() methods are returning unicode instead of str,\n - fixed issue #8: POFile.merge error when an entry is obsolete in a .po, that this entry reappears in the .pot and that we merge the two,\n - added support to instantiate POFile objects using data instead of file path (thanks to Diego Búrigo Zacarão),\n - fixed issue #9: POFile.merge drop fuzzy attributes from translations (thanks to Tim Gerundt),\n - fixed issue #10: Finding entries with the same msgid and different context (msgctxt).\n\nVersion 0.5.2 (2010/06/09)\n--------------------------\n - fixed issue #1: untranslated_entries() also show fuzzy message,\n - write back the fuzzy header if present in the pofile,\n - added support for previous msgctxt, previous msgid and previous msgid_plural comments (fixes issue #5),\n - better handling of lines wrapping.\n\nVersion 0.5.1 (2009/12/14)\n--------------------------\n - fixed issue #0025: setup.py requires CHANGELOG but it's not present in polib-0.5.0-tar.gz\n\nVersion 0.5.0 (2009/12/13)\n--------------------------\n - fixed issue #0017: UnicodeDecodeError while writing a mo-file,\n - fixed issue #0018: implemented support for msgctxt,\n - fixed bug when compiling plural msgids/strs,\n - API docs are no longer included, hopefully next release will ship with sphinx documentation,\n - parse msg plural entries correctly when reading mo files,\n - fixed issue #0020 and #0021: added ability to check for duplicate when adding entries to po/mo files, this is optional and not enabled by default because it slows down considerably the library,\n - fixed issue #0022: unescaping code is insufficient,\n - fixed issue #0023: encoding error when saving mo file as po file (thanks to sebastien.sable for the patch !).\n\nVersion 0.4.2 (2009/06/05)\n--------------------------\n - fixed issue #0007: use the codecs module to open files,\n - fixed issue #0014: plural forms are not saved correctly in the mo file (thanks lorenzo.gil.sanchez for the patch),\n - fixed issue #0015: no LICENSE file included in tarball,  \n - removed Version/Date from README,\n - added test pot files to MANIFEST.in,\n - performance improvement in find() method (thanks Thomas !).\n\nVersion 0.4.1 (2009/03/04)\n--------------------------\n - fixed issue #0006: plural msgstrs were saved unsorted,\n - fixed issue #0008: long comment lines broke 'save()' method,\n - removed performance shortcuts: they were in fact inefficient, I was mislead by the python profile module, kudos to Thomas for making me realise that,\n - fixed issue #0010: wrong polib version number,\n - fixed issue #0011: occurrences parsing is now more robust and can handle weird references formats (like in eToys OLPC po files),\n - fixed issue #0012: improved merge() method.\n\nVersion 0.4.0 (2008/11/26)\n--------------------------\n - fixed bug #0005: percent_translated divide by 0 on empty po files,\n - fixed bug #0004: occurrences that have hyphens are wrapped when they should not,\n - changes in how encoding is handled,\n - remove deprecation warnings for typo on \"occurrences\",\n - added POEntry.__cmp__() method to sort entries like gettext does,\n - fixed POEntry.transalated(),\n - added a merge() method to POFile class, that behaves like the gettext msgmerge utility,\n - obsolete entries are now written at the end of the file and with only msgid/msgstr like gettext does,\n - fixed some bugs in mo files parsing,\n - renamed quote/unquote functions to escape/unescape,\n - various cosmetic changes.\n\nVersion 0.3.1 (2007/12/13)\n--------------------------\n - fixed bug #0002: typo on \"occurrences\",\n - fixed bug #0003: mismatch in exception instance names,\n - removed deprecation warnings,\n - removed unused charset() method in POFile/MOFile objects,\n - fixed bug in multibytes string length (added regression tests),\n - fixed a bug in detect_encoding(),\n - added a find() method to _BaseFile class,\n - proper handling of quoting and unquoting,\n - proper handling of multiline strings in metadata \n\nVersion 0.3.0 (2007/10/17)\n--------------------------\n - speed improvements,\n - polib can now compile mo files,\n - unicode support,\n - fixed bug #0001: global name 'sorted' is not defined\" on python 2.3.\n\nVersion 0.1.0 (2006-08-08)\n--------------------------\nInitial release\n\n\n\n",
+        "home_page": "https://github.com/izimobil/polib/",
+        "download_url": "https://pypi.python.org/packages/source/p/polib/polib-1.2.0.tar.gz",
+        "author": "David Jean Louis",
+        "author_email": "izimobil@gmail.com",
+        "maintainer": "David Jean Louis",
+        "maintainer_email": "izimobil@gmail.com",
+        "license": "MIT",
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Console",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "Intended Audience :: System Administrators",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Topic :: Software Development :: Internationalization",
+          "Topic :: Software Development :: Localization",
+          "Topic :: Text Processing :: Linguistic"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/95/81/314320aeffd88dadeac553ff9eb10f54507ab41deccd0c69f6221d254a0a/puremagic-2.2.0-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=c4f7ed7307f056c787199acfda839555921be1df13abba61e8e6db0c787ae1d0",
+          "hashes": {
+            "sha256": "c4f7ed7307f056c787199acfda839555921be1df13abba61e8e6db0c787ae1d0"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "puremagic",
+        "version": "2.2.0",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Pure python implementation of magic file detection",
+        "description": "=========\npuremagic\n=========\n\npuremagic is a pure python module that will identify a file based off\nits magic numbers. It has zero runtime dependencies and serves as a\nlightweight, cross-platform alternative to python-magic/libmagic.\n\nIt is designed to be minimalistic and inherently cross platform\ncompatible. It is also designed to be a stand in for python-magic. It\nimplements the functions :code:`from_file(filename[, mime])` and\n:code:`from_string(string[, mime])` however the :code:`magic_file()` and\n:code:`magic_string()` are more powerful and will also display confidence and\nduplicate matches.\n\nStarting with version 2.0, puremagic includes a **deep scan** system\nthat performs content-aware analysis beyond simple magic number matching.\nThis improves accuracy for formats like Office documents, text files,\nCSV, MP3, Python source, JSON, HDF5, email, and many scientific formats.\nDeep scan is enabled by default and can be disabled by setting the\nenvironment variable :code:`PUREMAGIC_DEEPSCAN=0`.\n\nAdvantages over using a wrapper for 'file' or 'libmagic':\n\n-  Faster\n-  Lightweight\n-  Cross platform compatible\n-  No dependencies\n\nDisadvantages:\n\n-  Does not have as many file types\n-  No multilingual comments\n-  Duplications due to small or reused magic numbers\n\n(Help fix the first two disadvantages by contributing!)\n\nCompatibility\n~~~~~~~~~~~~~\n\n-  Python 3.12+\n\nFor use with Python 3.7–3.11, use the 1.x release chain.\n\nUsing github ci to run continuous integration tests on listed platforms.\n\nInstall from PyPI\n-----------------\n\n.. code:: bash\n\n        $ pip install puremagic\n\nOn linux environments, you may want to be clear you are using python3\n\n.. code:: bash\n\n        $ python3 -m pip install puremagic\n\nUsage\n-----\n\n\"from_file\" will return the most likely file extension. \"magic_file\"\nwill give you every possible result it finds, as well as the confidence.\n\n.. code:: python\n\n        import puremagic\n\n        filename = \"test/resources/images/test.gif\"\n\n        ext = puremagic.from_file(filename)\n        # '.gif'\n\n        puremagic.magic_file(filename)\n        # [['.gif', 'image/gif', 'Graphics interchange format file (GIF87a)', 0.7],\n        #  ['.gif', '', 'GIF file', 0.5]]\n\nWith \"magic_file\" it gives each match, highest confidence first:\n\n-  possible extension(s)\n-  mime type\n-  description\n-  confidence (All headers have to perfectly match to make the list,\n   however this orders it by longest header, therefore most precise,\n   first)\n\nIf you already have a file open, or raw byte string, you could also use:\n\n* from_string\n* from_stream\n* magic_string\n* magic_stream\n\n.. code:: python\n\n        with open(r\"test\\resources\\video\\test.mp4\", \"rb\") as file:\n            print(puremagic.magic_stream(file))\n\n        # [PureMagicWithConfidence(byte_match=b'ftypisom', offset=4, extension='.mp4', mime_type='video/mp4', name='MPEG-4 video', confidence=0.8),\n        #  PureMagicWithConfidence(byte_match=b'iso2avc1mp4', offset=20, extension='.mp4', mime_type='video/mp4', name='MP4 Video', confidence=0.8)]\n\nDeep Scan\n---------\n\nDeep scan performs content-aware analysis when magic number matching\nalone is not enough. It is enabled by default and runs automatically\nas part of the normal identification pipeline.\n\nThe following format-specific scanners are included:\n\n-  **ZIP** — Distinguishes Office formats (xlsx/docx/pptx), OpenDocument\n   (odt/ods/odp), and their macro-enabled variants by inspecting ZIP internals\n-  **MPEG Audio** — Parses MP3/MPEG audio frames to validate and identify audio files\n-  **Text** — Detects text encodings, line endings (CRLF/LF/CR), CSV files\n   with automatic delimiter detection, and email messages (.eml)\n-  **Python** — Validates Python source via :code:`ast.parse()` and keyword analysis\n-  **PDF** — Format-specific PDF validation\n-  **JSON** — JSON format validation\n-  **HDF5** — Identifies HDF5 subtypes used in scientific computing (AnnData,\n   Loom, Cooler, BIOM v2, mz5, and more)\n-  **Audio** — Identifies HCOM and SNDR audio formats\n-  **Dynamic text checks** — Recognizes many scientific and bioinformatics text\n   formats including VCF, SAM, GFF, PLY, VTK, and others\n\nTo disable deep scan, set the environment variable:\n\n.. code:: bash\n\n        $ export PUREMAGIC_DEEPSCAN=0\n\nScript\n------\n\n*Usage*\n\n.. code:: bash\n\n        $ python -m puremagic [options] filename <filename2>...\n\n*Options*\n\n-  :code:`-m, --mime` — Return the MIME type instead of file extension\n-  :code:`-v, --verbose` — Print verbose output with all possible matches\n-  :code:`--version` — Show program version\n\nDirectories can be passed as arguments; all files within will be scanned.\n\n*Examples*\n\n.. code:: bash\n\n        $ python -m puremagic test/resources/images/test.gif\n        'test/resources/images/test.gif' : .gif\n\n        $ python -m puremagic -m test/resources/images/test.gif test/resources/audio/test.mp3\n        'test/resources/images/test.gif' : image/gif\n        'test/resources/audio/test.mp3' : audio/mpeg\n\nUpgrading from 1.x\n-------------------\n\nVersion 2.0 includes the following breaking changes:\n\n-  **Python 3.12+ required** — Python 3.7–3.11 are no longer supported.\n   Use the 1.x release chain for older Python versions.\n-  **Removed** :code:`puremagic.what()` — The :code:`imghdr` drop-in replacement\n   has been removed. Use :code:`puremagic.from_file()` instead.\n-  **Removed** :code:`magic_header_array`, :code:`magic_footer_array`, and\n   :code:`multi_part_dict` from the public API.\n-  **Removed** :code:`setup.py` — The project now uses :code:`pyproject.toml`\n   exclusively.\n-  Internal functions have been renamed from private (e.g. :code:`_magic_data`)\n   to public (e.g. :code:`magic_data`).\n\nFAQ\n---\n\n*The file type is actually X but it's showing up as Y with higher\nconfidence?*\n\nThis can happen when the file's signature happens to match a subset of a\nfile standard. The subset signature will be longer, therefore report\nwith greater confidence, because it will have both the base file type\nsignature plus the additional subset one.\n\n\nAcknowledgements\n----------------\n\nGary C. Kessler\n\nFor use of his File Signature Tables, available at:\nhttps://filesig.search.org/\n\nFreedesktop.org\n\nFor use of their shared-mime-info file, available at:\nhttps://cgit.freedesktop.org/xdg/shared-mime-info/\n\nLicense\n-------\n\nMIT Licenced, see LICENSE, Copyright (c) 2013-2026 Chris Griffith\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "Chris Griffith <chris@cdgriffith.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Natural Language :: English",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Utilities"
+        ],
+        "requires_python": ">=3.12",
+        "project_url": [
+          "Homepage, https://github.com/cdgriffith/puremagic"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427",
+          "hashes": {
+            "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "python-dateutil",
+        "version": "2.9.0.post0",
+        "summary": "Extensions to the standard Python datetime module",
+        "description": "dateutil - powerful extensions to datetime\n==========================================\n\n|pypi| |support| |licence|\n\n|gitter| |readthedocs|\n\n|travis| |appveyor| |pipelines| |coverage|\n\n.. |pypi| image:: https://img.shields.io/pypi/v/python-dateutil.svg?style=flat-square\n    :target: https://pypi.org/project/python-dateutil/\n    :alt: pypi version\n\n.. |support| image:: https://img.shields.io/pypi/pyversions/python-dateutil.svg?style=flat-square\n    :target: https://pypi.org/project/python-dateutil/\n    :alt: supported Python version\n\n.. |travis| image:: https://img.shields.io/travis/dateutil/dateutil/master.svg?style=flat-square&label=Travis%20Build\n    :target: https://travis-ci.org/dateutil/dateutil\n    :alt: travis build status\n\n.. |appveyor| image:: https://img.shields.io/appveyor/ci/dateutil/dateutil/master.svg?style=flat-square&logo=appveyor\n    :target: https://ci.appveyor.com/project/dateutil/dateutil\n    :alt: appveyor build status\n\n.. |pipelines| image:: https://dev.azure.com/pythondateutilazure/dateutil/_apis/build/status/dateutil.dateutil?branchName=master\n    :target: https://dev.azure.com/pythondateutilazure/dateutil/_build/latest?definitionId=1&branchName=master\n    :alt: azure pipelines build status\n\n.. |coverage| image:: https://codecov.io/gh/dateutil/dateutil/branch/master/graphs/badge.svg?branch=master\n    :target: https://codecov.io/gh/dateutil/dateutil?branch=master\n    :alt: Code coverage\n\n.. |gitter| image:: https://badges.gitter.im/dateutil/dateutil.svg\n   :alt: Join the chat at https://gitter.im/dateutil/dateutil\n   :target: https://gitter.im/dateutil/dateutil\n\n.. |licence| image:: https://img.shields.io/pypi/l/python-dateutil.svg?style=flat-square\n    :target: https://pypi.org/project/python-dateutil/\n    :alt: licence\n\n.. |readthedocs| image:: https://img.shields.io/readthedocs/dateutil/latest.svg?style=flat-square&label=Read%20the%20Docs\n   :alt: Read the documentation at https://dateutil.readthedocs.io/en/latest/\n   :target: https://dateutil.readthedocs.io/en/latest/\n\nThe `dateutil` module provides powerful extensions to\nthe standard `datetime` module, available in Python.\n\nInstallation\n============\n`dateutil` can be installed from PyPI using `pip` (note that the package name is\ndifferent from the importable name)::\n\n    pip install python-dateutil\n\nDownload\n========\ndateutil is available on PyPI\nhttps://pypi.org/project/python-dateutil/\n\nThe documentation is hosted at:\nhttps://dateutil.readthedocs.io/en/stable/\n\nCode\n====\nThe code and issue tracker are hosted on GitHub:\nhttps://github.com/dateutil/dateutil/\n\nFeatures\n========\n\n* Computing of relative deltas (next month, next year,\n  next Monday, last week of month, etc);\n* Computing of relative deltas between two given\n  date and/or datetime objects;\n* Computing of dates based on very flexible recurrence rules,\n  using a superset of the `iCalendar <https://www.ietf.org/rfc/rfc2445.txt>`_\n  specification. Parsing of RFC strings is supported as well.\n* Generic parsing of dates in almost any string format;\n* Timezone (tzinfo) implementations for tzfile(5) format\n  files (/etc/localtime, /usr/share/zoneinfo, etc), TZ\n  environment string (in all known formats), iCalendar\n  format files, given ranges (with help from relative deltas),\n  local machine timezone, fixed offset timezone, UTC timezone,\n  and Windows registry-based time zones.\n* Internal up-to-date world timezone information based on\n  Olson's database.\n* Computing of Easter Sunday dates for any given year,\n  using Western, Orthodox or Julian algorithms;\n* A comprehensive test suite.\n\nQuick example\n=============\nHere's a snapshot, just to give an idea about the power of the\npackage. For more examples, look at the documentation.\n\nSuppose you want to know how much time is left, in\nyears/months/days/etc, before the next easter happening on a\nyear with a Friday 13th in August, and you want to get today's\ndate out of the \"date\" unix system command. Here is the code:\n\n.. code-block:: python3\n\n    >>> from dateutil.relativedelta import *\n    >>> from dateutil.easter import *\n    >>> from dateutil.rrule import *\n    >>> from dateutil.parser import *\n    >>> from datetime import *\n    >>> now = parse(\"Sat Oct 11 17:13:46 UTC 2003\")\n    >>> today = now.date()\n    >>> year = rrule(YEARLY,dtstart=now,bymonth=8,bymonthday=13,byweekday=FR)[0].year\n    >>> rdelta = relativedelta(easter(year), today)\n    >>> print(\"Today is: %s\" % today)\n    Today is: 2003-10-11\n    >>> print(\"Year with next Aug 13th on a Friday is: %s\" % year)\n    Year with next Aug 13th on a Friday is: 2004\n    >>> print(\"How far is the Easter of that year: %s\" % rdelta)\n    How far is the Easter of that year: relativedelta(months=+6)\n    >>> print(\"And the Easter of that year is: %s\" % (today+rdelta))\n    And the Easter of that year is: 2004-04-11\n\nBeing exactly 6 months ahead was **really** a coincidence :)\n\nContributing\n============\n\nWe welcome many types of contributions - bug reports, pull requests (code, infrastructure or documentation fixes). For more information about how to contribute to the project, see the ``CONTRIBUTING.md`` file in the repository.\n\n\nAuthor\n======\nThe dateutil module was written by Gustavo Niemeyer <gustavo@niemeyer.net>\nin 2003.\n\nIt is maintained by:\n\n* Gustavo Niemeyer <gustavo@niemeyer.net> 2003-2011\n* Tomi Pieviläinen <tomi.pievilainen@iki.fi> 2012-2014\n* Yaron de Leeuw <me@jarondl.net> 2014-2016\n* Paul Ganssle <paul@ganssle.io> 2015-\n\nStarting with version 2.4.1 and running until 2.8.2, all source and binary\ndistributions will be signed by a PGP key that has, at the very least, been\nsigned by the key which made the previous release. A table of release signing\nkeys can be found below:\n\n===========  ============================\nReleases     Signing key fingerprint\n===========  ============================\n2.4.1-2.8.2  `6B49 ACBA DCF6 BD1C A206 67AB CD54 FCE3 D964 BEFB`_\n===========  ============================\n\nNew releases *may* have signed tags, but binary and source distributions\nuploaded to PyPI will no longer have GPG signatures attached.\n\nContact\n=======\nOur mailing list is available at `dateutil@python.org <https://mail.python.org/mailman/listinfo/dateutil>`_. As it is hosted by the PSF, it is subject to the `PSF code of\nconduct <https://www.python.org/psf/conduct/>`_.\n\nLicense\n=======\n\nAll contributions after December 1, 2017 released under dual license - either `Apache 2.0 License <https://www.apache.org/licenses/LICENSE-2.0>`_ or the `BSD 3-Clause License <https://opensource.org/licenses/BSD-3-Clause>`_. Contributions before December 1, 2017 - except those those explicitly relicensed - are released only under the BSD 3-Clause License.\n\n\n.. _6B49 ACBA DCF6 BD1C A206 67AB CD54 FCE3 D964 BEFB:\n   https://pgp.mit.edu/pks/lookup?op=vindex&search=0xCD54FCE3D964BEFB\n",
+        "description_content_type": "text/x-rst",
+        "home_page": "https://github.com/dateutil/dateutil",
+        "author": "Gustavo Niemeyer",
+        "author_email": "gustavo@niemeyer.net",
+        "maintainer": "Paul Ganssle",
+        "maintainer_email": "dateutil@python.org",
+        "license": "Dual License",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: BSD License",
+          "License :: OSI Approved :: Apache Software License",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.3",
+          "Programming Language :: Python :: 3.4",
+          "Programming Language :: Python :: 3.5",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Topic :: Software Development :: Libraries"
+        ],
+        "requires_dist": [
+          "six >=1.5"
+        ],
+        "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7",
+        "project_url": [
+          "Documentation, https://dateutil.readthedocs.io/en/stable/",
+          "Source, https://github.com/dateutil/dateutil"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+          "hashes": {
+            "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "six",
+        "version": "1.17.0",
+        "summary": "Python 2 and 3 compatibility utilities",
+        "description": ".. image:: https://img.shields.io/pypi/v/six.svg\n   :target: https://pypi.org/project/six/\n   :alt: six on PyPI\n\n.. image:: https://readthedocs.org/projects/six/badge/?version=latest\n   :target: https://six.readthedocs.io/\n   :alt: six's documentation on Read the Docs\n\n.. image:: https://img.shields.io/badge/license-MIT-green.svg\n   :target: https://github.com/benjaminp/six/blob/master/LICENSE\n   :alt: MIT License badge\n\nSix is a Python 2 and 3 compatibility library.  It provides utility functions\nfor smoothing over the differences between the Python versions with the goal of\nwriting Python code that is compatible on both Python versions.  See the\ndocumentation for more information on what is provided.\n\nSix supports Python 2.7 and 3.3+.  It is contained in only one Python\nfile, so it can be easily copied into your project. (The copyright and license\nnotice must be retained.)\n\nOnline documentation is at https://six.readthedocs.io/.\n\nBugs can be reported to https://github.com/benjaminp/six.  The code can also\nbe found there.\n",
+        "home_page": "https://github.com/benjaminp/six",
+        "author": "Benjamin Peterson",
+        "author_email": "benjamin@python.org",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 3",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Utilities"
+        ],
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/0f/2f/f32aa85591882378bb43caa09363f3ed97df399369a5144c7f19f2275bc0/simpleeval-1.0.7-py3-none-any.whl",
+        "archive_info": {
+          "hash": "sha256=97ac271bfd8f2af9e7b9a36ceea67617f26fa873f9d5ae1922f64d4c1442534b",
+          "hashes": {
+            "sha256": "97ac271bfd8f2af9e7b9a36ceea67617f26fa873f9d5ae1922f64d4c1442534b"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.3",
+        "name": "simpleeval",
+        "version": "1.0.7",
+        "summary": "A simple, safe single expression evaluator library.",
+        "description": "simpleeval (Simple Eval)\n========================\n\n.. |build-status| image:: https://github.com/danthedeckie/simpleeval/actions/workflows/ci.yml/badge.svg?branch=main\n   :target: https://github.com/danthedeckie/simpleeval/actions/\n   :alt: Build Status\n\n.. |code-coverage| image:: https://codecov.io/gh/danthedeckie/simpleeval/branch/main/graph/badge.svg?token=isRnN1yrca\n   :target: https://codecov.io/gh/danthedeckie/simpleeval\n   :alt: Code Coverage Status\n\n.. |pypi-version| image:: https://img.shields.io/pypi/v/simpleeval\n   :target: https://badge.fury.io/py/simpleeval\n   :alt: PyPI - Version\n\n.. |python-versions| image:: https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12_%7C_3.13_%7C_PyPy3.9_%7C_PyPy3.10-blue\n   :alt: Static Badge\n\n.. |pypi-monthly-downloads| image:: https://img.shields.io/pypi/dm/SimpleEval\n   :alt: PyPI - Downloads\n\n.. |formatting-with-ruff| image:: https://img.shields.io/badge/-ruff-black?logo=lightning&logoColor=%2300ff00&link=https%3A%2F%2Fdocs.astral.sh%2Fruff%2F\n   :alt: Static Badge\n\n|build-status| |code-coverage| |pypi-version| |python-versions| |pypi-monthly-downloads| |formatting-with-ruff|\n\n\nA single file library for easily adding evaluatable expressions into\npython projects.  Say you want to allow a user to set an alarm volume, which\ncould depend on the time of day, alarm level, how many previous alarms had gone\noff, and if there is music playing at the time.\n\nOr if you want to allow simple formulae in a web application, but don't want to\ngive full eval() access, or don't want to run in javascript on the client side.\n\nIt's deliberately trying to stay simple to use and not have millions of features,\npull it in from PyPI (pip or easy_install), or even just a single file you can dump\ninto a project.\n\nInternally, it's using the amazing python ``ast`` module to parse the\nexpression, which allows very fine control of what is and isn't allowed.  It\nshould be completely safe in terms of what operations can be performed by the\nexpression.\n\nThe only issue I know to be aware of is that you can create an expression which\ntakes a long time to evaluate, or which evaluating requires an awful lot of\nmemory, which leaves the potential for DOS attacks.  There is basic protection\nagainst this, and you can lock it down further if you desire. (see the\nOperators_ section below)\n\nYou should be aware of this when deploying in a public setting.\n\nThe defaults are pretty locked down and basic, and it's easy to add\nwhatever extra specific functionality you need (your own functions,\nvariable/name lookup, etc).\n\nBasic Usage\n-----------\n\nTo get very simple evaluating:\n\n.. code-block:: python\n\n    from simpleeval import simple_eval\n\n    simple_eval(\"21 + 21\")\n\nreturns ``42``.\n\nExpressions can be as complex and convoluted as you want:\n\n.. code-block:: python\n\n    simple_eval(\"21 + 19 / 7 + (8 % 3) ** 9\")\n\nreturns ``535.714285714``.\n\nYou can add your own functions in as well.\n\n.. code-block:: python\n\n    simple_eval(\"square(11)\", functions={\"square\": lambda x: x*x})\n\nreturns ``121``.\n\nFor more details of working with functions, read further down.\n\nNote:\n~~~~~\nall further examples use ``>>>`` to designate python code, as if you are using\nthe python interactive prompt.\n\n.. _Operators:\n\nOperators\n---------\nYou can add operators yourself, using the ``operators`` argument, but these are\nthe defaults:\n\n+--------+------------------------------------+\n|  ``+`` | add two things. ``x + y``          |\n|        | ``1 + 1`` -> ``2``                 |\n+--------+------------------------------------+\n|  ``-`` | subtract two things ``x - y``      |\n|        | ``100 - 1`` -> ``99``              |\n+--------+------------------------------------+\n|  ``/`` | divide one thing by another        |\n|        | ``x / y``                          |\n|        | ``100/10`` -> ``10``               |\n+--------+------------------------------------+\n|  ``*`` | multiple one thing by another      |\n|        | ``x * y``                          |\n|        | ``10 * 10`` -> ``100``             |\n+--------+------------------------------------+\n| ``**`` | 'to the power of' ``x**y``         |\n|        | ``2 ** 10`` -> ``1024``            |\n+--------+------------------------------------+\n| ``%``  | modulus. (remainder)  ``x % y``    |\n|        | ``15 % 4`` -> ``3``                |\n+--------+------------------------------------+\n| ``==`` | equals  ``x == y``                 |\n|        | ``15 == 4`` -> ``False``           |\n+--------+------------------------------------+\n| ``<``  | Less than. ``x < y``               |\n|        | ``1 < 4`` -> ``True``              |\n+--------+------------------------------------+\n| ``>``  | Greater than. ``x > y``            |\n|        | ``1 > 4`` -> ``False``             |\n+--------+------------------------------------+\n| ``<=`` | Less than or Equal to. ``x <= y``  |\n|        | ``1 < 4`` -> ``True``              |\n+--------+------------------------------------+\n| ``>=`` | Greater or Equal to ``x >= 21``    |\n|        | ``1 >= 4`` -> ``False``            |\n+--------+------------------------------------+\n| ``>>`` | \"Right shift\" the number.          |\n|        | ``100 >> 2`` -> ``25``             |\n+--------+------------------------------------+\n| ``<<`` | \"Left shift\" the number.           |\n|        | ``100 << 2`` -> ``400``            |\n+--------+------------------------------------+\n| ``in`` | is something contained within      |\n|        | something else.                    |\n|        | ``\"spam\" in \"my breakfast\"``       |\n|        | -> ``False``                       |\n+--------+------------------------------------+\n| ``^``  | \"bitwise exclusive OR\" (xor)       |\n|        | ``62 ^ 20`` -> ``42``              |\n+--------+------------------------------------+\n| ``|``  | \"bitwise OR\"                       |\n|        | ``8 | 34`` -> ``42``               |\n+--------+------------------------------------+\n| ``&``  | \"bitwise AND\"                      |\n|        | ``100 & 63`` -> ``36``             |\n+--------+------------------------------------+\n| ``~``  | \"bitwise invert\"                   |\n|        | ``~ -43`` -> ``42``                |\n+--------+------------------------------------+\n\n\nThe ``^`` operator is often mistaken for a exponent operator, not the bitwise \noperation that it is in python, so if you want ``3 ^ 2`` to equal ``9``, you can\nreplace the operator like this:\n\n.. code-block:: pycon\n\n    >>> import ast\n    >>> from simpleeval import safe_power\n\n    >>> s = SimpleEval()\n    >>> s.operators[ast.BitXor] = safe_power\n\n    >>> s.eval(\"3 ^ 2\")\n    9\n\nfor example.\n\nLimited Power\n~~~~~~~~~~~~~\n\nAlso note, the ``**`` operator has been locked down by default to have a\nmaximum input value of ``4000000``, which makes it somewhat harder to make\nexpressions which go on for ever.  You can change this limit by changing the\n``simpleeval.MAX_POWER`` module level value to whatever is an appropriate value\nfor you (and the hardware that you're running on) or if you want to completely\nremove all limitations, you can set the ``s.operators[ast.Pow] = operator.pow``\nor make your own function.\n\nOn my computer, ``9**9**5`` evaluates almost instantly, but ``9**9**6`` takes\nover 30 seconds.  Since ``9**7`` is ``4782969``, and so over the ``MAX_POWER``\nlimit, it throws a ``NumberTooHigh`` exception for you. (Otherwise it would go\non for hours, or until the computer runs out of memory)\n\nStrings (and other Iterables) Safety\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThere are also limits on string length (100000 characters,\n``MAX_STRING_LENGTH``).  This can be changed if you wish.\n\nRelated to this, if you try to create a silly long string/bytes/list, by doing\n``'i want to break free'.split() * 9999999999`` for instance, it will block you.\n\nIf Expressions\n--------------\n\nYou can use python style ``if x then y else z`` type expressions:\n\n.. code-block:: pycon\n\n    >>> simple_eval(\"'equal' if x == y else 'not equal'\",\n                    names={\"x\": 1, \"y\": 2})\n    'not equal'\n\nwhich, of course, can be nested:\n\n.. code-block:: pycon\n\n    >>> simple_eval(\"'a' if 1 == 2 else 'b' if 2 == 3 else 'c'\")\n    'c'\n\n\nFunctions\n---------\n\nYou can define functions which you'd like the expressions to have access to:\n\n.. code-block:: pycon\n\n    >>> simple_eval(\"double(21)\", functions={\"double\": lambda x:x*2})\n    42\n\nYou can define \"real\" functions to pass in rather than lambdas, of course too,\nand even re-name them so that expressions can be shorter\n\n.. code-block:: pycon\n\n    >>> def double(x):\n            return x * 2\n    >>> simple_eval(\"d(100) + double(1)\", functions={\"d\": double, \"double\":double})\n    202\n\nIf you don't provide your own ``functions`` dict, then the the following defaults\nare provided in the ``DEFAULT_FUNCTIONS`` dict:\n\n+----------------+--------------------------------------------------+\n| ``randint(x)`` | Return a random ``int`` below ``x``              |\n+----------------+--------------------------------------------------+\n| ``rand()``     | Return a random ``float`` between 0 and 1        |\n+----------------+--------------------------------------------------+\n| ``int(x)``     | Convert ``x`` to an ``int``.                     |\n+----------------+--------------------------------------------------+\n| ``float(x)``   | Convert ``x`` to a ``float``.                    |\n+----------------+--------------------------------------------------+\n| ``str(x)``     | Convert ``x`` to a ``str``                       |\n+----------------+--------------------------------------------------+\n\nIf you want to provide a list of functions, but want to keep these as well,\nthen you can do a normal python ``.copy()`` & ``.update``:\n\n.. code-block:: pycon\n\n    >>> my_functions = simpleeval.DEFAULT_FUNCTIONS.copy()\n    >>> my_functions.update(\n            square=(lambda x:x*x),\n            double=(lambda x:x+x),\n        )\n    >>> simple_eval('square(randint(100))', functions=my_functions)\n\nNames\n-----\n\nSometimes it's useful to have variables available, which in python terminology\nare called 'names'.\n\n.. code-block:: pycon\n\n    >>> simple_eval(\"a + b\", names={\"a\": 11, \"b\": 100})\n    111\n\nYou can also hand the handling of names over to a function, if you prefer:\n\n\n.. code-block:: pycon\n\n    >>> def name_handler(node):\n            return ord(node.id[0].lower(a))-96\n\n    >>> simple_eval('a + b', names=name_handler)\n    3\n\nThat was a bit of a silly example, but you could use this for pulling values\nfrom a database or file, looking up spreadsheet cells, say, or doing some kind of caching system.\n\nIn general, when it attempts to find a variable by name, if it cannot find one,\nthen it will look in the ``functions`` for a function of that name.  If you want your name handler\nfunction to return an \"I can't find that name!\", then it should raise a ``simpleeval.NameNotDefined`` \nexception. Eg:\n\n.. code-block:: pycon\n\n   >>> def name_handler(node):\n   ...     if node.id[0] == 'a':\n   ...         return 21\n   ...     raise NameNotDefined(node.id[0], \"Not found\")\n   ...\n   ... simple_eval('a + a', names=name_handler, functions={\"b\": 100})\n\n   42\n\n   >>> simple_eval('a + b', names=name_handler, functions={'b': 100})\n   121\n\n(Note: in that example, putting a number directly into the ``functions`` dict was done just to\nshow the fall-back to functions.  Normally only put actual callables in there.)\n\n\nThe two default names that are provided are ``True`` and ``False``.  So if you want to provide\nyour own names, but want ``True`` and ``False`` to keep working, either provide them yourself,\nor ``.copy()`` and ``.update`` the ``DEFAULT_NAMES``. (See functions example above).\n\nCreating an Evaluator Class\n---------------------------\n\nRather than creating a new evaluator each time, if you are doing a lot of\nevaluations, you can create a SimpleEval object, and pass it expressions each\ntime (which should be a bit quicker, and certainly more convenient for some use\ncases):\n\n.. code-block:: pycon\n\n    >>> s = SimpleEval()\n\n    >>> s.eval(\"1 + 1\")\n    2\n\n    >>> s.eval('100 * 10')\n    1000\n\n    # and so on...\n\nOne useful feature of using the ``SimpleEval`` object is that you can parse an expression\nonce, and then evaluate it multiple times using different ``names``:\n\n.. code-block:: python\n\n    # Set up & Cache the parse tree:\n    expression = \"foo + bar\"\n    parsed = s.parse(expression)\n\n    # evaluate the expression multiple times:\n    for names in [{\"foo\": 1, \"bar\": 10}, {\"foo\": 100, \"bar\": 42}]:\n        s.names = names\n        print(s.eval(expression, previously_parsed=parsed))\n\nfor instance.  This may help with performance.\n\nYou can assign / edit the various options of the ``SimpleEval`` object if you\nwant to.  Either assign them during creation (like the ``simple_eval``\nfunction)\n\n.. code-block:: python\n\n    def boo():\n        return 'Boo!'\n\n    s = SimpleEval(functions={\"boo\": boo})\n\nor edit them after creation:\n\n.. code-block:: python\n\n    s.names['fortytwo'] = 42\n\nthis actually means you can modify names (or functions) with functions, if you\nreally feel so inclined:\n\n.. code-block:: python\n\n    s = SimpleEval()\n    def set_val(name, value):\n        s.names[name.value] = value.value\n        return value.value\n\n    s.functions = {'set': set_val}\n\n    s.eval(\"set('age', 111)\")\n\nSay.  This would allow a certain level of 'scriptyness' if you had these\nevaluations happening as callbacks in a program.  Although you really are\nreaching the end of what this library is intended for at this stage.\n\nCompound Types\n--------------\n\nCompound types (``dict``, ``tuple``, ``list``, ``set``) in general just work if\nyou pass them in as named objects.  If you want to allow creation of these, the\n``EvalWithCompoundTypes`` class works.  Just replace any use of ``SimpleEval`` with\nthat.\n\nThe ``EvalWithCompoundTypes`` class also contains support for simple comprehensions.\neg: ``[x + 1 for x in [1,2,3]]``.  There's a safety `MAX_COMPREHENSION_LENGTH` to control\nhow many items it'll allow before bailing too.  This also takes into account nested\ncomprehensions.\n\nSince the primary intention of this library is short expressions - an extra 'sweetener' is\nenabled by default.  You can access a dict (or similar's) keys using the .attr syntax:\n\n.. code-block:: pycon\n\n    >>>  simple_eval(\"foo.bar\", names={\"foo\": {\"bar\": 42}})\n    42\n\nfor instance.  You can turn this off either by setting the module global `ATTR_INDEX_FALLBACK`\nto `False`, or on the ``SimpleEval`` instance itself. e.g. ``evaller.ATTR_INDEX_FALLBACK=False``.\n\nExtending\n---------\n\nThe ``SimpleEval`` class is pretty easy to extend.  For instance, to create a\nversion that disallows method invocation on objects:\n\n.. code-block:: python\n\n    import ast\n    import simpleeval\n\n    class EvalNoMethods(simpleeval.SimpleEval):\n        def _eval_call(self, node):\n            if isinstance(node.func, ast.Attribute):\n                raise simpleeval.FeatureNotAvailable(\"No methods please, we're British\")\n            return super(EvalNoMethods, self)._eval_call(node)\n\nand then use ``EvalNoMethods`` instead of the ``SimpleEval`` class.\n\nLimiting Attribute Access\n-------------------------\n\nObject attributes that start with ``_`` or ``func_`` are disallowed by default.\nIf you really need that (BE CAREFUL!), then modify the module global\n``simpleeval.DISALLOW_PREFIXES``.\n\nA few builtin functions are listed in ``simpleeval.DISALLOW_FUNCTIONS``.  ``type``, ``open``, etc.\nIf you need to give access to this kind of functionality to your expressions, then be very\ncareful.  You'd be better wrapping the functions in your own safe wrappers.\n\nAccessing modules as attributes is disallowed too.\n\nAllowlist recommendation\n------------------------\n\nThere is an additional layer of protection you can add in by passing in ``allowed_attrs``, which\nmakes all attribute access based opt-in rather than opt-out - which is a lot safer design:\n\n.. code-block:: pycon\n\n    >>> simpleeval(\"' hello   '.strip()\", allowed_attrs={})\n\nwill throw FeatureNotAvailable - as we've now disabled all attribute access.  You can enable some\nreasonably sensible defaults with BASIC_ALLOWED_ATTRS:\n\n.. code-block:: pycon\n\n    >>> from simpleeval import simpleeval, BASIC_ALLOWED_ATTRS\n    >>> simpleeval(\"'  hello   '.strip()\", allowed_attrs=BASIC_ALLOWED_ATTRS)\n\nis fine - ``strip()`` should be safe on strings.\n\nIt is strongly recommended to add ``allowed_attrs=BASIC_ALLOWED_ATTRS``  whenever possible,\nand it will be the default for 2.x.\n\nYou can add your own classes & limit access to attrs:\n\n.. code-block:: pycon\n\n    >>> from simpleeval import simpleeval, BASIC_ALLOWED_ATTRS\n    >>> class Foo:\n    >>>     bar = 42\n    >>>     hidden = \"secret\"\n    >>>\n    >>> our_attributes = BASIC_ALLOWED_ATTRS.copy()\n    >>> our_attributes[Foo] = {'bar'}\n    >>> simpleeval(\"foo.bar\", names={\"foo\": Foo()}, allowed_attrs=our_attributes)\n    42\n\n    >>> simpleeval(\"foo.hidden\", names={\"foo\": Foo()}, allowed_attrs=our_attributes)\n    simpleeval.FeatureNotAvailable: Sorry, 'hidden' access not allowed on 'Foo'\n\nwill now allow access to `foo.bar` but not allow anything else.\n\nModule Access\n-------------\n\nBy default, module access is not allowed in simpleeval to prevent accidental or\nmalicious access to dangerous functions. However, if you need to expose modules,\n(eg. `numpy` or similar) you can use ``ModuleWrapper`` to do so safely.\n\n``ModuleWrapper`` allows explicit opt-in to module access while still enforcing\nrestrictions on dangerous methods and private attributes:\n\n.. code-block:: pycon\n\n    >>> from simpleeval import SimpleEval, ModuleWrapper\n    >>> import os.path\n    >>> s = SimpleEval(names={'path': ModuleWrapper(os.path)})\n    >>> s.eval(\"path.exists('/etc/passwd')\")\n    True\n\nYou can also restrict which attributes are accessible by passing an\n``allowed_attrs`` set:\n\n.. code-block:: pycon\n\n    >>> s = SimpleEval(names={\n    ...     'path': ModuleWrapper(os.path, allowed_attrs={'exists', 'join'})\n    ... })\n    >>> s.eval(\"path.exists('/etc/passwd')\")\n    True\n    >>> s.eval(\"path.dirname('/etc/passwd')\")  # Not in allowed_attrs\n    simpleeval.FeatureNotAvailable: Access to 'dirname' is not allowed...\n\nPrivate attributes (starting with ``_``) and methods in ``DISALLOW_METHODS``\nare always blocked, even if not using an allowlist:\n\n.. code-block:: pycon\n\n    >>> s = SimpleEval(names={'path': ModuleWrapper(os.path)})\n    >>> s.eval(\"path.__file__\")\n    simpleeval.FeatureNotAvailable: Access to private attribute '__file__'...\n\nIf you really really need that - you can make your own wrappers and overrides.\nBut I advise against it.\n\nOther...\n--------\n\nThe library supports Python 3.9 and higher.\n\nThe initial idea came from J.F. Sebastian on Stack Overflow\n( http://stackoverflow.com/a/9558001/1973500 ) with modifications and many improvements,\nsee the head of the main file for contributors list.\n\nPlease read the ``test_simpleeval.py`` file for other potential gotchas or\ndetails.  I'm very happy to accept pull requests, suggestions, or other issues.\nEnjoy!\n\nDeveloping\n----------\n\nRun tests::\n\n    $ make test\n\nOr to set the tests running on every file change:\n\n    $ make autotest\n\n(requires ``entr``) \n\nI'm trying to keep the codebase relatively clean with Black, isort, pylint & mypy.\nSee::\n\n    $ make format\n\nand::\n\n    $ make lint\n\nBEWARE\n------\n\nI've done the best I can with this library - but there's no warranty, no guarantee, nada.  A lot of\nvery clever people think the whole idea of trying to sandbox CPython is impossible.  Read the code\nyourself, and use it at your own risk.\n\nThe sandboxing / safety features of simpleeval *only apply to the expression* that is passed in to\nbe evaluated, and rely on the python interpreter working as normal.  If you have monkey-patched\nthe interpreter, or pass in objects/classes/functions with unsafe code in them, simpleeval cannot\nprotect you.\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "ast",
+          "eval",
+          "expression",
+          "parse",
+          "simple"
+        ],
+        "author_email": "Daniel Fairhead <danthedeckie@gmail.com>",
+        "maintainer_email": "Daniel Fairhead <danthedeckie@gmail.com>",
+        "license": "MIT",
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Source code, https://github.com/danthedeckie/simpleeval"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.13.13",
+    "os_name": "posix",
+    "platform_machine": "x86_64",
+    "platform_release": "6.18.35",
+    "platform_system": "Linux",
+    "platform_version": "#1-NixOS SMP PREEMPT_DYNAMIC Tue Jun  9 10:28:53 UTC 2026",
+    "python_full_version": "3.13.13",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.13",
+    "sys_platform": "linux"
+  }
+}

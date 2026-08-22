@@ -1,0 +1,95 @@
+{
+  "version": "1",
+  "pip_version": "25.3",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/2f/4c/7c991e080e106d854809030d8584e15b2e996e26f16aee6d757e387bc17d/asyncpg-0.30.0.tar.gz",
+        "archive_info": {
+          "hash": "sha256=c551e9928ab6707602f44811817f82ba3c446e018bfe1d3abecc8ba5f3eac851",
+          "hashes": {
+            "sha256": "c551e9928ab6707602f44811817f82ba3c446e018bfe1d3abecc8ba5f3eac851"
+          }
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "asyncpg",
+        "version": "0.30.0",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "An asyncio PostgreSQL driver",
+        "description": "asyncpg -- A fast PostgreSQL Database Client Library for Python/asyncio\n=======================================================================\n\n.. image:: https://github.com/MagicStack/asyncpg/workflows/Tests/badge.svg\n   :target: https://github.com/MagicStack/asyncpg/actions?query=workflow%3ATests+branch%3Amaster\n   :alt: GitHub Actions status\n.. image:: https://img.shields.io/pypi/v/asyncpg.svg\n   :target: https://pypi.python.org/pypi/asyncpg\n\n**asyncpg** is a database interface library designed specifically for\nPostgreSQL and Python/asyncio.  asyncpg is an efficient, clean implementation\nof PostgreSQL server binary protocol for use with Python's ``asyncio``\nframework.  You can read more about asyncpg in an introductory\n`blog post <http://magic.io/blog/asyncpg-1m-rows-from-postgres-to-python/>`_.\n\nasyncpg requires Python 3.8 or later and is supported for PostgreSQL\nversions 9.5 to 17.  Other PostgreSQL versions or other databases\nimplementing the PostgreSQL protocol *may* work, but are not being\nactively tested.\n\n\nDocumentation\n-------------\n\nThe project documentation can be found\n`here <https://magicstack.github.io/asyncpg/current/>`_.\n\n\nPerformance\n-----------\n\nIn our testing asyncpg is, on average, **5x** faster than psycopg3.\n\n.. image:: https://raw.githubusercontent.com/MagicStack/asyncpg/master/performance.png?fddca40ab0\n    :target: https://gistpreview.github.io/?0ed296e93523831ea0918d42dd1258c2\n\nThe above results are a geometric mean of benchmarks obtained with PostgreSQL\n`client driver benchmarking toolbench <https://github.com/MagicStack/pgbench>`_\nin June 2023 (click on the chart to see full details).\n\n\nFeatures\n--------\n\nasyncpg implements PostgreSQL server protocol natively and exposes its\nfeatures directly, as opposed to hiding them behind a generic facade\nlike DB-API.\n\nThis enables asyncpg to have easy-to-use support for:\n\n* **prepared statements**\n* **scrollable cursors**\n* **partial iteration** on query results\n* automatic encoding and decoding of composite types, arrays,\n  and any combination of those\n* straightforward support for custom data types\n\n\nInstallation\n------------\n\nasyncpg is available on PyPI.  When not using GSSAPI/SSPI authentication it\nhas no dependencies.  Use pip to install::\n\n    $ pip install asyncpg\n\nIf you need GSSAPI/SSPI authentication, use::\n\n    $ pip install 'asyncpg[gssauth]'\n\nFor more details, please `see the documentation\n<https://magicstack.github.io/asyncpg/current/installation.html>`_.\n\n\nBasic Usage\n-----------\n\n.. code-block:: python\n\n    import asyncio\n    import asyncpg\n\n    async def run():\n        conn = await asyncpg.connect(user='user', password='password',\n                                     database='database', host='127.0.0.1')\n        values = await conn.fetch(\n            'SELECT * FROM mytable WHERE id = $1',\n            10,\n        )\n        await conn.close()\n\n    asyncio.run(run())\n\n\nLicense\n-------\n\nasyncpg is developed and distributed under the Apache 2.0 license.\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "database",
+          "postgres"
+        ],
+        "author_email": "MagicStack Inc <hello@magic.io>",
+        "license": "Apache License, Version 2.0",
+        "license_file": [
+          "LICENSE",
+          "AUTHORS"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Framework :: AsyncIO",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: Apache Software License",
+          "Operating System :: POSIX",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: Microsoft :: Windows",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Topic :: Database :: Front-Ends"
+        ],
+        "requires_dist": [
+          "async_timeout>=4.0.3; python_version < \"3.11.0\"",
+          "gssapi; platform_system != \"Windows\" and extra == \"gssauth\"",
+          "sspilib; platform_system == \"Windows\" and extra == \"gssauth\"",
+          "flake8~=6.1; extra == \"test\"",
+          "flake8-pyi~=24.1.0; extra == \"test\"",
+          "distro~=1.9.0; extra == \"test\"",
+          "uvloop>=0.15.3; (platform_system != \"Windows\" and python_version < \"3.14.0\") and extra == \"test\"",
+          "gssapi; platform_system == \"Linux\" and extra == \"test\"",
+          "k5test; platform_system == \"Linux\" and extra == \"test\"",
+          "sspilib; platform_system == \"Windows\" and extra == \"test\"",
+          "mypy~=1.8.0; extra == \"test\"",
+          "Sphinx~=8.1.3; extra == \"docs\"",
+          "sphinx_rtd_theme>=1.2.2; extra == \"docs\""
+        ],
+        "requires_python": ">=3.8.0",
+        "project_url": [
+          "github, https://github.com/MagicStack/asyncpg"
+        ],
+        "provides_extra": [
+          "gssauth",
+          "test",
+          "docs"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.13.13",
+    "os_name": "posix",
+    "platform_machine": "x86_64",
+    "platform_release": "6.18.35",
+    "platform_system": "Linux",
+    "platform_version": "#1-NixOS SMP PREEMPT_DYNAMIC Tue Jun  9 10:28:53 UTC 2026",
+    "python_full_version": "3.13.13",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.13",
+    "sys_platform": "linux"
+  }
+}

@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pip2nix"
+version = "0.13.1"
+description = "Generate Nix expressions for Python packages."
+readme = "README.rst"
+license = "GPL-3.0-or-later"
+keywords = ["nix", "pip"]
+requires-python = ">=3.11"
+authors = [
+    { name = "Tomasz Kontusz", email = "tomasz.kontusz@gmail.com" },
+    { name = "Asko Soukka", email = "asko.soukka@iki.fi" },
+    { name = "Johannes Bornhold", email = "joh@bo-tech.de" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "click",
+    "configobj==5.0.6",
+    "jinja2",
+    "packaging",
+    # Run as a subprocess rather than imported, at the floor
+    # `resolver.py` enforces.
+    "pip>=22.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/johbo/pip2nix"
+
+# Nix builds the versioned names beside this one, see ADR-0007.
+[project.scripts]
+pip2nix = "pip2nix.cli:cli"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-mock",
+]
+
+[tool.setuptools]
+packages = ["pip2nix", "pip2nix.models"]
+
+# resources.py reads these through importlib.resources.
+[tool.setuptools.package-data]
+pip2nix = ["*.ini", "*.j2"]
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "D213",
+    "W505",
+    "I",
+    "UP",
+    "SIM",
+    "ISC004",
+    "C402",
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 79
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
+norecursedirs = [".*", "_bootstrap_env", "*.egg", "result*", "tmp"]
+addopts = "--strict-markers"
+markers = [
+    "nix: needs the nix tools on PATH",
+    "network: resolves against a real package index",
+]

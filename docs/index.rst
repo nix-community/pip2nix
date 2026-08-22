@@ -14,7 +14,11 @@ pip2nix
    :maxdepth: 2
    :caption: Developer Documentation
 
-   HACKING
+   architecture
+   development
+   releasing
+   decision-log
+   glossary
 
 .. toctree::
    :maxdepth: 1

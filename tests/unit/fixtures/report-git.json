@@ -1,0 +1,67 @@
+{
+  "version": "1",
+  "pip_version": "25.3",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://github.com/benjaminp/six",
+        "vcs_info": {
+          "vcs": "git",
+          "requested_revision": "1.16.0",
+          "commit_id": "65486e4383f9f411da95937451205d3c7b61b9e1"
+        }
+      },
+      "is_direct": true,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "six",
+        "version": "1.16.0",
+        "dynamic": [
+          "author",
+          "author-email",
+          "classifier",
+          "description",
+          "home-page",
+          "license",
+          "license-file",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "Python 2 and 3 compatibility utilities",
+        "description": ".. image:: https://img.shields.io/pypi/v/six.svg\n   :target: https://pypi.org/project/six/\n   :alt: six on PyPI\n\n.. image:: https://travis-ci.org/benjaminp/six.svg?branch=master\n   :target: https://travis-ci.org/benjaminp/six\n   :alt: six on TravisCI\n\n.. image:: https://readthedocs.org/projects/six/badge/?version=latest\n   :target: https://six.readthedocs.io/\n   :alt: six's documentation on Read the Docs\n\n.. image:: https://img.shields.io/badge/license-MIT-green.svg\n   :target: https://github.com/benjaminp/six/blob/master/LICENSE\n   :alt: MIT License badge\n\nSix is a Python 2 and 3 compatibility library.  It provides utility functions\nfor smoothing over the differences between the Python versions with the goal of\nwriting Python code that is compatible on both Python versions.  See the\ndocumentation for more information on what is provided.\n\nSix supports Python 2.7 and 3.3+.  It is contained in only one Python\nfile, so it can be easily copied into your project. (The copyright and license\nnotice must be retained.)\n\nOnline documentation is at https://six.readthedocs.io/.\n\nBugs can be reported to https://github.com/benjaminp/six.  The code can also\nbe found there.\n",
+        "home_page": "https://github.com/benjaminp/six",
+        "author": "Benjamin Peterson",
+        "author_email": "benjamin@python.org",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 3",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Utilities"
+        ],
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.13.13",
+    "os_name": "posix",
+    "platform_machine": "x86_64",
+    "platform_release": "6.18.35",
+    "platform_system": "Linux",
+    "platform_version": "#1-NixOS SMP PREEMPT_DYNAMIC Tue Jun  9 10:28:53 UTC 2026",
+    "python_full_version": "3.13.13",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.13",
+    "sys_platform": "linux"
+  }
+}

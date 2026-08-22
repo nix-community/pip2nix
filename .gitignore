@@ -1,7 +1,10 @@
 .cache/
 .idea/
+.local/
 *.pyc
 /*.egg-info/
+/build/
+/dist/
 /result
 /result-*
 /_bootstrap_env/
